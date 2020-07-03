@@ -2,7 +2,7 @@ import {TipoItem} from './tipo-item.module';
 
 export class Item {
   id: number;
-  decricao: string;
+  descricao: string;
   simNao: boolean;
   tipoItem: TipoItem;
 }

@@ -5,4 +5,8 @@ export class ItemAvaliacao {
   nota: number;
   observacao: string;
   item: Item;
+
+  constructor(item) {
+    this.item = item;
+  }
 }
