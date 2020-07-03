@@ -21,7 +21,7 @@
   </div>
   <div *ngFor="let itemAv of itensAvalicao" class="mt-2">
     <p>{{itemAv.item.descricao}}
-      <ngx-stars [animation]="true"  [color]="'#ffd400'" [animationSpeed]="200" [wholeStars]="true" (ratingOutput)="onRatingSet($event, itemAv )"></ngx-stars>
+      <ngx-stars [animation]="true" [color]="'#ffd400'" [animationSpeed]="200" [wholeStars]="true" (ratingOutput)="onRatingSet($event, itemAv )"></ngx-stars>
     </p>
   </div>
   <button mat-raised-button class="font-btn-nav width-btn" (click)="avaliar()">Avaliar</button>
