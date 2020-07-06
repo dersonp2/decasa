@@ -1,7 +1,7 @@
 
 {
   "/v1/rest/decasa/*": {
-    "target": "http://localhost:8080",
+    "target": "http://homologacao.sistemadecasa.com.br",
     "secure": false,
     "changeOrigin": true
   }
