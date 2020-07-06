@@ -2,7 +2,7 @@
 <mat-form-field class="mt-4">
   <mat-label>Buscar pedidos</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="">
-  <mat-icon matSuffix></mat-icon>
+<!--  <mat-icon matSuffix></mat-icon>-->
 </mat-form-field>
 <!-- Tabela -->
 <div class="mat-elevation-z8 ">
@@ -23,6 +23,6 @@
     <span>Nenhum pedido encontrado</span>
   </p>
   <p class="text-center" *ngIf="imgLoad === true">
-    <img src=" /assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
+    <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
   </p>
 </div>
