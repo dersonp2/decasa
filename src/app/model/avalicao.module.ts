@@ -10,5 +10,5 @@ export class Avaliacao {
   codigoAvaliado: number;
   observacao: string;
   nota: number;
-  itensAvaliacao: ItemAvaliacao;
+  itensAvaliacao: ItemAvaliacao[];
 }
