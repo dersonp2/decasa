@@ -24,6 +24,18 @@
       <ngx-stars [animation]="true" [color]="'#ffd400'" [animationSpeed]="200" [wholeStars]="true" (ratingOutput)="onRatingSet($event, itemAv )"></ngx-stars>
     </p>
   </div>
-  <button mat-raised-button class="font-btn-nav width-btn" (click)="avaliar()">Avaliar</button>
+</div>
+
+<div>
+  <h4>Escreva um comentário</h4>
+  <mat-chip-list aria-label="Fish selection">
+    <mat-chip *ngFor="let c of comentarios" (click)="adicionar(c.texto)">{{c.texto}}</mat-chip>
+  </mat-chip-list>
+
+  <mat-form-field appearance="outline" class="mt-3">
+    <mat-label>Comentário</mat-label>
+    <textarea matInput  placeholder="Escreva seu comentário" cdkTextareaAutosize #autosize="cdkTextareaAutosize" [(ngModel)]="comentario" cdkAutosizeMinRows="2"></textarea>
+  </mat-form-field>
+  <button mat-raised-button class="font-btn-nav width-btn"  (click)="avaliar()">Enviar</button>
 </div>
 

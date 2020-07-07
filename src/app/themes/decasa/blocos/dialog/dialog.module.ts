@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {AgmCoreModule} from '@agm/core';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 import {DialogAnexarComponent} from './dialog-anexar/dialog-anexar.component';
@@ -79,6 +80,7 @@ import { NgxStarsModule } from 'ngx-stars';
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatExpansionModule,
+    MatChipsModule,
     CreditCardDirectivesModule,
     RouterModule,
     NgxStarsModule,
