@@ -1,8 +1,6 @@
 import {ClienteOrcamento} from '../../../../../../../model/response/cliente-orcamento.module';
 import {OrcamentoEvent} from '../../../../../../../events/orcamento-event';
-import {MunicipioService} from '../../../../../../../services/municipio.service';
 import {OrcamentoService} from '../../../../../../../services/orcamento.service';
-import {Municipio} from '../../../../../../../model/municipio.module';
 import {Component, OnInit, Input} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {AuthService} from '../../../../../../../services/auth.service';
@@ -74,7 +72,7 @@ export class NPedidosComponent implements OnInit {
   }
 
   getOrcamentosAgendados() {
-    this.orcamentoService.buscarClienteOrcamentosAgendados(this.clientId).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosAgendados(2054).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();
@@ -82,8 +80,9 @@ export class NPedidosComponent implements OnInit {
     );
   }
 
+  // TODO: Alterar clienteID
   getOrcamentosExecucao() {
-    this.orcamentoService.buscarClienteOrcamentosExecucao(this.clientId).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosExecucao(2054).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();

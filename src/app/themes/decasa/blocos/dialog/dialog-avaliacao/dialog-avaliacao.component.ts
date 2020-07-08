@@ -1,11 +1,18 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../../../services/item.service';
-import {ClienteOrcamento} from '../../../../../model/response/cliente-orcamento.module';
 import {ItemAvaliacao} from '../../../../../model/item-avaliacao.module';
 import {Avaliacao} from '../../../../../model/avalicao.module';
 import {Orcamento} from '../../../../../model/orcamento.module';
 import {AuthService} from '../../../../../services/auth.service';
+import {TipoAvaliacao} from '../../../../../model/tipo-avalicao.module';
+import {Prestador} from '../../../../../model/prestador.module';
+import {OrcamentoService} from '../../../../../services/orcamento.service';
+
+export interface DialogData {
+  orcamento: Orcamento;
+  prestador: Prestador;
+}
 
 @Component({
   selector: 'app-dialog-avaliacao',
@@ -26,12 +33,13 @@ export class DialogAvaliacaoComponent implements OnInit {
   ];
 
   constructor(public dialogRef: MatDialogRef<DialogAvaliacaoComponent>, private authService: AuthService,
-              private itemService: ItemService, @Inject(MAT_DIALOG_DATA) public orcamento: ClienteOrcamento) {
+              private itemService: ItemService, @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private orcamentoService: OrcamentoService) {
   }
 
   ngOnInit(): void {
     this.getItens();
-    console.log(this.orcamento);
+    console.log(this.data);
   }
 
   close(): void {
@@ -52,16 +60,23 @@ export class DialogAvaliacaoComponent implements OnInit {
   }
 
   avaliar() {
-    console.log(this.itensAvalicao);
     const avaliacao: Avaliacao = new Avaliacao();
     const orcamento = new Orcamento();
+    const tipoAvaliacao = new TipoAvaliacao(1);
 
-    orcamento.id = this.orcamento.id;
+    orcamento.id = this.data.orcamento.id;
     avaliacao.orcamento = orcamento;
     avaliacao.itensAvaliacao = this.itensAvalicao;
-    avaliacao.codigoAvaliado = this.authService.getUser().id;
     avaliacao.observacao = this.comentario;
+    avaliacao.tipoAvaliacao = tipoAvaliacao;
+    avaliacao.codigoAvaliador = this.authService.getUser().id;
+    avaliacao.codigoAvaliado = this.data.prestador.id;
+
     console.log(avaliacao);
+    this.orcamentoService.confirmEnd(avaliacao).subscribe(
+      (data) => {},
+      (error) => {console.log(error);}
+    );
   }
 
   onRatingSet(e, a: ItemAvaliacao) {

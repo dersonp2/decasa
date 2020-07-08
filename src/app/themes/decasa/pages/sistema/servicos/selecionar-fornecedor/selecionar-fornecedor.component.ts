@@ -22,13 +22,6 @@ export class Pedido {
   }
 }
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   { pedido: 'BRA123456MA' },
-//   { pedido: 'BRA123457MA' },
-//   { pedido: 'BRA123458MA' },
-//   { pedido: 'BRA123459MA' }
-// ];
-
 @Component({
   selector: 'app-selecionar-fornecedor',
   templateUrl: './selecionar-fornecedor.component.html',
