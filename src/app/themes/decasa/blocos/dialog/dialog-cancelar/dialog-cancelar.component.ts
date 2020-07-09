@@ -13,6 +13,7 @@ export class DialogCancelarComponent implements OnInit {
   isFine = 1;
   cancel = false;
   erroMessage;
+
   constructor(public dialogRef: MatDialogRef<DialogCancelarComponent>, public dialog: MatDialog,
               private orcamentoServide: OrcamentoService, @Inject(MAT_DIALOG_DATA) public data) {
   }

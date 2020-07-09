@@ -10,6 +10,11 @@ import {ResponseMessage} from '../model/response-message.module';
 import {TotalOrcamento} from '../model/response/total-orcamento-response.module';
 import {Avaliacao} from '../model/avalicao.module';
 
+export interface RatingDTO {
+  id: number;
+  tipoNota: { [key: string]: number };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +30,7 @@ export class OrcamentoService {
     return this.http.post<OrcamentoResponse>(`${this.apiUrl}/solicitarOrcamento`, orcamento);
   }
 
+  // Busca orcamentos dos clientes
   buscarClienteOrcamentosEscolher(clienteId): Observable<ClienteOrcamento[]> {
     return this.http.get<ClienteOrcamento[]>
     (`${this.apiUrl}/clienteOrcamentosEscolher/${clienteId}`)
@@ -49,12 +55,14 @@ export class OrcamentoService {
       .pipe(take(1));
   }
 
+  // Gerar multa
   generateFine(budgetId): Observable<ResponseMessage> {
     return this.http.get<ResponseMessage>
     (`${this.apiUrl}/geraMulta/${budgetId}`)
       .pipe(take(1));
   }
 
+  // Cancelar orcamento
   cancelBudget(budgetId, fine): Observable<ResponseMessage> {
     return this.http.put<ResponseMessage>
     (`${this.apiUrl}/cancelarOrcamento/${budgetId}/${fine}`, '')
@@ -81,4 +89,19 @@ export class OrcamentoService {
     (`${this.apiUrl}/confirmarFim`, avaliacao)
       .pipe(take(1));
   }
+
+  // Obter avaliacoes de um orcamento
+  getRatings(budgetId): Observable<RatingDTO[]> {
+    return this.http.get<RatingDTO[]>
+    (`${this.apiUrl}/avaliacoes/prestadores/orcamento/${budgetId}`)
+      .pipe(take(1));
+  }
+
+  // Reagendar o orcamento
+  reschedule(reagendamento): Observable<ResponseMessage> {
+    return this.http.put<ResponseMessage>
+    (`${this.apiUrl}/reagendamento`, reagendamento)
+      .pipe(take(1));
+  }
+
 }

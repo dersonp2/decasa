@@ -62,7 +62,7 @@ export class DialogAvaliacaoComponent implements OnInit {
   avaliar() {
     const avaliacao: Avaliacao = new Avaliacao();
     const orcamento = new Orcamento();
-    const tipoAvaliacao = new TipoAvaliacao(1);
+    const tipoAvaliacao = new TipoAvaliacao(2);
 
     orcamento.id = this.data.orcamento.id;
     avaliacao.orcamento = orcamento;
@@ -75,7 +75,7 @@ export class DialogAvaliacaoComponent implements OnInit {
     console.log(avaliacao);
     this.orcamentoService.confirmEnd(avaliacao).subscribe(
       (data) => {},
-      (error) => {console.log(error);}
+      (error) => {console.log(error); }
     );
   }
 

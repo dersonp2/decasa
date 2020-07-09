@@ -44,7 +44,7 @@
                          [ngModel]="orcamento.valor">
                 </div>
                 <div class="form-group col-1">
-                  <a class="btn-aplicar" mat-raised-button (click)="saveOrcamento()" [hidden]="!visiblePagar || !cvc">Pagar</a>
+                  <a class="btn-aplicar" mat-raised-button (click)="saveOrcamento()" [disabled]="!visiblePagar || !cvc">Pagar</a>
                   <div [hidden]="visiblePagar">
                     <div class="spinner-border text-primary" role="status">
                     </div>

@@ -55,6 +55,7 @@ export class DadosServicoComponent implements OnInit {
   openDialogReagendar() {
     this.dialog.open(DialogReagendarComponent, {
       width: '50%',
+      data: this.orcamentoSelected
     });
   }
 

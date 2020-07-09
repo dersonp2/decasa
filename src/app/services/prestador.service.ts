@@ -20,7 +20,7 @@ export class PrestadorService {
 
   // Recebe a lista de prestadores que  atendem ao orcamento
   getBudgetProviders(orcamentoId: number): Observable<PrestadorDetalhesResponse[]> {
-    return timer(1, 300).pipe(
+    return timer(1, 3000).pipe(
       switchMap(() => this.http.get<PrestadorDetalhesResponse[]>(`${this.apiUrl}/prestadores/orcamento/${orcamentoId}`)),
       retry(),
       takeUntil(this.stopPolling)

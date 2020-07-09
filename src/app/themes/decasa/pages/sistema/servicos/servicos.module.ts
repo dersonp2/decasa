@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
+import { NgxStarsModule } from 'ngx-stars';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { MatInputModule } from '@angular/material/input';
     MatSelectModule,
     TextFieldModule,
     MatInputModule,
-
+    NgxStarsModule,
     BlocosModule
   ]
 })

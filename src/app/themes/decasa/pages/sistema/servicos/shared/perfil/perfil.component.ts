@@ -12,11 +12,11 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPrestadoresOcarmento();
+    // this.getPrestadoresOcarmento();
   }
 
   getPrestadoresOcarmento() {
-    this.prestadorService.getPrestadoresOrcamento(1).subscribe(
+    this.prestadorService.getBudgetProviders(1).subscribe(
       (data) => {console.log(data); },
       (error) => {console.log(error); }
     );

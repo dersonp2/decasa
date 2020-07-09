@@ -73,7 +73,7 @@
 
     <div class="tab-content mt-3 mb-3">
         <div role="tabpanel" class="tab-pane active" id="servico">
-            <app-lista-grupos></app-lista-grupos>
+            <app-lista-grupos (respostaMunicipio)="reciverFeedback($event)"></app-lista-grupos>
             <!-- <div class="d-flex row">
         <div class="col-4 col-md-2 box" *ngFor="let grupo of grupos">
           <a routerLink="/orcamento"><i class="fa fa-laptop d-block"></i>{{grupo.descricao}}</a>
