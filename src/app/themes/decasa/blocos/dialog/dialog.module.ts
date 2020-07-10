@@ -16,6 +16,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {AgmCoreModule} from '@agm/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 import {DialogAnexarComponent} from './dialog-anexar/dialog-anexar.component';
@@ -41,6 +42,8 @@ import {DialogExcluirComponent} from './dialog-excluir/dialog-excluir.component'
 import {DialogAvaliacaoComponent} from './dialog-avaliacao/dialog-avaliacao.component';
 import {StarRatingModule} from '@sreyaj/ng-star-rating';
 import { NgxStarsModule } from 'ngx-stars';
+import {AppModule} from '../../../../app.module';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -82,12 +85,14 @@ import { NgxStarsModule } from 'ngx-stars';
     MatExpansionModule,
     MatChipsModule,
     CreditCardDirectivesModule,
+    MatTreeModule,
+    MatIconModule,
     RouterModule,
     NgxStarsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAoVvj5lM77pVqV4EyRzJwIHoBK83MGumU'
     }),
-    StarRatingModule,
+    StarRatingModule
   ],
   exports: [
     DialogAnexarComponent,

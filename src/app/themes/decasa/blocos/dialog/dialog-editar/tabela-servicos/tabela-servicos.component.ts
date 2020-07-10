@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ServicosOrcamento} from '../../../../../../model/servico-orcamento.module';
+import {ClienteOrcamento} from '../../../../../../model/response/cliente-orcamento.module';
+import {ServicoOrcamentoResponse} from '../../../../../../model/response/servico-orcamento-response.module';
 
 export interface PeriodicElement {
   name: string;
@@ -17,10 +20,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './tabela-servicos.component.html',
   styleUrls: ['./tabela-servicos.component.css']
 })
-export class TabelaServicosComponent {
+export class TabelaServicosComponent implements OnInit {
 
   value = 'Clear me';
-  displayedColumns: string[] = ['name', 'qntd',  'uni', 'opc'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['descricao', 'qntd', 'unidade'];
+  dataSource: ServicoOrcamentoResponse[];
+  @Input() orcamento;
 
+  ngOnInit(): void {
+    this.dataSource = this.orcamento.servicosOrcamentos;
+    console.log(JSON.stringify(this.orcamento));
+  }
+  onSearchChange(qnt: number, servico: ServicosOrcamento): void {
+    console.log(qnt);
+    console.log(servico);
+  }
 }

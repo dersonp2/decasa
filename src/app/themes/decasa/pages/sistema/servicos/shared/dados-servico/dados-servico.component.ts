@@ -39,6 +39,7 @@ export class DadosServicoComponent implements OnInit {
   openDialogEditar() {
     this.dialog.open(DialogEditarComponent, {
       width: '100%',
+      data: this.orcamentoSelected
     });
   }
 

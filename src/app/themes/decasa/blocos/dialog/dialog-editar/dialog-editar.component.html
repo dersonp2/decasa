@@ -7,7 +7,7 @@
 
   <div class="mt-3">
 
-    <app-tabela-servicos></app-tabela-servicos>
+    <app-tabela-servicos [orcamento]="orcamento"></app-tabela-servicos>
 
     <div>
     <a class="cursor float-right mt-3 mr-2" *ngIf="novoServico" (click)="showNovoServico()"><i class="fas fa-times fa-lg"></i></a>

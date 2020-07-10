@@ -1,58 +1,42 @@
 import { Component } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
-
-export interface PeriodicElement {
+import {NestedTreeControl} from '@angular/cdk/tree';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
+interface Classe {
   name: string;
-  uni: string;
-  qntd: any;
+  children?: Classe[];
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: '4 horas de City Tour Personal - Veículo Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: '4 horas de City Tour Personal - Veículo Passeio', uni: 'km', qntd: ''}
+const TREE_DATA: Classe[] = [
+  {
+    name: 'Classe 1',
+    children: [
+      {name: 'Servico 1'},
+      {name: 'Servico 2'},
+      {name: 'Servico 3'},
+    ]
+  }, {
+    name: 'Classe 2',
+    children: [
+      {
+        name: 'Servico 5',
+      }, {
+        name: 'Servico 6',
+      },
+    ]
+  },
 ];
-
 @Component({
   selector: 'app-novo-servico',
   templateUrl: './novo-servico.component.html',
   styleUrls: ['./novo-servico.component.css']
 })
 export class NovoServicoComponent {
+  treeControl = new NestedTreeControl<Classe>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<Classe>();
 
-  displayedColumns: string[] = ['select', 'name', 'qntd',  'uni'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  constructor() {
+    this.dataSource.data = TREE_DATA;
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-  }
+  hasChild = (_: number, node: Classe) => !!node.children && node.children.length > 0;
 }

@@ -7,13 +7,15 @@ import {ClienteOrcamento} from '../../../../../model/response/cliente-orcamento.
 import {OrcamentoService} from '../../../../../services/orcamento.service';
 
 export class ReagendamentoAuxiliar {
-  orcamengoId: number;
-  dataReagentamento: string;
+  orcamentoId: number;
+  dataReagendamento: string;
   pagamento: Pagamento;
 
-  constructor(orcamentoid, pagamento) {
-    this.orcamengoId = orcamentoid;
-    this.pagamento = pagamento;
+  constructor(orcamentoid, idPagamento) {
+    const p = new Pagamento();
+    p.id = idPagamento;
+    this.pagamento = p;
+    this.orcamentoId = orcamentoid;
   }
 }
 
@@ -30,10 +32,10 @@ export class DialogReagendarComponent implements OnInit {
   date: any = null;
   time: any = null;
   reagendamento: ReagendamentoAuxiliar;
-  orcamento: ClienteOrcamento;
   private mensagem: string;
   result: string;
-  showResult  = false;
+  showResult = false;
+  load = false;
 
   constructor(public dialogRef: MatDialogRef<DialogReagendarComponent>, private orcamentoService: OrcamentoService, @Inject(MAT_DIALOG_DATA) public data) {
     this.reagendamento = new ReagendamentoAuxiliar(data.id, data.pagamento);
@@ -59,16 +61,24 @@ export class DialogReagendarComponent implements OnInit {
 
   // solicita o reagendamento do orçamento
   reschedule() {
+
     if (this.date != null && this.time != null) {
-      this.reagendamento.dataReagentamento = this.date + ' ' + this.time;
+      this.load = true;
+      this.reagendamento.dataReagendamento = this.date + ' ' + this.time;
       this.orcamentoService.reschedule(this.reagendamento).subscribe(
         (data) => {
+          console.log(data);
           this.result = data.nome;
+          this.load = false;
+          this.showResult = true;
         },
         (error) => {
+          console.log(error);
+          this.result = error.message;
+          this.load = false;
+          this.showResult = true;
         }
       );
-      console.log(this.reagendamento);
     } else {
       this.mensagem = 'Preencha todos os campos';
     }

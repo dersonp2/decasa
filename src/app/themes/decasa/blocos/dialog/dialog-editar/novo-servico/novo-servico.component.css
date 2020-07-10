@@ -1,53 +1,10 @@
-table {
-  width: 100%;
-}
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-.qntd-input{
-  width: 80px;
-  text-align: right;
+.example-tree-invisible {
+  display: none;
 }
 
-/* overwrite the checkbox background */
-::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
-  background-color:#0A68AE  !important;
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
 }
-
-/* overwrite the ripple overlay on hover and click */
-::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
-  background-color: #0A68AE  !important;
-}
-
-/*  Tamanho da fonte da label */
-::ng-deep .mat-form-field-label{
-  font-size: 16px;
-}
-/*  Tamanho da fonte do input*/
-::ng-deep .mat-input-element{
-  font-size: 16px;
-}
-
-/* Configurar a tabela */
-::ng-deep .mat-cell {
-  font-size: 16px;
-}
-
-::ng-deep .mat-header-cell{
-  font-size: 16px;
-  color: black;
-  background-color:rgba(99, 225, 253, 0.1) !important;
-}
-
-.btn-adicionar{
-  color:white;
-  background-color: #0A68AE !important;
-}
-.btn-adicionar:hover{
-  color:white;
-}
-.mat-header-cell a:hover{
-  background-color: #0D84DB !important;
-  border-color: #0D84DB;
-  }
