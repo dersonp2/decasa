@@ -8,15 +8,11 @@
   <div class="mt-3">
 
     <app-tabela-servicos [orcamento]="orcamento"></app-tabela-servicos>
-
-    <div>
-    <a class="cursor float-right mt-3 mr-2" *ngIf="novoServico" (click)="showNovoServico()"><i class="fas fa-times fa-lg"></i></a>
-  </div>
-    <app-novo-servico *ngIf="novoServico"></app-novo-servico>
-
     <div mat-dialog-actions align="end">
-      <button mat-raised-button class="font-btn-nav mt-3 width-btn" (click)="showNovoServico()" *ngIf="!novoServico"> Novo Serviço</button>
-      <button mat-raised-button class="font-btn-nav mt-3 width-btn"> Salvar</button>
+      <button mat-raised-button class="font-btn-nav mt-3 width-btn mr-2">Pagar</button>
     </div>
+
+    <app-novo-servico  [orcamento]="orcamento"></app-novo-servico>
+
   </div>
 </div>

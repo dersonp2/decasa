@@ -1,4 +1,4 @@
-import { BlocosModule } from './../../../blocos/blocos.module';
+import { BlocosModule } from '../../../blocos/blocos.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgendadoComponent } from './agendado/agendado.component';
@@ -21,7 +21,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxStarsModule } from 'ngx-stars';
-
 
 @NgModule({
   declarations: [

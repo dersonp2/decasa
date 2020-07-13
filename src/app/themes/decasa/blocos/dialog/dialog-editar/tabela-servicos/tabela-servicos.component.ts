@@ -1,19 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ServicosOrcamento} from '../../../../../../model/servico-orcamento.module';
-import {ClienteOrcamento} from '../../../../../../model/response/cliente-orcamento.module';
 import {ServicoOrcamentoResponse} from '../../../../../../model/response/servico-orcamento-response.module';
+import {CarrinhoEvent} from '../../../../../../events/carrinho-event';
+import {Servico} from '../../../../../../model/servico.module';
+import {ServicoResponse} from '../../../../../../model/response/servico-response.module';
+import {MatTableDataSource} from '@angular/material/table';
 
-export interface PeriodicElement {
-  name: string;
-  uni: string;
-  qntd: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: '4 horas de City Tour Personal - Veículo Passeio', uni: 'km', qntd: ''},
-];
 
 @Component({
   selector: 'app-tabela-servicos',
@@ -22,17 +14,72 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TabelaServicosComponent implements OnInit {
 
-  value = 'Clear me';
-  displayedColumns: string[] = ['descricao', 'qntd', 'unidade'];
-  dataSource: ServicoOrcamentoResponse[];
+  total: number;
+  displayedColumns: string[] = ['descricao', 'qntd', 'unidade', 'delete'];
+  dataSource = new MatTableDataSource();
   @Input() orcamento;
 
-  ngOnInit(): void {
-    this.dataSource = this.orcamento.servicosOrcamentos;
-    console.log(JSON.stringify(this.orcamento));
+  constructor(private carrinhoEvento: CarrinhoEvent) {
+    carrinhoEvento.addService$.subscribe(
+      (data: Servico) => {
+        this.insertService(data);
+      }
+    );
   }
+
+  ngOnInit(): void {
+    // Preenche com os serviços já comprado
+    this.dataSource.data = this.orcamento.servicosOrcamentos;
+    // console.log(this.dataSource.data);
+    this.calculateTotal();
+  }
+
   onSearchChange(qnt: number, servico: ServicosOrcamento): void {
     console.log(qnt);
     console.log(servico);
+  }
+
+  insertService(service: Servico) {
+    const servico = new ServicoResponse();
+    servico.id = service.id;
+    servico.composicao = service.composicao;
+    servico.valor = service.valor;
+    servico.descricao = service.descricao;
+    servico.nomeArquivo = service.nomeImagem;
+
+    const servicoOrcamentoResponse = new ServicoOrcamentoResponse();
+    servicoOrcamentoResponse.quantidade = 1;
+    servicoOrcamentoResponse.servico = servico;
+    servicoOrcamentoResponse.unidadeMedida = service.unidadeMedida;
+    servicoOrcamentoResponse.valor = service.valor;
+
+    const servicoOrcamentos = this.dataSource.data;
+    servicoOrcamentos.push(servicoOrcamentoResponse);
+    this.dataSource.data = servicoOrcamentos;
+    this.calculateTotal();
+
+  }
+
+  deleteFunction(item) {
+    // find item and remove list
+    const servicoOrcamentos = this.dataSource.data;
+    servicoOrcamentos.splice(servicoOrcamentos.indexOf(item), 1);
+    this.dataSource.data = servicoOrcamentos;
+    this.calculateTotal();
+  }
+
+  calculateTotal() {
+    // Calcula o total dos serviços a serem contratados
+    this.total = 0;
+    this.dataSource.data.forEach(servico => {
+      // @ts-ignore
+      if (!servico.id) {
+        // @ts-ignore
+        this.total += servico.valor;
+        // @ts-ignore
+        console.log(servico);
+      }
+    });
+    console.log(this.total);
   }
 }
