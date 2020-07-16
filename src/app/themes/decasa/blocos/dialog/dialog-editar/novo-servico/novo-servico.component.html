@@ -1,18 +1,39 @@
-<!--Filtro Buscar serviços-->
-<div class="mt-5">
-  <div class="alert alert-warning" role="alert">
-    Só será permitido a adição de serviços que o prestador contrato possa realizar.
-    Selecione o serviço abaixo.
+<div *ngIf="showMessageError == null">
+  <p class="text-center ">
+    <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
+  </p>
+
+</div>
+
+<div *ngIf="showMessageError == true">
+  <div class="mt-5">
+    <div class="alert alert-danger" role="alert">
+      Para realizar a adição de novos serviços, é preciso contratar um prestador.
+    </div>
   </div>
 </div>
-<ul id="myUL" *ngFor="let classeServico of classeServico">
-  <li><span class="caret" [class.caret-down]="showServices"  (click)="showServices = !showServices">{{classeServico.descricao}}</span>
-    <div *ngIf="showServices">
-      <ul *ngFor="let servico of classeServico.servico">
-        <li> <button (click)="addService(servico)" class="mr-3 btn btn-outline-info mt-1 mb-2" title="Adicionar no orçamento"><i class="fas fa-cart-plus"></i>
-        </button>{{servico.descricao}}
-        </li>
-      </ul>
+
+<!--Filtro Buscar serviços-->
+<div *ngIf="showMessageError == false">
+  <div class="mt-5">
+    <div class="alert alert-warning" role="alert">
+      Só será permitido a adição de serviços que o prestador contrato possa realizar.
+      Selecione o serviço abaixo.
     </div>
-  </li>
-</ul>
+  </div>
+  <ul id="myUL" *ngFor="let classeServico of classeServico">
+    <li><span class="caret" [class.caret-down]="showServices"
+              (click)="showServices = !showServices">{{classeServico.descricao}}</span>
+      <div *ngIf="showServices">
+        <ul *ngFor="let servico of classeServico.servico">
+          <li>
+            <button (click)="addService(servico)" class="mr-3 btn btn-outline-info mt-1 mb-2"
+                    title="Adicionar no orçamento"><i class="fas fa-cart-plus"></i>
+            </button>
+            {{servico.descricao}}
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

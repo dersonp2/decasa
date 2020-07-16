@@ -79,7 +79,6 @@ export class NavPagamentoComponent implements OnInit {
     if (localStorage.hasOwnProperty('enderecoCliente')) {
       endereco = JSON.parse(atob(localStorage.getItem('enderecoCliente')));
       endereco.clienteId = this.authService.getUser().id;
-      console.info(endereco);
       if (endereco.id == null) {
         this.enderecoService.getExisteEnderecoCliente(endereco).subscribe(
           (data) => {
@@ -118,26 +117,28 @@ export class NavPagamentoComponent implements OnInit {
 
   saveOrcamento() {
     this.visiblePagar = false;
-    if (this.orcamento.id == null) {
-      this.orcamentoService.salvarOrcamento(this.orcamento).subscribe(
-        (data) => {
-          console.log(data);
-          if (data.id === 200) {
-            this.orcamento = data.orcamento;
-            console.log('Salvou Orcamento' + this.orcamento);
-            localStorage.setItem('orcamento', btoa(JSON.stringify(this.orcamento)));
-            this.savepayment();
-          }
-        },
-        (error) => {
-          console.error(error);
-          this.showSnackBar('Erro ao cadastrar orçamento!!!', 'orange-snackbar');
-          this.visiblePagar = true;
-        }
-      );
-    } else {
-      this.savepayment();
-    }
+    console.log(JSON.stringify(this.orcamento));
+    console.log(this.orcamento);
+    // if (this.orcamento.id == null) {
+    //   this.orcamentoService.salvarOrcamento(this.orcamento).subscribe(
+    //     (data) => {
+    //       console.log(data);
+    //       if (data.id === 200) {
+    //         this.orcamento = data.orcamento;
+    //         console.log('Salvou Orcamento' + this.orcamento);
+    //         localStorage.setItem('orcamento', btoa(JSON.stringify(this.orcamento)));
+    //         this.savepayment();
+    //       }
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //       this.showSnackBar('Erro ao cadastrar orçamento!!!', 'orange-snackbar');
+    //       this.visiblePagar = true;
+    //     }
+    //   );
+    // } else {
+    //   this.savepayment();
+    // }
   }
 
   savepayment() {
@@ -152,7 +153,7 @@ export class NavPagamentoComponent implements OnInit {
     // TODO: mudar o valor para this.orcamento.valor
     pagamento.valorParcela = 1;
     pagamento.financeira = new Financeira(2);
-    console.log(pagamento);
+    console.log(JSON.stringify(pagamento));
 
     this.pagamentoService.savePay(pagamento).subscribe(
       (data) => {

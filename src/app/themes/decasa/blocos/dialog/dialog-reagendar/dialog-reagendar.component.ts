@@ -32,13 +32,13 @@ export class DialogReagendarComponent implements OnInit {
   date: any = null;
   time: any = null;
   reagendamento: ReagendamentoAuxiliar;
-  private mensagem: string;
+  mensagem: string;
   result: string;
   showResult = false;
   load = false;
 
   constructor(public dialogRef: MatDialogRef<DialogReagendarComponent>, private orcamentoService: OrcamentoService, @Inject(MAT_DIALOG_DATA) public data) {
-    this.reagendamento = new ReagendamentoAuxiliar(data.id, data.pagamento);
+    this.reagendamento = new ReagendamentoAuxiliar(data.id, data.pagamento.id);
   }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class DialogReagendarComponent implements OnInit {
 
 //  Data e hora
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.date = moment(event.value).format('DD/MM/YYYY');
+    this.date = moment(event.value).format('YYYY/MM/DD');
     console.log(this.date);
   }
 
@@ -61,14 +61,18 @@ export class DialogReagendarComponent implements OnInit {
 
   // solicita o reagendamento do orçamento
   reschedule() {
+    console.log(this.date);
+    console.log(this.time);
 
     if (this.date != null && this.time != null) {
       this.load = true;
       this.reagendamento.dataReagendamento = this.date + ' ' + this.time;
+      console.log(JSON.stringify(this.reagendamento));
+
       this.orcamentoService.reschedule(this.reagendamento).subscribe(
         (data) => {
           console.log(data);
-          this.result = data.nome;
+          this.result = data.message;
           this.load = false;
           this.showResult = true;
         },

@@ -10,6 +10,7 @@ import {ResponseMessage} from '../model/response-message.module';
 import {TotalOrcamento} from '../model/response/total-orcamento-response.module';
 import {Avaliacao} from '../model/avalicao.module';
 import {ReagendamentoAuxiliar} from '../themes/decasa/blocos/dialog/dialog-reagendar/dialog-reagendar.component';
+import {AditamentoAuxiliar} from '../themes/decasa/blocos/dialog/dialog-editar/tabela-servicos/tabela-servicos.component';
 
 export interface RatingDTO {
   id: number;
@@ -108,8 +109,11 @@ export class OrcamentoService {
 
   // Salva um orcamento e retorna um oramento response
   reschedule(reagendamentoAux: ReagendamentoAuxiliar): Observable<any> {
-    console.log(JSON.stringify(reagendamentoAux));
     return this.http.post<any>(`${this.apiUrl}/reagendamento`, reagendamentoAux).pipe(take(1));
+  }
+
+  addAuxiliaryService(aditamentoAuxiliar: AditamentoAuxiliar): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/aditamento`, aditamentoAuxiliar).pipe(take(1));
   }
 
 }

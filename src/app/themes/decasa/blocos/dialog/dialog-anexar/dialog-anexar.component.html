@@ -22,14 +22,14 @@
 
   <div class="col-12 col-md-6">
     <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFile" multiple
+      <input type="file" class="custom-file-input" id="customFile"
       (change)="onChange($event)"
       >
       <label class="custom-file-label" for="customFile" id="fileLabel">Escolha o arquivo</label>
     </div>
   </div>
 </div>
-<button mat-raised-button [disabled]="!files" (click)='onUpload()'>Enviar</button>
+<button mat-raised-button [disabled]="!selectedFile" (click)='onUpload()'>Enviar</button>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-3">
   <!-- ID Column -->

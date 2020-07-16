@@ -7,13 +7,10 @@ import {ClienteOrcamento} from '../../../../../model/response/cliente-orcamento.
   templateUrl: './dialog-editar.component.html',
   styleUrls: ['./dialog-editar.component.css']
 })
-export class DialogEditarComponent  {
+export class DialogEditarComponent {
 
-  novoServico = false;
   orcamento: ClienteOrcamento;
-  showNovoServico() {
-    this.novoServico = !this.novoServico;
-  }
+
   constructor(public dialogRef: MatDialogRef<DialogEditarComponent>, @Inject(MAT_DIALOG_DATA) public data) {
     this.orcamento = data;
   }

@@ -24,6 +24,7 @@ export class NovoServicoComponent implements OnInit {
 
   classeServico: ClasseServico[] = [];
   showServices = false;
+  showMessageError = null;
 
   @Input() orcamento: ClienteOrcamento;
 
@@ -41,9 +42,14 @@ export class NovoServicoComponent implements OnInit {
       (data) => {
         // console.log(data);
         this.fillClasseServicos(data);
+        this.showMessageError = false;
       },
       (error) => {
         console.log(error);
+        console.log(error.status);
+        if (error.status === 406) {
+          this.showMessageError = true;
+        }
       }
     );
   }
