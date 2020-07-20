@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,4 +16,5 @@ export class AnexoEvent {
   alteracao(number) {
     this._alteracao.next(number);
   }
+
 }

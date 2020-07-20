@@ -1,40 +1,53 @@
-import {Component} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {UploadFileService} from '../../../../../services/upload-file-service';
 import {AnexoEvent} from '../../../../../events/anexo-event';
-import {ClienteOrcamento} from '../../../../../model/response/cliente-orcamento.module';
+import {TipoAnexo} from '../../../../../model/tipo-anexo.module';
+import {ArquivoOrcamentoService} from '../../../../../services/arquivo-orcamento.service';
+import {ArquivoOrcamento} from '../../../../../model/arquivo-orcamento.module';
+import {Orcamento} from '../../../../../model/orcamento.module';
 
-
-interface Tipo {
-  name: string;
-}
 
 @Component({
   selector: 'app-dialog-anexar',
   templateUrl: './dialog-anexar.component.html',
   styleUrls: ['./dialog-anexar.component.css']
 })
-export class DialogAnexarComponent {
+export class DialogAnexarComponent implements OnInit {
   tipoControl = new FormControl('', Validators.required);
-  tipos: Tipo[] = [
-    {name: 'Documento'},
-    {name: 'Vídeo'},
-    {name: 'Imagem'},
-  ];
-  files: Set<File>;
-
-  filesUpload = [];
-  fileNames = [];
-
+  tiposAnexo: TipoAnexo[] = [];
   displayedColumns: string[] = ['nome', 'opcoes'];
-  dataSource = new MatTableDataSource<any>(this.filesUpload);
+  dataSource = new MatTableDataSource();
   selectedFile: File = null;
+  progress: any = 0;
+  s3Url = 'https://documentosdecasa.s3.amazonaws.com/';
+  loading = false;
 
-  constructor(public dialogRef: MatDialogRef<DialogAnexarComponent>, private uploadFileService: UploadFileService, private anexoEvent: AnexoEvent) {
+  constructor(public dialogRef: MatDialogRef<DialogAnexarComponent>, private arquivoOrcamentoService: ArquivoOrcamentoService,
+              private uploadFileService: UploadFileService, private anexoEvent: AnexoEvent, @Inject(MAT_DIALOG_DATA) public orcamentoId) {
     anexoEvent.alteracao$.subscribe(
-      (data) => { console.log(data) }
+      (data) => {
+        (this.progress = data);
+        if (this.progress === 100) {
+          this.progress = 0;
+          document.getElementById('fileLabel').innerHTML = '';
+        }
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.getAllArquivosOrcamento();
+    this.arquivoOrcamentoService.getTipoAnexo().subscribe(
+      (data) => {
+        (this.tiposAnexo = data);
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
     );
   }
 
@@ -45,36 +58,77 @@ export class DialogAnexarComponent {
   onChange(event) {
     console.log(event);
     this.selectedFile = <File> event.target.files[0];
-    // tslint:disable-next-line:no-angle-bracket-type-assertion
-    // const selectedFiles = <FileList> event.srcElement.files;
-    // this.files = new Set();
-    // this.fileNames = [];
-    // // tslint:disable-next-line:prefer-for-of
-    // for (let i = 0; i < selectedFiles.length; i++) {
-    //   this.fileNames.push(selectedFiles[i].name);
-    //   this.files.add(selectedFiles[i]);
-    //   console.log('files ' + this.files);
-    // }
-    //
+
     document.getElementById('fileLabel').innerHTML = this.selectedFile.name;
+    console.info(this.selectedFile);
+    console.log(this.tipoControl.value);
   }
 
   onUpload() {
-    this.uploadFileService.uploadfile(this.selectedFile);
-    // if (this.files && this.files.size > 0) {
-    //   console.log(this.fileNames);
-    //   for (const file of this.fileNames) {
-    //     this.filesUpload.push(file);
-    //   }
-    //   console.log('Uploads ' + this.filesUpload);
-    //   this.dataSource.data = this.filesUpload;
-    // }
+    this.uploadFileService.uploadfile(this.selectedFile).subscribe(
+      (data) => {
+        console.log('upload file ok');
+        this.addArquivoOrcamento(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onRemove(event) {
-    const index = this.filesUpload.indexOf(event);
-    this.filesUpload.splice(index, 1);
-    this.dataSource.data = this.filesUpload;
+
   }
 
+  addArquivoOrcamento(data) {
+    const orcamento = new Orcamento();
+    orcamento.id = this.orcamentoId;
+    const arquivoOrcamento = new ArquivoOrcamento();
+    arquivoOrcamento.tipoAnexo = this.tipoControl.value;
+    arquivoOrcamento.arquivo = data.key;
+    arquivoOrcamento.arquivoAtivo = true;
+    arquivoOrcamento.extensao = this.selectedFile.type;
+    arquivoOrcamento.tamanho = this.selectedFile.size;
+    arquivoOrcamento.dataCadastro = new Date();
+    arquivoOrcamento.orcamento = orcamento;
+    console.log(arquivoOrcamento);
+
+    this.arquivoOrcamentoService.salvarArquivoOrcamento(arquivoOrcamento).subscribe(
+      (data) => {
+        this.getAllArquivosOrcamento();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteArquivoOrcamento(arquivoOrcamento: ArquivoOrcamento) {
+    arquivoOrcamento.arquivoAtivo = false;
+
+    this.arquivoOrcamentoService.atualizarArquivoOrcamento(arquivoOrcamento).subscribe(
+      (data) => {
+        this.getAllArquivosOrcamento();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  getAllArquivosOrcamento() {
+    this.loading = true;
+    this.arquivoOrcamentoService.getArquivosByOrcamento(this.orcamentoId).subscribe(
+      (data) => {
+        this.dataSource.data = data;
+        console.log(this.dataSource.data);
+        this.loading = false;
+      },
+      (erro) => {
+        console.log(erro);
+        this.loading = false;
+      }
+    );
+  }
 }

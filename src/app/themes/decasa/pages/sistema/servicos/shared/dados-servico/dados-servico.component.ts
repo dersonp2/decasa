@@ -46,6 +46,7 @@ export class DadosServicoComponent implements OnInit {
   openDialogAnexar() {
     this.dialog.open(DialogAnexarComponent, {
       width: '50%',
+      data: this.orcamentoSelected.id
     });
   }
 
