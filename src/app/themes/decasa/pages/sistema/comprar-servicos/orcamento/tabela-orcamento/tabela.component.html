@@ -12,9 +12,14 @@
         <hr>
     </div>
     <div class="col-3 col-md-3 col-sm-6 mt-2" *ngFor="let item of dt">
+
         <div class="card">
+
             <!-- <img src="/assets/icones/advogado.jpeg" class="card-img-top" /> -->
             <div class="card-body">
+              <a>
+                <i class="fas fa-info-circle float-right cursor"></i>
+              </a>
                 <h3 class="card-title">{{item.servico.descricao}}</h3>
                 <a class="btn btn-carrinho" (click)="adicionarServico(item)">Adicionar no carrinho</a>
             </div>

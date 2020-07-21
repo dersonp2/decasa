@@ -142,6 +142,10 @@
     }
 }
 
+.nav-side-menu {
+  z-index: -1;
+}
+
 @media (min-width: 767px) {
     .nav-side-menu .menu-list .menu-content {
         display: block;

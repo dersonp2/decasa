@@ -8,6 +8,7 @@ import { ComprarServicosModule } from './comprar-servicos/comprar-servicos.modul
 
 import { TextMaskModule } from 'angular2-text-mask';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {PopoverModule} from 'ngx-smart-popover';
 
 
 import { MatButtonModule} from '@angular/material/button';
@@ -37,6 +38,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    PopoverModule,
 
     BlocosModule,
     ComprarServicosModule,

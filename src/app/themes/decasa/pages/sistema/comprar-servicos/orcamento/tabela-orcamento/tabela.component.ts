@@ -1,17 +1,12 @@
-import { FilterPipe } from './../../../../../../../pipes/filter.pipe';
-import { ServicosOrcamento } from './../../../../../../../model/servico-orcamento.module';
-import { CarrinhoEvent } from './../../../../../../../events/carrinho-event';
-import { ServicoElement } from './../../../../../../../model/element/servico.element';
-import { ClasseEvent } from '../../../../../../../events/classe-event';
-import { ServicoService } from './../../../../../../../services/servico.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Servico } from 'src/app/model/servico.module';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { stringify } from 'querystring';
-
-
+import {ServicosOrcamento} from './../../../../../../../model/servico-orcamento.module';
+import {CarrinhoEvent} from '../../../../../../../events/carrinho-event';
+import {ClasseEvent} from '../../../../../../../events/classe-event';
+import {ServicoService} from '../../../../../../../services/servico.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
+import {Servico} from 'src/app/model/servico.module';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -20,16 +15,13 @@ import { stringify } from 'querystring';
   styleUrls: ['./tabela.component.css']
 })
 export class TabelaComponent implements OnInit {
-  searchText: string;
   @Input() classeId: number;
   servicosSelecionados: ServicosOrcamento[] = [];
   municipioId: number;
-  filterarg: ServicosOrcamento;
   classeDescricacao: string;
 
   displayedColumns: string[] = ['select', 'descricao'];
   dataSource = new MatTableDataSource<ServicosOrcamento>();
-  selection = new SelectionModel<ServicosOrcamento>(true, []);
   servicos: Servico[];
   dt: ServicosOrcamento[] = [];
 
@@ -72,6 +64,7 @@ export class TabelaComponent implements OnInit {
       mensagem = 'Tabela atualizada';
       classe = 'blue-snackbar';
     }
+    console.log(this.dt);
     this.showSnackBar(mensagem, classe);
   }
 

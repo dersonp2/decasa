@@ -44,6 +44,7 @@ import {StarRatingModule} from '@sreyaj/ng-star-rating';
 import { NgxStarsModule } from 'ngx-stars';
 import {AppModule} from '../../../../app.module';
 import {MatIconModule} from '@angular/material/icon';
+import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatIconModule} from '@angular/material/icon';
     DialogLoginComponent,
     DiaologEnderecoComponent,
     DialogExcluirComponent,
-    DialogAvaliacaoComponent
+    DialogAvaliacaoComponent,
+    DialogInfoComponent
   ],
   imports: [
     CommonModule,
