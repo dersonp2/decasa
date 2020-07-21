@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {UploadFileService} from '../../../../../services/upload-file-service';
 import {AnexoEvent} from '../../../../../events/anexo-event';
@@ -8,7 +8,8 @@ import {TipoAnexo} from '../../../../../model/tipo-anexo.module';
 import {ArquivoOrcamentoService} from '../../../../../services/arquivo-orcamento.service';
 import {ArquivoOrcamento} from '../../../../../model/arquivo-orcamento.module';
 import {Orcamento} from '../../../../../model/orcamento.module';
-
+import {DialogExcluirComponent} from '../dialog-excluir/dialog-excluir.component';
+import { environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-dialog-anexar',
@@ -22,18 +23,16 @@ export class DialogAnexarComponent implements OnInit {
   dataSource = new MatTableDataSource();
   selectedFile: File = null;
   progress: any = 0;
-  s3Url = 'https://documentosdecasa.s3.amazonaws.com/';
+  s3Url = environment.S3_URL;
   loading = false;
 
+  acceptTypes = null;
+
   constructor(public dialogRef: MatDialogRef<DialogAnexarComponent>, private arquivoOrcamentoService: ArquivoOrcamentoService,
-              private uploadFileService: UploadFileService, private anexoEvent: AnexoEvent, @Inject(MAT_DIALOG_DATA) public orcamentoId) {
+              private uploadFileService: UploadFileService, public dialog: MatDialog, private anexoEvent: AnexoEvent, @Inject(MAT_DIALOG_DATA) public orcamentoId) {
     anexoEvent.alteracao$.subscribe(
       (data) => {
         (this.progress = data);
-        if (this.progress === 100) {
-          this.progress = 0;
-          document.getElementById('fileLabel').innerHTML = '';
-        }
       }
     );
   }
@@ -55,14 +54,34 @@ export class DialogAnexarComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onChange(event) {
-    console.log(event);
-    this.selectedFile = <File> event.target.files[0];
+  onCategoryChange() {
+    console.log(this.tipoControl.value.id);
+    switch (this.tipoControl.value.id) {
+      case 1:
+        this.acceptTypes = '.doc, .docx, .txt, .pdf';
+        break;
+      case 2:
+        this.acceptTypes = '.xlsx, .xls';
+        break;
+      case 3:
+        this.acceptTypes = 'image/*';
+        break;
+      case 4:
+        this.acceptTypes = 'video/mp4, video/x-m4v, video/*';
+        break;
+      case 5:
+        this.acceptTypes = 'audio/*';
+        break;
+    }
+  }
+
+  onChangeFile(event) {
+    this.selectedFile = event.target.files[0] as File;
 
     document.getElementById('fileLabel').innerHTML = this.selectedFile.name;
-    console.info(this.selectedFile);
     console.log(this.tipoControl.value);
   }
+
 
   onUpload() {
     this.uploadFileService.uploadfile(this.selectedFile).subscribe(
@@ -74,10 +93,6 @@ export class DialogAnexarComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  onRemove(event) {
-
   }
 
   addArquivoOrcamento(data) {
@@ -92,10 +107,18 @@ export class DialogAnexarComponent implements OnInit {
     arquivoOrcamento.dataCadastro = new Date();
     arquivoOrcamento.orcamento = orcamento;
     console.log(arquivoOrcamento);
+    this.saveArquivoOrcamento(arquivoOrcamento);
 
+  }
+
+  saveArquivoOrcamento(arquivoOrcamento) {
     this.arquivoOrcamentoService.salvarArquivoOrcamento(arquivoOrcamento).subscribe(
       (data) => {
         this.getAllArquivosOrcamento();
+        if (this.progress === 100) {
+          this.progress = 0;
+          document.getElementById('fileLabel').innerHTML = '';
+        }
       },
       (error) => {
         console.log(error);
@@ -103,17 +126,15 @@ export class DialogAnexarComponent implements OnInit {
     );
   }
 
+  // Apenas é inativado o arquivo
   deleteArquivoOrcamento(arquivoOrcamento: ArquivoOrcamento) {
-    arquivoOrcamento.arquivoAtivo = false;
-
-    this.arquivoOrcamentoService.atualizarArquivoOrcamento(arquivoOrcamento).subscribe(
-      (data) => {
-        this.getAllArquivosOrcamento();
-      },
-      (error) => {
-        console.log(error);
+    const dialogRef = this.dialog.open(DialogExcluirComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        arquivoOrcamento.arquivoAtivo = false;
+        this.saveArquivoOrcamento(arquivoOrcamento);
       }
-    );
+    });
   }
 
 
