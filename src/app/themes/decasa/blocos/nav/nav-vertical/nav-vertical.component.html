@@ -8,8 +8,8 @@
     <div class="menu-list">
         <ul>
             <li class="collapsed" *ngFor="let grupo of gruposClasses">
-                <div class="ml-2">
-                    <h3 (click)="abriSubMenu(grupo.id)">{{grupo.descricao}}</h3>
+                <div class="ml-2 mt-1"  >
+                    <h4 [ngClass]="{active: menuId === grupo.id}" (click)="abriSubMenu(grupo.id)">{{grupo.descricao}}</h4>
                 </div>
                 <ul class="sub-menu" *ngIf="menuId === grupo.id">
                     <li *ngFor="let classe of grupo.classes">

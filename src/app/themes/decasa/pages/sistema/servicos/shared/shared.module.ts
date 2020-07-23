@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { CardFuncionarioComponent } from './card-funcionario/card-funcionario.component';
 import { CertificadosComponent } from './certificados/certificados.component';
-import { ComentariosComponent } from './comentarios/comentarios.component';
 import { DadosServicoComponent } from './dados-servico/dados-servico.component';
 import { DetalhePerfilComponent } from './detalhe-perfil/detalhe-perfil.component';
 import { EmailComponent } from './email/email.component';
@@ -29,7 +28,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   declarations: [
     CardFuncionarioComponent,
     CertificadosComponent,
-    ComentariosComponent,
     DadosServicoComponent,
     DetalhePerfilComponent,
     EmailComponent,
@@ -58,7 +56,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   exports: [
     CardFuncionarioComponent,
     CertificadosComponent,
-    ComentariosComponent,
     DadosServicoComponent,
     DetalhePerfilComponent,
     EmailComponent,

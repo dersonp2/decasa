@@ -31,12 +31,14 @@ export class NavVerticalComponent implements OnInit {
     }
   }
 
+  // Carregar os serviços de acordo com a classe (tabela serviços)
   loadServicos(classeId) {
     this.classeService.alteracao(classeId);
     localStorage.setItem('classeId', classeId );
   }
 
   abriSubMenu(id) {
+    console.log(id);
     if (this.menuId === id) {
       this.menuId = 0;
     } else {

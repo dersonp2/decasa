@@ -4,6 +4,8 @@ import {ViaCepService} from '../../../../../../services/via-cep.service';
 import {EnderecoCliente} from '../../../../../../model/endereco-cliente.module';
 import {AuthService} from '../../../../../../services/auth.service';
 import {EnderecoService} from '../../../../../../services/endereco.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogLoginComponent} from '../../../../blocos/dialog/dialog-login/dialog-login.component';
 
 @Component({
   selector: 'app-endereco',
@@ -16,7 +18,7 @@ export class EnderecoComponent implements OnInit {
   enderecoForm: FormGroup;
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
-  constructor(private formBuilder: FormBuilder, private cepService: ViaCepService, private authService: AuthService, private enderecoService: EnderecoService) {
+  constructor(private formBuilder: FormBuilder, private cepService: ViaCepService, public dialog: MatDialog,  private authService: AuthService, private enderecoService: EnderecoService) {
     this.enderecoForm = this.formBuilder.group({
       cep: ['', [Validators.required, Validators.minLength(9)]],
       logradouro: ['', [Validators.required]],
@@ -30,8 +32,20 @@ export class EnderecoComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
+    if (!this.authService.check()) {
+      this.openModal();
+    }
   }
+
+  // Abre a dialog de login
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
+  }
+
 
   display() {
     this.displayForm = !this.displayForm;

@@ -1,14 +1,15 @@
-import {MunicipioService} from './../../../../../../services/municipio.service';
-import {Municipio} from './../../../../../../model/municipio.module';
-import {element} from 'protractor';
-import {ClienteOrcamento} from './../../../../../../model/response/cliente-orcamento.module';
-import {OrcamentoService} from './../../../../../../services/orcamento.service';
+import {MunicipioService} from '../../../../../../services/municipio.service';
+import {Municipio} from '../../../../../../model/municipio.module';
+import {ClienteOrcamento} from '../../../../../../model/response/cliente-orcamento.module';
+import {OrcamentoService} from '../../../../../../services/orcamento.service';
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {AuthService} from '../../../../../../services/auth.service';
 import {OrcamentoEvent} from '../../../../../../events/orcamento-event';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogLoginComponent} from '../../../../blocos/dialog/dialog-login/dialog-login.component';
+import {PrestadorService} from '../../../../../../services/prestador.service';
+import {PrestadorDetalhesResponse} from '../../../../../../model/response/prestador-detalhes-response.module';
 
 export interface PeriodicElement {
   pedido: string;
@@ -35,13 +36,22 @@ export class SelecionarFornecedorComponent implements OnInit {
   pedidos: Pedido[] = [];
   municipio: Municipio;
   orcamentoSelected: ClienteOrcamento = new ClienteOrcamento();
+  prestador: PrestadorDetalhesResponse = new PrestadorDetalhesResponse();
 
   constructor(private orcamentoService: OrcamentoService, private municipioService: MunicipioService,
-              private authService: AuthService, private orcamentoEvent: OrcamentoEvent, public dialog: MatDialog) {
+              private authService: AuthService, private orcamentoEvent: OrcamentoEvent, private prestadorService: PrestadorService,
+              public dialog: MatDialog) {
     orcamentoEvent.escolher$.subscribe(
       (data: ClienteOrcamento) => {
         (this.orcamentoSelected = data);
         console.log(this.orcamentoSelected);
+      }
+    );
+
+    orcamentoEvent.detalhes$.subscribe(
+      (data) => {
+        console.log(data);
+        this.getPrestador(data);
       }
     );
   }
@@ -53,6 +63,19 @@ export class SelecionarFornecedorComponent implements OnInit {
       this.buscarMunicipio();
       this.getOrcamentosPendentes();
     }
+  }
+
+  getPrestador(prestadorId) {
+    this.prestadorService.getPrestadorDetalhes(prestadorId).subscribe(
+      (data) => {
+        console.log(data);
+        this.prestador = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+    ;
   }
 
   buscarMunicipio() {
@@ -75,7 +98,6 @@ export class SelecionarFornecedorComponent implements OnInit {
   }
 
   setPedidos() {
-    console.info(this.clienteOrcamento);
     this.clienteOrcamento.forEach(e => {
       const pedido = `BRA${e.id}${e.cidade.substring(0, 3)}`;
       this.pedidos.push(new Pedido(pedido));

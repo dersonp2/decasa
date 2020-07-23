@@ -11,6 +11,7 @@ import {TotalOrcamento} from '../model/response/total-orcamento-response.module'
 import {Avaliacao} from '../model/avalicao.module';
 import {ReagendamentoAuxiliar} from '../themes/decasa/blocos/dialog/dialog-reagendar/dialog-reagendar.component';
 import {AditamentoAuxiliar} from '../themes/decasa/blocos/dialog/dialog-editar/tabela-servicos/tabela-servicos.component';
+import {ServicoEndereco} from '../themes/decasa/blocos/dialog/dialog-servicos/dialog-servicos.component';
 
 export interface RatingDTO {
   id: number;
@@ -107,13 +108,20 @@ export class OrcamentoService {
   //     .pipe(take(1));
   // }
 
-  // Salva um orcamento e retorna um oramento response
+  // Reagenda um um orcamento e retorna um orcamento response
   reschedule(reagendamentoAux: ReagendamentoAuxiliar): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/reagendamento`, reagendamentoAux).pipe(take(1));
   }
 
+  // Adicionar um serviço orçameno
   addAuxiliaryService(aditamentoAuxiliar: AditamentoAuxiliar): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/aditamento`, aditamentoAuxiliar).pipe(take(1));
   }
 
+//   Listar todos os serviços prestado em um  endereço de um cliente
+  getServicesByAddress(clientId, addressId): Observable<ServicoEndereco[]> {
+    return this.http.get<ServicoEndereco[]>
+    (`${this.apiUrl}/orcamentos/cliente/${clientId}/endereco/${addressId}`)
+      .pipe(take(1));
+  }
 }

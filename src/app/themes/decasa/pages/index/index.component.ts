@@ -2,9 +2,10 @@ import {Municipio} from '../../../../model/municipio.module';
 import {ListaGruposComponent} from './lista-grupos/lista-grupos.component';
 import {DialogLocalizacaoComponent} from '../../blocos/dialog/dialog-localizacao/dialog-localizacao.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PopoverContentComponent} from 'ngx-smart-popover';
 import {MunicipioService} from '../../../../services/municipio.service';
+import {AuthService} from '../../../../services/auth.service';
 
 
 @Component({
@@ -15,14 +16,14 @@ import {MunicipioService} from '../../../../services/municipio.service';
 export class IndexComponent implements OnInit, AfterViewInit {
 
   municipio: Municipio;
-  grupos: any[];
   isDisplay = true;
   @ViewChild(ListaGruposComponent) listaGrupos: ListaGruposComponent;
 
-  @ViewChild('popoverLocation') myPopover: PopoverContentComponent;
+  @ViewChild('popoverLocation') popoverLocation: PopoverContentComponent;
+  @ViewChild('popoverPerfil') popoverPerfil: PopoverContentComponent;
 
   // private gruposService: GruposService
-  constructor(public dialog: MatDialog, private municipioService: MunicipioService) {
+  constructor(public dialog: MatDialog, private municipioService: MunicipioService, public authService: AuthService) {
   }
 
   ngAfterViewInit(): void {
@@ -57,16 +58,23 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
   hidePopover() {
     // console.log('FEchhhoouuu');
-    this.myPopover.hide();
+    this.popoverLocation.hide();
   }
 
   showPopover() {
     // console.log('Abriu');
-    this.myPopover.show();
+    this.popoverLocation.show();
   }
 
   reciverFeedback(respostaFilho) {
     console.log('Foi emitido o evento e chegou no pai >>>> ', respostaFilho);
   }
 
+  showUser() {
+    if (!this.authService.check()) {
+      this.toggleDisplay();
+      console.log(this.authService.check());
+      this.popoverPerfil.hide();
+    }
+  }
 }

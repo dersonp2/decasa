@@ -44,4 +44,9 @@ export class DialogLoginComponent implements OnInit {
       }
     );
   }
+
+  criarConta() {
+    this.dialogRef.close();
+    this.router.navigate(['/criar-conta/cliente']);
+  }
 }

@@ -18,14 +18,29 @@
         <div class="d-flex justify-content-center">
             <ul class="navbar-nav mt-4">
                 <li class="nav-item">
-                    <popover-content #popoverLocation title="Localização" [animation]="true" [closeOnClickOutside]="false" [closeOnMouseOutside]="false" placement="bottom">
+
+                  <popover-content #popoverPerfil [animation]="true" [closeOnClickOutside]="false"
+                                   [closeOnMouseOutside]="false" placement="bottom">
+                    <a class="cursor d-block " [routerLink]="['/dados-pessoais']">Meu Perfil</a>
+                    <a class="float-right cursor" (click)="authService.logout()">Sair</a>
+                  </popover-content>
+
+                  <a class="redes-sociais cursor" (click)="showUser()" [popoverOnHover]="false"
+                     [popover]="popoverPerfil" popoverPlacement="bottom-right">
+                   <span *ngIf="authService.check()" >
+                      BEM-VINDO {{authService.getUser().nome}}
+                    </span>
+                    <i class="fa fa-user ml-1"></i>
+                  </a>
+
+                  <popover-content #popoverLocation title="Localização" [animation]="true" [closeOnClickOutside]="false" [closeOnMouseOutside]="false" placement="bottom">
 
                         <p>Informe a sua cidade para carregarmos os serviços disponíveis.</p>
                         <a (click)="openModal()" class="cursor" title="Informar Localização">Informar</a>
                         <a class="float-right cursor" (click)="hidePopover()" title="Fechar">Fechar</a>
                     </popover-content>
 
-                    <button [popoverOnHover]="false" [popover]="popoverLocation" class="btn-icon mr-3"><i class="fas fa-map-marker-alt"></i><br />
+                    <button [popoverOnHover]="false" popoverPlacement="bottom-right" [popover]="popoverLocation" class="btn-icon mr-3"><i class="fas fa-map-marker-alt"></i><br />
                       <span *ngIf="municipio">{{municipio.nome}}</span>
                   </button>
                     <!-- <button class="btn-icon mr-3" id="popoverLocation" data-html="true" data-toggle="popover" data-trigger="focus" template="<div class='popover my-specific-popover'" title="Localização" data-placement="bottom" data-content="Informe a sua cidade para carregarmos os serviços disponíveis.
@@ -34,9 +49,8 @@
         <a class='btn' onclick='fecharPopover()'>Fechar</a>"><i class="fas fa-map-marker-alt">
           </i><br />?
         </button> -->
-                    <button class="btn-icon mr-3" (click)="showPopover()"><i class="far fa-heart"></i> </button>
+<!--                    <button class="btn-icon mr-3" (click)="showPopover()"><i class="far fa-heart"></i> </button>-->
                     <button class="btn-icon mr-3"><i class="fa fa-shopping-cart"></i> </button>
-                    <a class="redes-sociais" style="cursor:pointer" (click)="toggleDisplay()"><i class="fa fa-user"></i></a>
                 </li>
             </ul>
         </div>

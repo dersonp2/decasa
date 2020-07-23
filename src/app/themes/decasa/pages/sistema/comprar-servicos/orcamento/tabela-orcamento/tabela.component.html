@@ -17,7 +17,7 @@
 
             <!-- <img src="/assets/icones/advogado.jpeg" class="card-img-top" /> -->
             <div class="card-body">
-              <a>
+              <a (click)="openDialogInfo(item.servico.composicao)" title="Clique para obter informações">
                 <i class="fas fa-info-circle float-right cursor"></i>
               </a>
                 <h3 class="card-title">{{item.servico.descricao}}</h3>

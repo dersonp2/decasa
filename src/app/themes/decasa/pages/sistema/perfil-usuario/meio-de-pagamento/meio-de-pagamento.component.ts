@@ -3,10 +3,8 @@ import {DialogCreditoComponent} from '../../../../blocos/dialog/dialog-credito/d
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComprovanteComponent} from '../../../../blocos/dialog/dialog-comprovante/dialog-comprovante.component';
-import {CartaoClienteService} from '../../../../../../services/cartao-cliente.service';
 import {AuthService} from '../../../../../../services/auth.service';
-import {CartaoCliente} from '../../../../../../model/cartao-cliente.module';
-import {DialogExcluirComponent} from '../../../../blocos/dialog/dialog-excluir/dialog-excluir.component';
+import {DialogLoginComponent} from '../../../../blocos/dialog/dialog-login/dialog-login.component';
 
 @Component({
   selector: 'app-meio-de-pagamento',
@@ -15,10 +13,20 @@ import {DialogExcluirComponent} from '../../../../blocos/dialog/dialog-excluir/d
 })
 export class MeioDePagamentoComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private  authService: AuthService) {
   }
 
   ngOnInit(): void {
+    if (!this.authService.check()) {
+      this.openModal();
+    }
+  }
+
+  // Abre a dialog de login
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
   }
 
   openDialogCartao() {

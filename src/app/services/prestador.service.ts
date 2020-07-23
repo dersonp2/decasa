@@ -1,6 +1,6 @@
 import {environment} from '../../environments/environment';
 
-import {Observable, timer, Subscription, Subject} from 'rxjs';
+import {Observable, Subject, timer} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {retry, switchMap, take, takeUntil, tap} from 'rxjs/operators';
@@ -31,5 +31,10 @@ export class PrestadorService {
 
   stop() {
     this.stopPolling.next();
+  }
+
+  // Recebe o cliente para mostrar na tela /dados-pessoais
+  getPrestadorDetalhes(prestadorId: number): Observable<PrestadorDetalhesResponse> {
+    return this.http.get<PrestadorDetalhesResponse>(`${this.apiUrl}/prestador/${prestadorId}`).pipe(take(1));
   }
 }

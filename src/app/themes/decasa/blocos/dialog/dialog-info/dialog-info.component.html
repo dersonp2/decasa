@@ -1,1 +1,8 @@
-<p>dialog-info works!</p>
+<mat-toolbar>
+  <span>Informações</span>
+  <span class="spacer"></span>
+  <a (click)="close()" class="cursor"><i class="fas fa-times"></i></a>
+</mat-toolbar>
+<div class="mt-2">
+<p>{{data}}</p>
+</div>

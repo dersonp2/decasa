@@ -9,12 +9,13 @@
                 <div class="justify-content-center d-flex mt-2 mt-md-5">
                     <img class="img-logo rounded-circle" src="assets/sistema/nav-horizontal/user.png" alt="Imagem Perfil">
                 </div>
-                <a style="cursor:pointer" class="center mt-md-3 mt-1" *ngIf="!authService.check()" (click)="toggleDisplay()">
+                <a class="center mt-md-3 mt-1 cursor" *ngIf="!authService.check()" (click)="toggleDisplay()">
                     Fazer login
                 </a>
                 <p *ngIf="authService.check()" class=" d-block text-center center mt-md-2 mt-1">
                     {{authService.getUser().nome}}
-                    <a class="d-block" (click)="authService.logout()" style="cursor:pointer">sair</a>
+                  <a *ngIf="displayNavBar == 1" class="cursor d-block color-gray" [routerLink]="['/dados-pessoais']">Meu Perfil</a>
+                  <a (click)="authService.logout()" class="d-block color-gray" style="cursor:pointer">sair</a>
                 </p>
             </a>
         </div>

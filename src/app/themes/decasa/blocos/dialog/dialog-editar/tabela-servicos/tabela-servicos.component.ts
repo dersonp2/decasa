@@ -14,7 +14,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {Pagamento} from '../../../../../../model/pagamento.module';
 import {FormaPagamento} from '../../../../../../model/forma-pagamento.module';
 import {Financeira} from '../../../../../../model/financeira.module';
-import {ClienteOrcamento} from '../../../../../../model/response/cliente-orcamento.module';
 import {OrcamentoService} from '../../../../../../services/orcamento.service';
 
 export class AditamentoAuxiliar {

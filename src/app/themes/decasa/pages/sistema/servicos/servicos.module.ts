@@ -21,6 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxStarsModule } from 'ngx-stars';
+import { DetalhesPrestadorComponent } from './selecionar-fornecedor/detalhes-prestador/detalhes-prestador.component';
+import { ComentariosComponent } from './selecionar-fornecedor/detalhes-prestador/comentarios/comentarios.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { NgxStarsModule } from 'ngx-stars';
     FinalizadosComponent,
     AvaliacaoComponent,
     EscreverComentarioComponent,
-    SelecionarFornecedorComponent
+    SelecionarFornecedorComponent,
+    DetalhesPrestadorComponent,
+    ComentariosComponent
   ],
   imports: [
     CommonModule,
