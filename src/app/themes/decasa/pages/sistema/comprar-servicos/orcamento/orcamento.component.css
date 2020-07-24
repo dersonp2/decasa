@@ -30,12 +30,25 @@ h3 {
     margin-left: auto !important;
     font-family: 'Karla', sans-serif !important;
 }
+/* Data*/
+:host {
+  display: block;
+  background: black;
+}
+
+input .matInput{
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-label {
+  /*change color of label*/
+  color: #404A51 !important;
+  font-size: 16px !important;
+}
 
 
-/* Fonte da Hora */
-
-.ngx-timepicker-control .ngx-timepicker-control__input {
-    font-size: 16px !important;
+mat-datepicker-toggle {
+  color: #0A68AE !important;
 }
 
 

@@ -21,7 +21,7 @@
     <div class="col-2">
 <!--      <button mat-raised-button style="text-align:left" color="autorizar" class="font-btn-nav width-btn-pay" (click)="openDialogAvaliacao()">Autorizar Pagamento</button>-->
       <div *ngIf="displayBtn != 4">
-            <button mat-raised-button class="font-btn-nav width-btn"> Material</button>
+<!--            <button mat-raised-button class="font-btn-nav width-btn"> Material</button>-->
             <button mat-raised-button class="font-btn-nav mt-3 width-btn" (click)="openDialogEditar()"> Editar</button>
             <button mat-raised-button class="font-btn-nav mt-3 width-btn" *ngIf="displayBtn != 3" (click)="openDialogReagendar()">Reagendar</button>
             <button mat-raised-button class="font-btn-nav mt-3 width-btn" *ngIf="displayBtn != 3" (click)="openDialogCancelar()">Cancelar</button>
@@ -57,23 +57,23 @@
           </button>
                 </li>
 
-                <li class="list-inline-item">
-                    <button class="btn-icon mr-3" title="Adicione Membros" (click)="openDialogMembros()">
-            Membros <br /> <i class="fas fa-user-plus"></i>
-          </button>
-                </li>
+<!--                <li class="list-inline-item">-->
+<!--                    <button class="btn-icon mr-3" title="Adicione Membros" (click)="openDialogMembros()">-->
+<!--            Membros <br /> <i class="fas fa-user-plus"></i>-->
+<!--          </button>-->
+<!--                </li>-->
 
-                <li class="list-inline-item" *ngIf="displayBtn != 1">
-                    <button class="btn-icon mr-3" title="Envie um email" (click)="setDisplayEmail()" [ngx-scroll-to]="'#email'">
-            Emails <br /> <i class="fas fa-envelope"></i>
-          </button>
-                </li>
+<!--                <li class="list-inline-item" *ngIf="displayBtn != 1">-->
+<!--                    <button class="btn-icon mr-3" title="Envie um email" (click)="setDisplayEmail()" [ngx-scroll-to]="'#email'">-->
+<!--            Emails <br /> <i class="fas fa-envelope"></i>-->
+<!--          </button>-->
+<!--                </li>-->
 
-                <li class="list-inline-item" *ngIf="displayBtn != 1">
-                    <button class="btn-icon" title="Abra o chat">
-            Chat <br /> <i class="fas fa-comments"></i>
-          </button>
-                </li>
+<!--                <li class="list-inline-item" *ngIf="displayBtn != 1">-->
+<!--                    <button class="btn-icon" title="Abra o chat">-->
+<!--            Chat <br /> <i class="fas fa-comments"></i>-->
+<!--          </button>-->
+<!--                </li>-->
 
             </ul>
         </div>
