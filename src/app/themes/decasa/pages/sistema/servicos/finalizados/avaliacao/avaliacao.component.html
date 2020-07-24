@@ -1,7 +1,7 @@
 <hr/>
 <div class="row" *ngFor="let r of ratingsProvider">
   <div class="col-12">
-    <p>{{r.nome}}</p>
+    <p><b>{{r.nome}}</b></p>
     <div *ngFor="let recipient of r.ratings.tipoNota | keyvalue">
       <p> {{recipient.key}}
         {{recipient.value}}

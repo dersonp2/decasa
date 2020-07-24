@@ -100,14 +100,6 @@ export class OrcamentoService {
       .pipe(take(1));
   }
 
-  // Reagendar o orcamento
-  // reschedule(reagendamento: ReagendamentoAuxiliar): Observable<any> {
-  //   console.log(reagendamento);
-  //   return this.http.post<any>
-  //   (`${this.apiUrl}/reagendamento`, reagendamento)
-  //     .pipe(take(1));
-  // }
-
   // Reagenda um um orcamento e retorna um orcamento response
   reschedule(reagendamentoAux: ReagendamentoAuxiliar): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/reagendamento`, reagendamentoAux).pipe(take(1));
@@ -123,5 +115,13 @@ export class OrcamentoService {
     return this.http.get<ServicoEndereco[]>
     (`${this.apiUrl}/orcamentos/cliente/${clientId}/endereco/${addressId}`)
       .pipe(take(1));
+  }
+
+  // Gera a proposta do orçamento
+  generateProposal(budgetId): Observable<ResponseMessage> {
+    // return this.http.get<ResponseMessage>
+    // (`${this.apiUrl}/geraMulta/${budgetId}`)
+    //   .pipe(take(1));
+    return null;
   }
 }

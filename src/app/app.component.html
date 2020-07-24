@@ -2,154 +2,155 @@
 
 <!-- MENU -->
 <div class="container-fluid" [hidden]="displayTemplate">
-    <div class="row">
-        <!-- Login-->
-        <div class="col-12  col-md-2 background-primary float-left">
-            <a id="login">
-                <div class="justify-content-center d-flex mt-2 mt-md-5">
-                    <img class="img-logo rounded-circle" src="assets/sistema/nav-horizontal/user.png" alt="Imagem Perfil">
-                </div>
-                <a class="center mt-md-3 mt-1 cursor" *ngIf="!authService.check()" (click)="toggleDisplay()">
-                    Fazer login
-                </a>
-                <p *ngIf="authService.check()" class=" d-block text-center center mt-md-2 mt-1">
-                    {{authService.getUser().nome}}
-                  <a *ngIf="displayNavBar == 1" class="cursor d-block color-gray" [routerLink]="['/dados-pessoais']">Meu Perfil</a>
-                  <a (click)="authService.logout()" class="d-block color-gray" style="cursor:pointer">sair</a>
-                </p>
-            </a>
+  <div class="row">
+    <!-- Login-->
+    <div class="col-12  col-md-2 background-primary float-left">
+      <a id="login">
+        <div class="justify-content-center d-flex mt-2 mt-md-5">
+          <img class="img-logo rounded-circle" src="assets/sistema/nav-horizontal/user.png" alt="Imagem Perfil">
         </div>
-        <div class="col-12 col-md-10 float-left">
-            <!-- Logo -->
-            <div class="row">
-                <div class="col-12">
-                    <p class="float-left mt-3 mb-5">
-                        <a [routerLink]="['/home']">
-                            <img src="assets/site/logo.png" alt="Logo">
-                        </a>
-                    </p>
-                    <!-- Links direitos -->
-                    <div class="d-flex justify-content-end mr-md-4 mr-0">
-                        <ul class="navbar-nav login mb-4">
-                            <li class="nav-item ">
-                                <button class="btn-icon mr-3" data-html="true" data-toggle="popover" data-trigger="focus" template="<div class='popover my-specific-popover'" title="Localização" data-placement="bottom" data-content="Informe a sua cidade para carregarmos os serviços disponíveis.
-                <br/>
-                <a class='btn'>Informar</a>
-                <a class= 'btn'>Fechar</a>"><i class="fas fa-map-marker-alt">
-                  </i><br /> SLZ
+        <a class="center mt-md-3 mt-1 cursor" *ngIf="!authService.check()" (click)="toggleDisplay()">
+          Fazer login
+        </a>
+        <p *ngIf="authService.check()" class=" d-block text-center center mt-md-2 mt-1">
+          {{authService.getUser().nome}}
+          <a *ngIf="displayNavBar == 1" class="cursor d-block color-gray" [routerLink]="['/dados-pessoais']">Meu
+            Perfil</a>
+          <a (click)="authService.logout()" class="d-block color-gray" style="cursor:pointer">sair</a>
+        </p>
+      </a>
+    </div>
+    <div class="col-12 col-md-10 float-left">
+      <!-- Logo -->
+      <div class="row">
+        <div class="col-12">
+          <p class="float-left mt-3 mb-5">
+            <a [routerLink]="['/home']">
+              <img src="assets/site/logo.png" alt="Logo">
+            </a>
+          </p>
+          <!-- Links direitos -->
+          <div class="d-flex justify-content-end mr-md-4 mr-0">
+            <ul class="navbar-nav login mb-4">
+              <li class="nav-item ">
+                <button class="btn-icon mr-3"><i class="fas fa-map-marker-alt"></i><br/>
+                  <span *ngIf="municipio">{{municipio.nome}}</span>
                 </button>
-                                <button class="btn-icon mr-3"><i class="far fa-heart"></i> </button>
-                                <button class="btn-icon" (click)="abrirMenu()" [matBadge]="badgeContent" [matBadgeHidden]="badgeContent==0" matBadgeColor="warn"><i class="fa fa-shopping-cart"></i> </button>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Links direitos-->
-                </div>
-            </div>
-            <!-- Row Logo-->
-            <div class="row lista">
-                <div class=" col-md-10 col-12">
+                <button class="btn-icon mr-3"><i class="far fa-heart"></i></button>
+                <button class="btn-icon" (click)="abrirMenu()" [matBadge]="badgeContent"
+                        [matBadgeHidden]="badgeContent==0" matBadgeColor="warn"><i class="fa fa-shopping-cart"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <!-- Links direitos-->
+        </div>
+      </div>
+      <!-- Row Logo-->
+      <div class="row lista">
+        <div class=" col-md-10 col-12">
 
-                    <!-- Step -->
-                    <div [hidden]=" displayNavBar != 1">
-                        <mat-horizontal-stepper #stepper>
-                            <mat-step [routerLink]="['/orcamento']">
-                                <ng-template matStepLabel>
-                                    <a class="style-link" [routerLink]="['/orcamento']"> <span class="d-none d-sm-block">Selecione
+          <!-- Step -->
+          <div [hidden]=" displayNavBar != 1">
+            <mat-horizontal-stepper #stepper>
+              <mat-step [routerLink]="['/orcamento']">
+                <ng-template matStepLabel>
+                  <a class="style-link" [routerLink]="['/orcamento']"> <span class="d-none d-sm-block">Selecione
                       Serviços</span></a>
-                                </ng-template>
-                            </mat-step>
-                            <mat-step>
-                                <ng-template matStepLabel>
-                                    <a class="style-link" [routerLink]="['/quantidade']">
-                                        <span class="d-none d-sm-block">Inserir Quantidades</span>
-                                    </a>
-                                </ng-template>
-                            </mat-step>
-                            <mat-step>
-                                <ng-template matStepLabel>
-                                    <a class="style-link" [routerLink]="['/proposta']">
-                                        <span class="d-none d-sm-block">Proposta de Preço</span>
-                                    </a>
-                                </ng-template>
-                            </mat-step>
-                            <mat-step>
-                                <ng-template matStepLabel>
-                                    <a class="style-link" [routerLink]="['/pagamento']">
-                                        <span class="d-none d-sm-block">Pagamento</span>
-                                    </a>
-                                </ng-template>
-                            </mat-step>
-                        </mat-horizontal-stepper>
-                    </div>
-                </div>
-                <!-- fim da coluna step-->
-                <div class="col-12 col-md-2">
-                    <div class="justify-content-md-end text-center text-md-right d-block mt-md-3 mt-2 mb-2 mr-md-4 mr-0">
-                        <!-- (click)="goTo(stepper)" -->
-                        <div *ngIf="displayNavBar == 1">
-                            <button mat-raised-button class="font-btn-nav" (click)="goTo(stepper)" [hidden]="!btnContratar"> Avançar
+                </ng-template>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>
+                  <a class="style-link" [routerLink]="['/quantidade']">
+                    <span class="d-none d-sm-block">Inserir Quantidades</span>
+                  </a>
+                </ng-template>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>
+                  <a class="style-link" [routerLink]="['/proposta']">
+                    <span class="d-none d-sm-block">Proposta de Preço</span>
+                  </a>
+                </ng-template>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>
+                  <a class="style-link" [routerLink]="['/pagamento']">
+                    <span class="d-none d-sm-block">Pagamento</span>
+                  </a>
+                </ng-template>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </div>
+        </div>
+        <!-- fim da coluna step-->
+        <div class="col-12 col-md-2">
+          <div class="justify-content-md-end text-center text-md-right d-block mt-md-3 mt-2 mb-2 mr-md-4 mr-0">
+            <!-- (click)="goTo(stepper)" -->
+            <div *ngIf="displayNavBar == 1">
+              <button mat-raised-button class="font-btn-nav" (click)="goTo(stepper)" [hidden]="!btnContratar"> Avançar
                 <i class="fas fa-angle-double-right"></i></button>
-                            <button mat-raised-button class="font-btn-nav" [hidden]="btnContratar" [routerLink]="['/escolher']">Pagar
+              <button mat-raised-button class="font-btn-nav" [hidden]="btnContratar" [routerLink]="['/escolher']">Pagar
                 <i class="far fa-credit-card"></i></button>
-                        </div>
-                    </div>
-                </div>
+            </div>
+          </div>
+        </div>
 
-                <!-- Carrinho de compras  -->
-                <app-nav-carrinho [exibirMenu]="exibirMenu"></app-nav-carrinho>
+        <!-- Carrinho de compras  -->
+        <app-nav-carrinho [exibirMenu]="exibirMenu"></app-nav-carrinho>
 
-                <!-- Coluna da navBar -->
-                <div class="col-12">
-                    <!-- Navbar -->
-                    <ul class="nav justify-content-center nav-fill" *ngIf="displayNavBar == 2">
-                        <li class="nav-item">
-                            <a class="nav-link font-nav-size" [routerLink]="['/escolher']" routerLinkActive="active"> Escolher<br />
+        <!-- Coluna da navBar -->
+        <div class="col-12">
+          <!-- Navbar -->
+          <ul class="nav justify-content-center nav-fill" *ngIf="displayNavBar == 2">
+            <li class="nav-item">
+              <a class="nav-link font-nav-size" [routerLink]="['/escolher']" routerLinkActive="active"> Escolher<br/>
                 <small>{{total.totalEscolher}} Serviços</small>
               </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link font-nav-size" [routerLink]="['/agendados']" routerLinkActive="active">
-                Agendado<br />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-nav-size" [routerLink]="['/agendados']" routerLinkActive="active">
+                Agendado<br/>
                 <small> {{total.totalAgendado}} Serviços</small>
               </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link font-nav-size" href="#" [routerLink]="['/andamento']" routerLinkActive="active">
-                Em Andamento<br />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-nav-size" href="#" [routerLink]="['/andamento']" routerLinkActive="active">
+                Em Andamento<br/>
                 <small> {{total.totalExecucao}} Serviços</small>
               </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link font-nav-size" href="#" [routerLink]="['/finalizados']" routerLinkActive="active">
-                Finalizados<br />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-nav-size" href="#" [routerLink]="['/finalizados']" routerLinkActive="active">
+                Finalizados<br/>
                 <small> {{total.totalFinalizado}} Serviço</small>
               </a>
-                        </li>
-                    </ul>
+            </li>
+          </ul>
 
 
-                    <!-- Texto -->
-                    <div *ngIf="displayNavBar == 0">
-                        <h3 class="text-center">O nosso sistema é criptografado e seus dados estão em segurança. Não compartilhamos suas informações com nenhuma outra empresa sem sua autorização.</h3>
-                    </div>
+          <!-- Texto -->
+          <div *ngIf="displayNavBar == 0">
+            <h3 class="text-center">O nosso sistema é criptografado e seus dados estão em segurança. Não compartilhamos
+              suas informações com nenhuma outra empresa sem sua autorização.</h3>
+          </div>
 
 
-                </div>
-                <!-- Coluna da nav-->
-
-            </div>
-            <!-- Row lista -->
         </div>
+        <!-- Coluna da nav-->
+
+      </div>
+      <!-- Row lista -->
     </div>
-    <!--Row Orçamento-->
-    <div *ngIf="!authService.check()">
-        <div class="row" *ngIf="isDisplay">
-            <div class="ml-0 col-12  col-md-4">
-                <app-login></app-login>
-            </div>
-        </div>
+  </div>
+  <!--Row Orçamento-->
+  <div *ngIf="!authService.check()">
+    <div class="row" *ngIf="isDisplay">
+      <div class="ml-0 col-12  col-md-4">
+        <app-login></app-login>
+      </div>
     </div>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

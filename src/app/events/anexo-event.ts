@@ -13,6 +13,7 @@ export class AnexoEvent {
 
   constructor() { }
 
+  // tslint:disable-next-line:variable-name
   alteracao(number) {
     this._alteracao.next(number);
   }

@@ -1,13 +1,5 @@
-import {Md5} from 'ts-md5/dist/md5';
-import {MapService} from './../../../../services/maps.service';
-import {ClasseEvent} from '../../../../events/classe-event';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {DragScrollComponent} from 'ngx-drag-scroll';
-import {GrupoService} from '../../../../services/grupo.service';
-import {Router} from '@angular/router';
-import {TodosOsGruposEClassesResponse} from '../../../../model/response/todos-os-grupos-classes-response.module';
+import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -17,4 +9,27 @@ import {TodosOsGruposEClassesResponse} from '../../../../model/response/todos-os
 })
 export class PageTestComponent {
 
+  public nome;
+  public avaliacao;
+
+
+  constructor(private http: HttpClient) {
+
+  }
+
+  submit() {
+    this.http.post('http://localhost:3000/submit', {
+      nome: this.nome,
+      avaliacao: this.avaliacao,
+    }).subscribe(
+      (data) => {
+        console.log(data);
+        this.nome = '';
+        this.avaliacao = '';
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

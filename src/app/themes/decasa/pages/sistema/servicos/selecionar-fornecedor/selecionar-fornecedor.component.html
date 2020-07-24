@@ -7,7 +7,7 @@
         </div>
 
         <!-- Perfil dos profissionais - Lista dos profissionais-->
-        <div class="col-3 perfil scroll-auto">
+        <div [hidden]="!showList" class="col-3 perfil scroll-auto">
             <div>
                 <app-perfil></app-perfil>
                 <!-- TODO: Descobrir como não utilizar esse brs -->
@@ -22,6 +22,7 @@
 
         <!--Divisão 3 -->
         <div class="col-7 scroll-auto">
+          <div class="ml-3">
             <!--Dados do serviço-->
             <app-dados-servico [displayBtn]="'1'" #dadosServicos [orcamentoSelected]="orcamentoSelected"></app-dados-servico>
             <hr />
@@ -40,6 +41,7 @@
             <br />
             <br />
             <br />
+          </div>
         </div>
     </div>
 </div>

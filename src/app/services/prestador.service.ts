@@ -18,19 +18,8 @@ export class PrestadorService {
   constructor(private http: HttpClient) {
   }
 
-  // Recebe a lista de prestadores que  atendem ao orcamento
-  getBudgetProviders(orcamentoId: number): Observable<PrestadorDetalhesResponse[]> {
-    return timer(1, 3000).pipe(
-      switchMap(() => this.http.get<PrestadorDetalhesResponse[]>(`${this.apiUrl}/prestadores/orcamento/${orcamentoId}`)),
-      retry(),
-      takeUntil(this.stopPolling)
-    ).pipe(
-      tap(() => console.log('data sent to subscriber'))
-    );
-  }
-
-  stop() {
-    this.stopPolling.next();
+  getPrestadoresByOrcamento(orcamentoId): Observable<PrestadorDetalhesResponse[]> {
+    return this.http.get<PrestadorDetalhesResponse[]>(`${this.apiUrl}/prestadores/orcamento/${orcamentoId}`).pipe(take(1));
   }
 
   // Recebe o cliente para mostrar na tela /dados-pessoais

@@ -5,7 +5,7 @@
     <mat-icon matSuffix></mat-icon>
 </mat-form-field> -->
 
-<div class="row mb-5 mt-5" *ngIf="(dt).length > 0; else noResults">
+<div class="row mb-5 mt-2" *ngIf="(dt).length > 0; else noResults">
     <div class="col-12">
         <h2>Serviços de {{classeDescricacao}}
         </h2>
@@ -18,7 +18,7 @@
             <!-- <img src="/assets/icones/advogado.jpeg" class="card-img-top" /> -->
             <div class="card-body">
               <a (click)="openDialogInfo(item.servico.composicao)" title="Clique para obter informações">
-                <i class="fas fa-info-circle float-right cursor"></i>
+                <i class="icon-info fas fa-info-circle "></i>
               </a>
                 <h3 class="card-title">{{item.servico.descricao}}</h3>
                 <a class="btn btn-carrinho" (click)="adicionarServico(item)">Adicionar no carrinho</a>

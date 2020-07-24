@@ -38,7 +38,11 @@
   <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
 </p>
 
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-3"  [hidden]="loading">
+<div *ngIf="!dataSource.data.length" class="mt-3">
+  <i class="far fa-file-excel mr-2"></i>Nenhum arquivo anexado.
+</div>
+
+<table mat-table  *ngIf="dataSource.data.length  || loading" [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-3">
   <!-- ID Column -->
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Arquivo</th>
