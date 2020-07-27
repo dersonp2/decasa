@@ -39,6 +39,9 @@
   cursor: pointer;
 }
 
+.sub-wrapper a{
+  color: white !important;
+}
 .pad a {
   padding: 18px 17px 22px 17px;
 }
@@ -53,28 +56,29 @@
 
 .pad > a:hover,
 .using > li:hover > a {
-  background-color: #f9f9fa;
+  background-color: #0A68AE;
 }
 
 .lista-material ul li a:hover span,
 .lista-material .using > li:hover > a > span {
-  border-bottom: 2px solid #0A68AE;
+  border-bottom: 2px solid #63E1FD;
   transition: 0.1s;
-  color: black !important;
+  color: white !important;
 }
 
 .sub-wrapper {
   width: 100%;
   height: auto;
-  background-color: #f9f9fa;
+  background-color: #0A68AE;
   position: absolute;
   left: 0;
-  border-bottom: 5px solid #0A68AE;
+  border-bottom: 5px solid #63E1FD;
 }
 
 .sub-wrapper a:hover {
-  color: black !important;
-  transition: 0.3s;
+  color: white !important;
+  font-weight: bold;
+  transition: 0.5s;
 }
 
 #holder ul li > ul {
