@@ -22,3 +22,9 @@
     color: #0A68AE;
     font-weight: bold;
 }
+::ng-deep .mat-form-field-flex{
+  background: #e8fbff !important;
+}
+.mat-elevation-z8 {
+  background: #f1fdff;
+}

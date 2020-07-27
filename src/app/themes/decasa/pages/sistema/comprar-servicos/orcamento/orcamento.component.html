@@ -19,7 +19,7 @@
 <!--          </mat-form-field>-->
           <mat-form-field class="bg-white" appearance="fill">
             <mat-label>Escolha a data</mat-label>
-            <input matInput [matDatepicker]="picker" disabled [min]="minDate">
+            <input matInput [matDatepicker]="picker" disabled [min]="minDate" (dateInput)="addEvent('input', $event)">
             <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
           </mat-form-field>
