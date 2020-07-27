@@ -6,8 +6,8 @@ import {Usuario} from '../../../../../../../model/usuario.module';
 import {AuthService} from '../../../../../../../services/auth.service';
 import {ClienteService} from '../../../../../../../services/cliente.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {DialogLoginComponent} from "../../../../../blocos/dialog/dialog-login/dialog-login.component";
-import {MatDialog} from "@angular/material/dialog";
+import {DialogLoginComponent} from '../../../../../blocos/dialog/dialog-login/dialog-login.component';
+import {MatDialog} from '@angular/material/dialog';
 
 // Validação da senha
 export class MyErrorStateMatcher implements ErrorStateMatcher {

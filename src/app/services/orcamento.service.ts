@@ -118,10 +118,9 @@ export class OrcamentoService {
   }
 
   // Gera a proposta do orçamento
-  generateProposal(budgetId): Observable<ResponseMessage> {
-    // return this.http.get<ResponseMessage>
-    // (`${this.apiUrl}/geraMulta/${budgetId}`)
-    //   .pipe(take(1));
-    return null;
+  generateProposal(budgetId): Observable<Blob> {
+    return this.http.get<Blob>
+    (`${this.apiUrl}/relatorio/proposta/${budgetId}`, { observe: 'body', responseType: 'blob' as 'json' })
+      .pipe(take(1));
   }
 }

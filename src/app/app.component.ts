@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // 1 - Steps Contratar serviços || 2 - Serviços agendados || 0 - Dados pessoais
   displayNavBar = 1;
   badgeContent: number;
-  total: TotalOrcamento;
+  total: TotalOrcamento = new TotalOrcamento();
   municipio: Municipio;
 
 
@@ -131,13 +131,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getTotalBudget() {
-    this.orcamentoService.getTotalBudget(this.authService.getUser().id).subscribe(
-      (data) => {
-        this.total = data;
-        console.log(this.total);
-      },
-      (error) => {console.log(error); }
-    );
+    if (this.authService.check()) {
+      this.orcamentoService.getTotalBudget(this.authService.getUser().id).subscribe(
+        (data) => {
+          this.total = data;
+          console.log(this.total);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   toggleDisplay() {

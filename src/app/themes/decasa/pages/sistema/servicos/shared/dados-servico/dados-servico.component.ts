@@ -33,7 +33,12 @@ export class DadosServicoComponent implements OnInit {
 
   downloadProposal() {
     this.orcamentoService.generateProposal(this.orcamentoSelected.id).subscribe(
-      (data) => { console.log('Proposta gerada com sucesso'); },
+      (data) => {
+        console.log('Proposta gerada com sucesso');
+        const file = new Blob([data], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      },
       (error) => {console.log(error); }
     );
   }

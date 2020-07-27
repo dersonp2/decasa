@@ -20,9 +20,7 @@ export class AgendadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.authService.check()) {
-      this.openModal();
-    }
+
   }
 
   // Abre a dialog de login
