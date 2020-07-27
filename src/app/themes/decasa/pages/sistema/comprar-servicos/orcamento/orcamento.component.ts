@@ -21,8 +21,6 @@ export class OrcamentoComponent implements OnInit {
   date: any = null;
   time: any = null;
 
-  public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
-
   constructor(private router: Router, private grupoService: GrupoService) {
     this.municipioId = Number(localStorage.getItem('municipioId'));
     this.classeId = Number(localStorage.getItem('classeId'));
