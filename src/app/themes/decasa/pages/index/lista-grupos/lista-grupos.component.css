@@ -61,7 +61,7 @@
 
 .lista-material ul li a:hover span,
 .lista-material .using > li:hover > a > span {
-  border-bottom: 2px solid #63E1FD;
+  border-bottom: 2px solid #FCB23A;
   transition: 0.1s;
   color: white !important;
 }
@@ -72,7 +72,7 @@
   background-color: #0A68AE;
   position: absolute;
   left: 0;
-  border-bottom: 5px solid #63E1FD;
+  border-bottom: 5px solid #FCB23A;
 }
 
 .sub-wrapper a:hover {
