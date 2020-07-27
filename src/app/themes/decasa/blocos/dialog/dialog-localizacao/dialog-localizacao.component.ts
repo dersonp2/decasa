@@ -15,7 +15,6 @@ import { take } from 'rxjs/operators';
 })
 export class DialogLocalizacaoComponent implements OnInit {
 
-  idMunicipio: number;
   municipio: Municipio;
   estados: Uf[];
 

@@ -1,5 +1,4 @@
 import { environment } from '../../environments/environment';
-import { TodosOsGruposEClassesResponse } from '../model/response/todos-os-grupos-classes-response.module';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,6 +15,11 @@ export class ServicoService {
 
   // Lista todos os serviços ativos por classe e municipio
   getServicoByClasseAndMunicipio(classeId: number, municipioId: number): Observable<Servico[]> {
-    return this.http.get<Servico[]>(`${this.apiUrl}/searchServices/${classeId}/${municipioId}`);
+    return this.http.get<Servico[]>(`${this.apiUrl}/searchServices/${classeId}/${municipioId}`).pipe(take(1));
+  }
+
+//  Lista todos os serviços disponível em um orçamento
+  getServicoByOrcamento(orcamentoId): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/buscarServicosPrestadoresComClasse/${orcamentoId}`).pipe(take(1));
   }
 }

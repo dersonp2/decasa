@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../../../../services/auth.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogLoginComponent} from '../../../blocos/dialog/dialog-login/dialog-login.component';
 
 export interface PeriodicElement {
   mes: string;
@@ -22,6 +25,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {mes: 'nov/2020', total: '', valorPago: '', valorPagar: '', status: ''},
   {mes: 'dez/2020', total: '', valorPago: '', valorPagar: '', status: ''},
 ];
+
 @Component({
   selector: 'app-boletos-notas',
   templateUrl: './boletos-notas.component.html',
@@ -32,9 +36,20 @@ export class BoletosNotasComponent implements OnInit {
   displayedColumns: string[] = ['mes', 'total', 'valorPago', 'valorPagar', 'status', 'nfe', 'extrato'];
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(private authService: AuthService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
+    if (!this.authService.check()) {
+      this.openModal();
+    }
+  }
+
+  // Abre a dialog de login
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
   }
 
 }

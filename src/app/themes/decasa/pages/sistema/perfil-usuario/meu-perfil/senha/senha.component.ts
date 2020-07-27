@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 import {Md5} from 'ts-md5';
 import {Usuario} from '../../../../../../../model/usuario.module';
 import {AuthService} from '../../../../../../../services/auth.service';
 import {ClienteService} from '../../../../../../../services/cliente.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DialogLoginComponent} from '../../../../../blocos/dialog/dialog-login/dialog-login.component';
+import {MatDialog} from '@angular/material/dialog';
+
 // Validação da senha
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,27 +25,41 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './senha.component.html',
   styleUrls: ['./senha.component.css']
 })
-export class SenhaComponent {
+export class SenhaComponent implements OnInit {
 
   myForm: FormGroup;
   user: Usuario;
   matcher = new MyErrorStateMatcher();
   loading = false;
+
   // tslint:disable-next-line:variable-name
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private _snackBar: MatSnackBar, private clienteService: ClienteService) {
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private authService: AuthService, private _snackBar: MatSnackBar, private clienteService: ClienteService) {
     this.myForm = this.formBuilder.group({
       oldPassword: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+    }, {validator: this.checkPasswords});
 
+  }
+
+  ngOnInit(): void {
+    if (!this.authService.check()) {
+      this.openModal();
+    }
+  }
+
+  // Abre a dialog de login
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
   }
 
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
 
-    return pass === confirmPass ? null : { notSame: true };
+    return pass === confirmPass ? null : {notSame: true};
   }
 
   alterPassword() {

@@ -1,53 +1,37 @@
-table {
-  width: 100%;
-}
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-.qntd-input{
-  width: 80px;
-  text-align: right;
+ul, #myUL {
+  list-style-type: none;
 }
 
-/* overwrite the checkbox background */
-::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
-  background-color:#0A68AE  !important;
+#myUL {
+  margin: 0;
+  padding: 0;
 }
 
-/* overwrite the ripple overlay on hover and click */
-::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
-  background-color: #0A68AE  !important;
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
 }
 
-/*  Tamanho da fonte da label */
-::ng-deep .mat-form-field-label{
-  font-size: 16px;
-}
-/*  Tamanho da fonte do input*/
-::ng-deep .mat-input-element{
-  font-size: 16px;
-}
-
-/* Configurar a tabela */
-::ng-deep .mat-cell {
-  font-size: 16px;
-}
-
-::ng-deep .mat-header-cell{
-  font-size: 16px;
+.caret::before {
+  content: "\25B6";
   color: black;
-  background-color:rgba(99, 225, 253, 0.1) !important;
+  display: inline-block;
+  margin-right: 6px;
 }
 
-.btn-adicionar{
-  color:white;
-  background-color: #0A68AE !important;
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */
+transform: rotate(90deg);
 }
-.btn-adicionar:hover{
-  color:white;
+
+.nested {
+  display: none;
 }
-.mat-header-cell a:hover{
-  background-color: #0D84DB !important;
-  border-color: #0D84DB;
-  }
+
+.active {
+  display: block;
+}

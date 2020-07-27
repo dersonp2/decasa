@@ -16,7 +16,7 @@ export class FinalizadosComponent implements OnInit {
 
   constructor(private orcamentoEvent: OrcamentoEvent, public authService: AuthService, public dialog: MatDialog) {
     orcamentoEvent.finalizado$.subscribe(
-      (data: ClienteOrcamento) => { (this.orcamentoSelected = data); }
+      (data: ClienteOrcamento) => { (this.orcamentoSelected = data);}
     );
   }
 

@@ -1,67 +1,39 @@
-<!--Filtro Buscar serviços-->
-<div class="row mt-5">
-  <div class="col-12">
-    Só será permitido a adição de novos serviços pertencentes a mesma classe de serviços já contratos.
-  </div>
-  <div class="col-8">
-    <mat-form-field  appearance="outline">
-      <mat-label><i class="fas fa-search"></i> Buscar serviço </mat-label>
-      <input type="text" matInput (keyup)="applyFilter($event)" placeholder="Ex. Manutenção hidráulica">
-      <mat-icon matSuffix></mat-icon>
-    </mat-form-field>
-  </div>
-  <div class="col-4 mt-3">
-    <a class="float-right btn btn-adicionar">
-      Adicionar
-      <i class="fa fa-shopping-cart fa-lg"></i>
-    </a>
+<div *ngIf="showMessageError == null">
+  <p class="text-center ">
+    <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
+  </p>
+
+</div>
+
+<div *ngIf="showMessageError == true">
+  <div class="mt-5">
+    <div class="alert alert-danger" role="alert">
+      Para realizar a adição de novos serviços, é preciso contratar um prestador.
+    </div>
   </div>
 </div>
-<!-- Tabela-->
-<table mat-table [dataSource]="dataSource" class="">
 
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
-
-
-  <!-- Descrição Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Descrição dos Serviços
-    </th>
-    <td mat-cell *matCellDef="let element"><span matTooltipPosition="right"
-        matTooltip="Informações sobre o serviço">{{element.name}} </span>
-    </td>
-  </ng-container>
-
-
-  <!-- qntd Column -->
-  <ng-container matColumnDef="qntd">
-    <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-    <td mat-cell *matCellDef="let element">
-      <div>
-        <input type="number" min="0" class="qntd-input form-control" value="1">
+<!--Filtro Buscar serviços-->
+<div *ngIf="showMessageError == false">
+  <div class="mt-5">
+    <div class="alert alert-warning" role="alert">
+      Só será permitido a adição de serviços que o prestador contrato possa realizar.
+      Selecione o serviço abaixo.
+    </div>
+  </div>
+  <ul id="myUL" *ngFor="let classeServico of classeServico">
+    <li><span class="caret" [class.caret-down]="showServices"
+              (click)="showServices = !showServices">{{classeServico.descricao}}</span>
+      <div *ngIf="showServices">
+        <ul *ngFor="let servico of classeServico.servico">
+          <li>
+            <button (click)="addService(servico)" class="mr-3 btn btn-outline-info mt-1 mb-2"
+                    title="Adicionar no orçamento"><i class="fas fa-cart-plus"></i>
+            </button>
+            {{servico.descricao}}
+          </li>
+        </ul>
       </div>
-    </td>
-  </ng-container>
-
-  <!-- Unidade Column -->
-  <ng-container matColumnDef="uni">
-    <th mat-header-cell *matHeaderCellDef> Unidade </th>
-    <td mat-cell *matCellDef="let element"> {{element.uni}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-  </tr>
-</table>
+    </li>
+  </ul>
+</div>

@@ -21,9 +21,10 @@ export class ListaEnderecosComponent implements OnInit {
     this.getAllAddress();
   }
 
-  openDialogServicos() {
+  openDialogServicos(enderecoId) {
     this.dialog.open(DialogServicosComponent, {
       width: '70%',
+      data: {client: this.authService.getUser().id, address: enderecoId}
     });
   }
 

@@ -1,41 +1,95 @@
-<table mat-table [dataSource]="dataSource" class=" mt-4">
+<table mat-table [dataSource]="dataSource" class="mt-4">
 
   <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Descrição de serviços selecionados </th>
-    <td mat-cell *matCellDef="let element"> <span  matTooltipPosition ="right" matTooltip="Informações sobre o serviço">{{element.name}} </span></td>
-    <td mat-footer-cell *matFooterCellDef> Total </td>
+  <ng-container matColumnDef="descricao">
+    <th mat-header-cell *matHeaderCellDef> Descrição de serviços selecionados</th>
+    <td mat-cell *matCellDef="let element"><span matTooltipPosition="right"
+                                                 matTooltip="Informações sobre o serviço">{{element.servico.descricao}} </span>
+    </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+
   </ng-container>
 
   <!-- qntd Column -->
   <ng-container matColumnDef="qntd">
-    <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+    <th mat-header-cell *matHeaderCellDef> Quantidade</th>
     <td mat-cell *matCellDef="let element">
       <div>
-        <input type="number" min="0" class="qntd-input form-control" value="1">
+        <input type="number" min="1" class="qntd-input form-control" [disabled]="element.id"
+               [ngModel]="element.quantidade" (input)="onSearchChange($event.target.value, element)">
       </div>
     </td>
-    <td mat-footer-cell *matFooterCellDef></td>
+    <td mat-footer-cell *matFooterCellDef>Valor a ser pago</td>
   </ng-container>
 
   <!-- Unidade Column -->
-  <ng-container matColumnDef="uni">
-    <th mat-header-cell *matHeaderCellDef> Unidade </th>
-    <td mat-cell *matCellDef="let element"> {{element.uni}} </td>
-    <td mat-footer-cell *matFooterCellDef [attr.colspan]="2"> <span class="btn btn-outline-secondary" style="cursor:default"> R$ 9999.99</span></td>
+  <ng-container matColumnDef="unidade">
+    <th mat-header-cell *matHeaderCellDef> Unidade</th>
+    <td mat-cell *matCellDef="let element"> {{element.unidadeMedida.sigla}} </td>
+    <td mat-footer-cell *matFooterCellDef [attr.colspan]="2">
+      <span class="btn btn-outline-secondary" style="cursor:default">{{total | currency:'BRL':true}}</span>
+    </td>
   </ng-container>
 
-    <!-- Opções Column -->
-    <ng-container matColumnDef="opc">
-      <th mat-header-cell *matHeaderCellDef>  </th>
-      <td mat-cell *matCellDef="let element">
-        <i class="fas fa-trash"></i>
-      </td>
-      <td mat-footer-cell *matFooterCellDef [hidden]="true">
-      </td>
-    </ng-container>
+  <!-- delete Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element"><a [hidden]="element.id" (click)="deleteFunction(element)"
+                                              title="Remover serviço"><i class="fas fa-trash cursor"></i> </a></td>
+
+    <td mat-footer-cell *matFooterCellDef [hidden]="true"></td>
+  </ng-container>
+
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
 </table>
+
+<div mat-dialog-actions align="end">
+  <button *ngIf="!showPay" mat-raised-button (click)="getCartaoPrincipal()" class="font-btn-nav mt-3 width-btn mr-2"
+          [disabled]="total === 0">Comprar Serviços
+  </button>
+</div>
+
+<!--Div de pagamento-->
+<div class="row" *ngIf="showPay">
+  <div class="col-12">
+    <!-- Primeira Linha-->
+    <form>
+      <!-- Terceira linha-->
+      <div class="form-row">
+        <div class="form-group col-3">
+          <!--Nome-->
+          <div class="form-group">
+            <label for="idNomeCartao">Nome do Titular</label>
+            <input type="text" name="nome" class="form-control" id="idNomeCartao" disabled
+                   [ngModel]="cartao.nomeCartao">
+          </div>
+        </div>
+
+        <div class="form-group col-3">
+          <!--Nome-->
+          <div class="form-group">
+            <label for="idNumeroCartao">Número do Cartão</label>
+            <input type="text" name="cartao" class="form-control" id="idNumeroCartao" disabled
+                   [ngModel]="cartao.numeroCartao">
+          </div>
+        </div>
+        <div class="form-group col-2">
+          <label for="icvc">Cod. Segurança</label>
+          <input id="icvc" name="cvc" class="form-control" [(ngModel)]="cvc">
+        </div>
+        <div class="form-group col-2 mt-2 offset-1">
+          <button *ngIf="showPay" mat-raised-button (click)="saveAdiamento()" [disabled]="!cvc"
+                  class="font-btn-nav mt-3 width-btn mr-2">Pagar
+          </button>
+        </div>
+      </div>
+      <!-- Terceira Linha-->
+    </form>
+    <!--Quarta Linha-->
+  </div>
+  <!--Linha-->
+  <button mat-raised-button (click)="openModal()">Usar outro cartao</button>
+</div>

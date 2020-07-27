@@ -1,6 +1,6 @@
 .img-logo {
-    width: 80x;
-    height: 80px;
+    width: 50px;
+    height: 50px;
 }
 
 .redes-sociais {
@@ -58,7 +58,7 @@ li {
     float: left;
 }
 
-li p {
+li p{
     display: block;
     color: #404A51;
     text-align: center;
@@ -66,6 +66,13 @@ li p {
     text-decoration: none;
 }
 
+.color-gray{
+  color: #404A51;
+  text-decoration: none;
+}
+.color-gray:hover{
+  font-weight: bold;
+}
 .center {
     align-items: center;
     display: flex;

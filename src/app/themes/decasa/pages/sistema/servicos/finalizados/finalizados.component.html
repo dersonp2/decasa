@@ -7,7 +7,7 @@
         </div>
 
         <!--Divisão 2 -->
-        <div class="col-10 scroll-auto">
+        <div  class="col-10 scroll-auto">
             <div class="ml-3">
                 <!--Dados do serviço-->
                 <app-dados-servico #dadosServicos [orcamentoSelected]="orcamentoSelected" [displayBtn]="'4'"></app-dados-servico>
@@ -17,9 +17,7 @@
 
                 <!-- Avaliação -->
 
-                <app-avaliacao [prestadores]="orcamentoSelected.prestadores"></app-avaliacao>
-
-                <hr />
+                <app-avaliacao></app-avaliacao>
 
                 <!-- Funcionarios -->
                 <!-- <div class="row">

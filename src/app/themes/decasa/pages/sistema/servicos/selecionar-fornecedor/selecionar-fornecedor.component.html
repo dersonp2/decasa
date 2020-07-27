@@ -6,8 +6,8 @@
             <app-n-pedidos [orcamento]="1"></app-n-pedidos>
         </div>
 
-        <!-- Perfil dos profissionais -->
-        <div class="col-3 perfil scroll-auto">
+        <!-- Perfil dos profissionais - Lista dos profissionais-->
+        <div [hidden]="!showList" class="col-3 perfil scroll-auto">
             <div>
                 <app-perfil></app-perfil>
                 <!-- TODO: Descobrir como não utilizar esse brs -->
@@ -22,27 +22,26 @@
 
         <!--Divisão 3 -->
         <div class="col-7 scroll-auto">
+          <div class="ml-3">
             <!--Dados do serviço-->
             <app-dados-servico [displayBtn]="'1'" #dadosServicos [orcamentoSelected]="orcamentoSelected"></app-dados-servico>
             <hr />
 
             <!-- Detalhes do Prestador de Serviço -->
-            <app-detalhe-perfil [displayBtn]="'1'" #detalhePerfil></app-detalhe-perfil>
+            <app-detalhes-prestador #detalhePerfil [prestador]="prestador"></app-detalhes-prestador>
 
             <app-certificados [display]="detalhePerfil.displayCertificados"></app-certificados>
 
             <!-- Portifólio -->
             <app-portifolio [display]="detalhePerfil.displayPortifolio"></app-portifolio>
 
-            <!-- Comentários -->
-            <app-comentarios [display]="detalhePerfil.displayComentario"></app-comentarios>
-
             <br />
             <br />
             <br />
             <br />
             <br />
             <br />
+          </div>
         </div>
     </div>
 </div>

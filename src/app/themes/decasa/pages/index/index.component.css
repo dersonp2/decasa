@@ -1,3 +1,16 @@
+.menu-popover{
+  text-align: end;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-popover li{
+  list-style: none;
+}
+.menu-popover li:hover{
+  font-weight: bold;
+}
+
 .redes-sociais {
     color: #404A51;
     margin-right: 1rem;
@@ -52,3 +65,4 @@ a {
     text-decoration: none !important;
     color: #404A51;
 }
+

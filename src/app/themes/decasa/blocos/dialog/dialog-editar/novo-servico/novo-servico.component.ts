@@ -1,58 +1,72 @@
-import { Component } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import {Component, Input, OnInit} from '@angular/core';
+import {ServicoService} from '../../../../../../services/servico.service';
+import {ClienteOrcamento} from '../../../../../../model/response/cliente-orcamento.module';
+import {Servico} from '../../../../../../model/servico.module';
+import {CarrinhoEvent} from '../../../../../../events/carrinho-event';
 
-export interface PeriodicElement {
-  name: string;
-  uni: string;
-  qntd: any;
+
+export class ClasseServico {
+  descricao: string;
+  servico?: Servico[];
+
+  constructor(descricao, servicos: Servico[]) {
+    this.descricao = descricao;
+    this.servico = servicos;
+  }
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: '4 horas de City Tour Personal - Veículo Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: 'City Tour Personal 08h - Veículo Sedan', uni: 'km', qntd: ''},
-  {name: 'Ticket Passeio', uni: 'km', qntd: ''},
-  {name: '4 horas de City Tour Personal - Veículo Passeio', uni: 'km', qntd: ''}
-];
 
 @Component({
   selector: 'app-novo-servico',
   templateUrl: './novo-servico.component.html',
   styleUrls: ['./novo-servico.component.css']
 })
-export class NovoServicoComponent {
+export class NovoServicoComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'name', 'qntd',  'uni'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  classeServico: ClasseServico[] = [];
+  showServices = false;
+  showMessageError = null;
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  @Input() orcamento: ClienteOrcamento;
+
+  constructor(private servicoService: ServicoService, private carrinhoEvent: CarrinhoEvent) {
+
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  ngOnInit(): void {
+    this.getServicesByBudget();
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+
+  getServicesByBudget() {
+    this.servicoService.getServicoByOrcamento(this.orcamento.id).subscribe(
+      (data) => {
+        // console.log(data);
+        this.fillClasseServicos(data);
+        this.showMessageError = false;
+      },
+      (error) => {
+        console.log(error);
+        console.log(error.status);
+        if (error.status === 406) {
+          this.showMessageError = true;
+        }
+      }
+    );
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
+  // Mostrar só classe
+  fillClasseServicos(data) {
+    this.classeServico = [];
+    Object.keys(data).forEach(key => {
+      // console.log(key, data[key]);
+      this.classeServico.push(new ClasseServico(key, data[key]));
+    });
+    // console.log(this.classeServico);
   }
+
+  addService(service) {
+    this.carrinhoEvent.addService(service);
+    // console.log('Emitiu');
+  }
+
 }

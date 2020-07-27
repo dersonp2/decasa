@@ -31,3 +31,13 @@ h2,
 .card:hover {
     background-color: rgb(245, 245, 245);
 }
+
+/* Icone de informação do card*/
+.icon-info {
+  float: right;
+  cursor: pointer;
+  color: gray;
+}
+.icon-info:hover {
+  color: #0A68AE;
+}

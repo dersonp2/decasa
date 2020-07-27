@@ -14,11 +14,14 @@ export class OrcamentoEvent {
   private _execucao = new Subject();
   // tslint:disable-next-line:variable-name
   private _finalizado = new Subject();
+  // tslint:disable-next-line:variable-name
+  private _detalhes = new Subject();
 
   escolher$ = this._escolher.asObservable();
   finalizado$ = this._finalizado.asObservable();
   agendado$ = this._agendado.asObservable();
   execucao$ = this._execucao.asObservable();
+  detalhes$ = this._detalhes.asObservable();
 
   constructor() {
   }
@@ -37,6 +40,10 @@ export class OrcamentoEvent {
 
   finalizado(e) {
     this._finalizado.next(e);
+  }
+
+  detalhes(prestadorId) {
+    this._detalhes.next(prestadorId);
   }
 
 }

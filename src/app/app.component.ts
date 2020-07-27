@@ -7,6 +7,8 @@ import { MatStepper } from '@angular/material/stepper';
 import { isPlatformBrowser } from '@angular/common';
 import {OrcamentoService} from './services/orcamento.service';
 import {TotalOrcamento} from './model/response/total-orcamento-response.module';
+import {MunicipioService} from './services/municipio.service';
+import {Municipio} from './model/municipio.module';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
   // 1 - Steps Contratar serviços || 2 - Serviços agendados || 0 - Dados pessoais
   displayNavBar = 1;
   badgeContent: number;
-  total: TotalOrcamento;
+  total: TotalOrcamento = new TotalOrcamento();
+  municipio: Municipio;
 
 
-  constructor(private router: Router, public authService: AuthService, private orcamentoService: OrcamentoService, private carrinhoService: CarrinhoEvent) {
+  constructor(private router: Router, public authService: AuthService,  private municipioService: MunicipioService, private orcamentoService: OrcamentoService, private carrinhoService: CarrinhoEvent) {
     carrinhoService.alteracao$.subscribe(
       (data) => {
         this.badgeCarrinho();
@@ -39,6 +42,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    if (localStorage.hasOwnProperty('municipioId')) {
+      this.municipioService.buscarMunicipioPorId(localStorage.getItem('municipioId')).subscribe((data) => {
+        this.municipio = data;
+      });
+    }
 
     if (isPlatformBrowser) {
       this.badgeCarrinho();
@@ -122,13 +131,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getTotalBudget() {
-    this.orcamentoService.getTotalBudget(this.authService.getUser().id).subscribe(
-      (data) => {
-        this.total = data;
-        console.log(this.total);
-      },
-      (error) => {console.log(error); }
-    );
+    if (this.authService.check()) {
+      this.orcamentoService.getTotalBudget(this.authService.getUser().id).subscribe(
+        (data) => {
+          this.total = data;
+          console.log(this.total);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   toggleDisplay() {

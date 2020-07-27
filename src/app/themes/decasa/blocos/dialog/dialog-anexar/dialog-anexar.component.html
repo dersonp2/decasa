@@ -8,39 +8,57 @@
   <div class="col-12 col-md-6">
     <mat-form-field>
       <mat-label>Tipo do anexo</mat-label>
-      <mat-select [formControl]="tipoControl" required>
-        <mat-option>--</mat-option>
-        <mat-option *ngFor="let tipo of tipos" [value]="tipo">
-          {{tipo.name}}
+      <mat-select [formControl]="tipoControl" required   (selectionChange)="onCategoryChange()">
+        <mat-option *ngFor="let tipo of tiposAnexo" [value]="tipo" [disabled]="tipo.tipoContaCliente.id != 1">
+          {{tipo.descricao}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="tipoControl.hasError('required')">Por favor, escolha o tipo do documento.</mat-error>
-
+      <mat-error *ngIf="tipoControl.hasError('required')">Por favor escolha o tipo do documento.</mat-error>
     </mat-form-field>
   </div>
 
 
   <div class="col-12 col-md-6">
     <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFile" multiple
-      (change)="onChange($event)"
+      <input type="file" class="custom-file-input" [disabled]="acceptTypes == null"  name="myImage"accept="{{acceptTypes}}" id="customFile"
+             (change)="onChangeFile($event)"
       >
       <label class="custom-file-label" for="customFile" id="fileLabel">Escolha o arquivo</label>
     </div>
   </div>
 </div>
-<button mat-raised-button [disabled]="!files" (click)='onUpload()'>Enviar</button>
+<div class="progress mb-2">
+  <div class="progress-bar" role="progressbar"
+       [style.width]=" progress + '%'">{{progress}}%
+  </div>
+</div>
+<button mat-raised-button [disabled]="!selectedFile" (click)='onUpload()'>Enviar</button>
 
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-3">
+<p class="text-center" [hidden]="!loading">
+  <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">
+</p>
+
+<div *ngIf="!dataSource.data.length" class="mt-3">
+  <i class="far fa-file-excel mr-2"></i>Nenhum arquivo anexado.
+</div>
+
+<table mat-table  *ngIf="dataSource.data.length  || loading" [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-3">
   <!-- ID Column -->
   <ng-container matColumnDef="nome">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-    <td mat-cell *matCellDef="let row"> <a href="" class="style-link">{{row}}</a> </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Arquivo</th>
+    <td mat-cell *matCellDef="let row">{{row.arquivo}}</td>
   </ng-container>
 
   <ng-container matColumnDef="opcoes">
     <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-    <td mat-cell *matCellDef="let row"><a (click)="onRemove(row)"><i class="fas fa-trash"></i></a> </td>
+    <td mat-cell *matCellDef="let row">
+      <a title="Baixar" href="{{s3Url}}{{row.arquivo}}" target="_blank">
+        <i class="fas fa-file-download fa-lg "></i>
+      </a>
+      <a (click)="deleteArquivoOrcamento(row)" class="cursor" title="Deletar">
+        <i class="fas fa-trash ml-3 fa-lg"></i>
+      </a>
+    </td>
   </ng-container>
 
 

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ClienteService} from '../../../../../../../services/cliente.service';
 import {AuthService} from '../../../../../../../services/auth.service';
+import {MatDialog} from "@angular/material/dialog";
+import {DialogLoginComponent} from "../../../../../blocos/dialog/dialog-login/dialog-login.component";
 
 @Component({
   selector: 'app-dados-cadastrais',
@@ -13,11 +15,22 @@ export class DadosCadastraisComponent implements OnInit {
 
   cnpjMask = [/[1-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
 
-  constructor(private clienteService: ClienteService, private authService: AuthService) {
+  constructor(private clienteService: ClienteService, private authService: AuthService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.getCompany();
+    if (!this.authService.check()) {
+      this.openModal();
+    } else {
+      this.getCompany();
+    }
+  }
+
+  // Abre a dialog de login
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
   }
 
   getCompany() {

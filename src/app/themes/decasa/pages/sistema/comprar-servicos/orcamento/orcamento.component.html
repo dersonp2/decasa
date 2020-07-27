@@ -3,40 +3,48 @@
 <app-nav-vertical [municipioId]="municipioId"></app-nav-vertical>
 
 <div class="col-md-10 float-md-right col-12 ml-auto orcamento">
-    <div class="container-fluid">
-        <div class="text-center mt-5">
-            <h3>Realize o agendamento de data de início do serviço</h3>
-            <!-- Linha das opções de agendamento -->
-            <div class="row">
-                <div class="col-12 col-md-4 d-md-flex justify-content-md-end justify-content-center d-inline-block">
-                    <!--Data-->
-                    <mat-form-field class="font-padrao">
-                        <mat-label mask='{dd/MM/y}'>Selecione a data </mat-label>
-                        <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="dia/mês/ano" [textMask]="{mask: dateMask}" (dateInput)="addEvent('input', $event)" disabled>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker disabled="false" touchUi #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <!-- Hora-->
-                <div class="col-12 col-md-4 mt-4">
-                    <div class="font-padrao font-padrao d-md-flex justify-content-center d-inline-block">
-                        <ngx-timepicker-field class="font-padrao" [format]="24" (timeChanged)="onOpeningOrClosingTimeChanged($event)"></ngx-timepicker-field>
-                    </div>
-                </div>
-                <!-- <div class="col-12 col-md-4 mt-5 mt-md-4">
-                    <button class="btn font-padrao d-md-flex justify-content-md-start justify-content-center d-inline-block color-btn">Imediato</button>
-                </div> -->
-            </div>
-            <!--Row-->
-            <!-- Acompanhar serviço -->
-            <!-- <h3 class="mt-5">Quem vai acompanhar o serviço?</h3>
-            <div class="d-flex justify-content-center">
-                <button class="btn font-padrao color-btn mr-2">Eu</button>
-                <button class="btn font-padrao  color-btn color-btn-outra ml-2">Outra pessoa</button>
-            </div> -->
+  <div class="container-fluid">
+    <div class="text-center mt-5">
+      <h3>Realize o agendamento de data de início do serviço</h3>
+      <!-- Linha das opções de agendamento -->
+      <div class="row">
+        <div class="col-12 col-md-4 d-md-flex justify-content-md-end justify-content-center d-inline-block">
+          <!--Data-->
+<!--          <mat-form-field class="font-padrao">-->
+<!--            <mat-label mask='{dd/MM/y}'>Selecione a data</mat-label>-->
+<!--            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="dia/mês/ano"-->
+<!--                   [textMask]="{mask: dateMask}" (dateInput)="addEvent('input', $event)" disabled>-->
+<!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker disabled="false" touchUi #picker></mat-datepicker>-->
+<!--          </mat-form-field>-->
+          <mat-form-field class="bg-white" appearance="fill">
+            <mat-label>Escolha a data</mat-label>
+            <input matInput [matDatepicker]="picker" disabled [min]="minDate">
+            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
         </div>
+        <!-- Hora-->
+        <div class="col-12 col-md-4 mt-4">
+          <div class="font-padrao font-padrao d-md-flex justify-content-center d-inline-block">
+            <ngx-timepicker-field class="font-padrao" [format]="24"
+                                  (timeChanged)="onOpeningOrClosingTimeChanged($event)"></ngx-timepicker-field>
+          </div>
+        </div>
+        <!-- <div class="col-12 col-md-4 mt-5 mt-md-4">
+            <button class="btn font-padrao d-md-flex justify-content-md-start justify-content-center d-inline-block color-btn">Imediato</button>
+        </div> -->
+      </div>
+      <!--Row-->
+      <!-- Acompanhar serviço -->
+      <!-- <h3 class="mt-5">Quem vai acompanhar o serviço?</h3>
+      <div class="d-flex justify-content-center">
+          <button class="btn font-padrao color-btn mr-2">Eu</button>
+          <button class="btn font-padrao  color-btn color-btn-outra ml-2">Outra pessoa</button>
+      </div> -->
     </div>
-    <!-- Tabela de serviços -->
-    <app-tabela [classeId]="classeId"></app-tabela>
+  </div>
+  <!-- Tabela de serviços -->
+  <app-tabela [classeId]="classeId"></app-tabela>
 </div>
 <!-- Coluna -->

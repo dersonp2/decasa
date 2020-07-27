@@ -1,11 +1,11 @@
 import {ClienteOrcamento} from '../../../../../../../model/response/cliente-orcamento.module';
 import {OrcamentoEvent} from '../../../../../../../events/orcamento-event';
-import {MunicipioService} from '../../../../../../../services/municipio.service';
 import {OrcamentoService} from '../../../../../../../services/orcamento.service';
-import {Municipio} from '../../../../../../../model/municipio.module';
 import {Component, OnInit, Input} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {AuthService} from '../../../../../../../services/auth.service';
+import {DialogLoginComponent} from '../../../../../blocos/dialog/dialog-login/dialog-login.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 export class Pedido {
@@ -37,35 +37,46 @@ export class NPedidosComponent implements OnInit {
   clientId;
   imgLoad = true;
 
-  constructor(private orcamentoService: OrcamentoService, private orcamentoEvent: OrcamentoEvent, private authService: AuthService) {
+  constructor(private orcamentoService: OrcamentoService, public dialog: MatDialog, private orcamentoEvent: OrcamentoEvent, private authService: AuthService) {
+
   }
 
   ngOnInit(): void {
-    this.clientId = this.authService.getUser().id;
-    switch (this.orcamento) {
-      case 1: {
-        this.getOrcamentosEscolher();
-        break;
-      }
-      case 2: {
-        this.getOrcamentosAgendados();
-        break;
-      }
-      case 3: {
-        this.getOrcamentosExecucao();
-        break;
-      }
-      case 4: {
-        this.getOrcamentosFinalizados();
-        break;
+    if (!this.authService.check()) {
+      this.openModal();
+    } else {
+      this.clientId = this.authService.getUser().id;
+      switch (this.orcamento) {
+        case 1: {
+          this.getOrcamentosEscolher();
+          break;
+        }
+        case 2: {
+          this.getOrcamentosAgendados();
+          break;
+        }
+        case 3: {
+          this.getOrcamentosExecucao();
+          break;
+        }
+        case 4: {
+          this.getOrcamentosFinalizados();
+          break;
+        }
       }
     }
-
   }
 
+  openModal() {
+    const dialogRef = this.dialog.open(DialogLoginComponent, {
+      disableClose: true
+    });
+  }
+
+  // TODO: mudar para this.clientId
   // Pegar os Orçamentos  para escolher Prestador
   getOrcamentosEscolher() {
-    this.orcamentoService.buscarClienteOrcamentosEscolher(this.clientId).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosEscolher(2054).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();
@@ -74,7 +85,7 @@ export class NPedidosComponent implements OnInit {
   }
 
   getOrcamentosAgendados() {
-    this.orcamentoService.buscarClienteOrcamentosAgendados(this.clientId).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosAgendados(2054).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();
@@ -82,8 +93,9 @@ export class NPedidosComponent implements OnInit {
     );
   }
 
+  // TODO: Alterar clienteID
   getOrcamentosExecucao() {
-    this.orcamentoService.buscarClienteOrcamentosExecucao(this.clientId).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosExecucao(2054).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();

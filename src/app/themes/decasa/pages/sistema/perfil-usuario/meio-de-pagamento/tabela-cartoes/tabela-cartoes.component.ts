@@ -6,16 +6,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogExcluirComponent} from '../../../../../blocos/dialog/dialog-excluir/dialog-excluir.component';
 import {MatDialog} from '@angular/material/dialog';
 
-export interface PeriodicElement {
-  bandeira: string;
-  numero: string;
-
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {bandeira: 'fab fa-cc-mastercard fa-lg', numero: '4400 **** **** 5609'},
-  {bandeira: 'fab fa-cc-visa fa-lg', numero: '0254 **** **** 9865'},
-];
 
 @Component({
   selector: 'app-tabela-cartoes',

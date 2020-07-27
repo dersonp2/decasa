@@ -1,24 +1,31 @@
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
 <div class="nav-side-menu col-12  col-md-2">
-    <div class="brand pl-4 text-left"><b>Adicionar Serviços</b></div>
+  <span class="brand">
+    <b> - Categorias</b>
+  </span>
 
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
-    <div class="menu-list">
-        <ul>
-            <li class="collapsed" *ngFor="let grupo of gruposClasses">
-                <div class="ml-2">
-                    <h3 (click)="abriSubMenu(grupo.id)">{{grupo.descricao}}</h3>
-                </div>
-                <ul class="sub-menu" *ngIf="menuId === grupo.id">
-                    <li *ngFor="let classe of grupo.classes">
-                        <div class="ml-4">
-                            <a (click)="loadServicos(classe.id)">{{classe.descricao}}</a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+  <div class="menu-list">
+    <ul>
+      <li class="collapsed" *ngFor="let grupo of gruposClasses">
+        <div class="ml-2">
+          <h4 [ngClass]="{active: menuId === grupo.id}" (click)="abriSubMenu(grupo.id)">
+            {{grupo.descricao}}
+          </h4>
+        </div>
+        <ul class="sub-menu" *ngIf="menuId === grupo.id">
+          <li *ngFor="let classe of grupo.classes">
+            <div class="ml-4">
+              <a (click)="loadServicos(classe.id)">{{classe.descricao}}</a>
+            </div>
+          </li>
         </ul>
-    </div>
+      </li>
+    </ul>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 </div>

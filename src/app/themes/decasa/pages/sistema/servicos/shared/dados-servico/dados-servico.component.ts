@@ -9,6 +9,7 @@ import {DialogReagendarComponent} from '../../../../../blocos/dialog/dialog-reag
 import {DialogMembrosComponent} from '../../../../../blocos/dialog/dialog-membros/dialog-membros.component';
 import {DialogEditarComponent} from '../../../../../blocos/dialog/dialog-editar/dialog-editar.component';
 import {DialogAvaliacaoComponent} from '../../../../../blocos/dialog/dialog-avaliacao/dialog-avaliacao.component';
+import {OrcamentoService} from '../../../../../../../services/orcamento.service';
 
 @Component({
   selector: 'app-dados-servico',
@@ -23,11 +24,23 @@ export class DadosServicoComponent implements OnInit {
 
   displayEmail = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private orcamentoService: OrcamentoService) {
   }
 
   ngOnInit(): void {
     console.log(this.orcamentoSelected);
+  }
+
+  downloadProposal() {
+    this.orcamentoService.generateProposal(this.orcamentoSelected.id).subscribe(
+      (data) => {
+        console.log('Proposta gerada com sucesso');
+        const file = new Blob([data], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      },
+      (error) => {console.log(error); }
+    );
   }
 
   openDialogMembros() {
@@ -39,12 +52,14 @@ export class DadosServicoComponent implements OnInit {
   openDialogEditar() {
     this.dialog.open(DialogEditarComponent, {
       width: '100%',
+      data: this.orcamentoSelected
     });
   }
 
   openDialogAnexar() {
     this.dialog.open(DialogAnexarComponent, {
       width: '50%',
+      data: this.orcamentoSelected.id
     });
   }
 
@@ -55,6 +70,7 @@ export class DadosServicoComponent implements OnInit {
   openDialogReagendar() {
     this.dialog.open(DialogReagendarComponent, {
       width: '50%',
+      data: this.orcamentoSelected
     });
   }
 

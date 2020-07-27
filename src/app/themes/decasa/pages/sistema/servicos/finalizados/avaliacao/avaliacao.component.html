@@ -1,45 +1,16 @@
 <hr/>
-<div class="row" *ngFor="let prestador of prestadores">
-    <div class="col-12">
-        <h2>Avaliação</h2>
-        <h3><b>Profissional: {{prestador.nome | titlecase}} | Profissões: {{prestador.profissoes | titlecase}}</b></h3>
-
-        <p>Aparência Profissional
-            <ngx-star-rating [filledColor]="'#ffa500'"></ngx-star-rating>
-        </p>
-
-        <p>Pontualidade
-            <ngx-star-rating [filledColor]="'#ffa500'"></ngx-star-rating>
-        </p>
-
-        <p>Qualidade do serviço
-            <ngx-star-rating [filledColor]="'#ffa500'"></ngx-star-rating>
-        </p>
-
-        <p>Limpeza final
-            <ngx-star-rating [filledColor]="'#ffa500'"></ngx-star-rating>
-        </p>
-
-        <p>Você indicaria o DeCasa
-            <ngx-star-rating [filledColor]="'#ffa500'"></ngx-star-rating>
-        </p>
-
-        <!-- <button mat-raised-button class="font-btn-nav width-btn">Avaliar</button> -->
+<div class="row" *ngFor="let r of ratingsProvider">
+  <div class="col-12">
+    <p><b>{{r.nome}}</b></p>
+    <div *ngFor="let recipient of r.ratings.tipoNota | keyvalue">
+      <p> {{recipient.key}}
+        {{recipient.value}}
+        <ngx-stars [color]="'#ffd400'" [readonly]="true" [initialStars]="recipient.value"></ngx-stars>
+      </p>
     </div>
 
-    <!-- <app-escrever-comentario></app-escrever-comentario> -->
-    <div class="col-12">
+    <!-- <button mat-raised-button class="font-btn-nav width-btn">Avaliar</button> -->
+  </div>
 
-        <h3>Escreva um comentário</h3>
-        <mat-chip-list aria-label="Fish selection">
-            <mat-chip *ngFor="let c of comentarios" (click)="adicionar(c.texto)">{{c.texto}}</mat-chip>
-        </mat-chip-list>
-
-        <mat-form-field appearance="outline" class="mt-3">
-            <mat-label>Comentário</mat-label>
-            <textarea matInput placeholder="Escreva seu comentário" cdkTextareaAutosize #autosize="cdkTextareaAutosize" [(ngModel)]="comentario" cdkAutosizeMinRows="3"></textarea>
-        </mat-form-field>
-        <button mat-raised-button class="font-btn-nav width-btn">Enviar</button>
-    </div>
-
+  <!-- <app-escrever-comentario></app-escrever-comentario> -->
 </div>

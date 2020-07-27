@@ -1,17 +1,15 @@
-import { FilterPipe } from './../../../../../../../pipes/filter.pipe';
-import { ServicosOrcamento } from './../../../../../../../model/servico-orcamento.module';
-import { CarrinhoEvent } from './../../../../../../../events/carrinho-event';
-import { ServicoElement } from './../../../../../../../model/element/servico.element';
-import { ClasseEvent } from '../../../../../../../events/classe-event';
-import { ServicoService } from './../../../../../../../services/servico.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Servico } from 'src/app/model/servico.module';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { stringify } from 'querystring';
-
-
+import {ServicosOrcamento} from './../../../../../../../model/servico-orcamento.module';
+import {CarrinhoEvent} from '../../../../../../../events/carrinho-event';
+import {ClasseEvent} from '../../../../../../../events/classe-event';
+import {ServicoService} from '../../../../../../../services/servico.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
+import {Servico} from 'src/app/model/servico.module';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from "@angular/material/dialog";
+import {DialogCancelarComponent} from "../../../../../blocos/dialog/dialog-cancelar/dialog-cancelar.component";
+import {DialogInfoComponent} from "../../../../../blocos/dialog/dialog-info/dialog-info.component";
 
 
 @Component({
@@ -20,21 +18,18 @@ import { stringify } from 'querystring';
   styleUrls: ['./tabela.component.css']
 })
 export class TabelaComponent implements OnInit {
-  searchText: string;
   @Input() classeId: number;
   servicosSelecionados: ServicosOrcamento[] = [];
   municipioId: number;
-  filterarg: ServicosOrcamento;
   classeDescricacao: string;
 
   displayedColumns: string[] = ['select', 'descricao'];
   dataSource = new MatTableDataSource<ServicosOrcamento>();
-  selection = new SelectionModel<ServicosOrcamento>(true, []);
   servicos: Servico[];
   dt: ServicosOrcamento[] = [];
 
   // tslint:disable-next-line:variable-name
-  constructor(private servicoService: ServicoService, private classeService: ClasseEvent, private _snackBar: MatSnackBar, private carrinhoService: CarrinhoEvent) {
+  constructor(public dialog: MatDialog, private servicoService: ServicoService, private classeService: ClasseEvent, private _snackBar: MatSnackBar, private carrinhoService: CarrinhoEvent) {
     classeService.alteracao$.subscribe(
       (data) => { this.getServicoByClasseAndMunicipio(data); }
     );
@@ -72,6 +67,7 @@ export class TabelaComponent implements OnInit {
       mensagem = 'Tabela atualizada';
       classe = 'blue-snackbar';
     }
+    console.log(this.dt);
     this.showSnackBar(mensagem, classe);
   }
 
@@ -92,5 +88,12 @@ export class TabelaComponent implements OnInit {
     localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
     this.carrinhoService.alteracao();
     this.showSnackBar('Serviço inserido no carrinho', 'blue-snackbar');
+  }
+
+  openDialogInfo(composicao) {
+    this.dialog.open(DialogInfoComponent, {
+      width: '50%',
+      data: composicao
+    });
   }
 }
