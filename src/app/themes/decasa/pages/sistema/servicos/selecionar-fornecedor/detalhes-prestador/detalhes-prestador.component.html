@@ -1,0 +1,29 @@
+<div *ngIf="(prestador| json) != '{}'">
+<div class="row">
+  <div class="col-9">
+    <h2>Perfil do Prestador de Serviços</h2>
+    <p>Código: {{prestador.id}}</p>
+    <p>Nome: {{prestador.responsavelTecnico}}</p>
+<!--    <p>Profissiões: {{prestador.profissoes}}</p>-->
+  </div>
+
+  <!-- Botões laterais -->
+  <div class="col-2">
+
+    <button [ngx-scroll-to]="'#comentarios'" mat-raised-button class="font-btn-nav mt-3 width-btn"
+            (click)="setDisplayComentario()"> Avaliações
+    </button>
+
+    <button mat-raised-button class="font-btn-nav width-btn mt-3 " [ngx-scroll-to]="'#certificado'"
+            (click)="setDisplayCertificados()"> Certificados
+    </button>
+
+<!--    <button [ngx-scroll-to]="'#portifolio'" mat-raised-button class="font-btn-nav mt-3 width-btn"-->
+<!--             (click)="setDisplayPortifolio()"> Ver Portifólio-->
+<!--    </button>-->
+
+    </div>
+</div>
+</div>
+
+<app-comentarios [display]="displayComentario"></app-comentarios>

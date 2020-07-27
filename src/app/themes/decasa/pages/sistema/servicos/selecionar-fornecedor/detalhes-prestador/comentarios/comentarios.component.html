@@ -1,0 +1,27 @@
+<div *ngIf="display">
+  <hr />
+  <div class="row">
+    <div class="col-12">
+      <h2 id="comentarios">Avaliações</h2>
+
+<!--      <div class="row">-->
+<!--        <div class="col-6 col-md-3">-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>Classificar por</mat-label>-->
+<!--            <mat-select>-->
+<!--              <mat-option *ngFor="let food of foods" [value]="food.value">-->
+<!--                {{food.viewValue}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--      </div>-->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let avaliacao of avaliacoes">
+          <b>Usuário </b>
+          <ngx-star-rating [filledColor]="'#ffa500'" [readonly]="true" [rating]="[avaliacao.nota]"></ngx-star-rating>
+      </ul>
+<!--      <a href="#" onClick="return false;">Ver mais</a>-->
+    </div>
+  </div>
+</div>
