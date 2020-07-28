@@ -21,6 +21,14 @@ export class OrcamentoComponent implements OnInit {
   date: any = null;
   time: any = null;
 
+  // Configuração da data
+  config = {
+    locale: 'pt-br',
+    min: moment(new Date(), 'DD-MM-YYYY'),
+    enableMonthSelector: false,
+    showGoToCurrent: true
+  };
+
   constructor(private router: Router, private grupoService: GrupoService) {
     this.municipioId = Number(localStorage.getItem('municipioId'));
     this.classeId = Number(localStorage.getItem('classeId'));
@@ -28,6 +36,17 @@ export class OrcamentoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // Pegar a data e hora do orçamento
+    let orcamento;
+    if (localStorage.hasOwnProperty('orcamento')) {
+      orcamento = JSON.parse(atob(localStorage.getItem('orcamento')));
+      if (orcamento.dataHora) {
+        const dataHora = orcamento.dataHora.split(' ');
+        this.date = moment(dataHora[0], 'DD-MM-YYYY');
+        this.time = dataHora[1];
+      }
+    }
   }
 
   public getGruposClassesByMunicipio(municipioId) {
@@ -39,8 +58,10 @@ export class OrcamentoComponent implements OnInit {
     );
   }
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.date = moment(event.value).format('DD/MM/YYYY');
+  selectDate() {
+    console.log(this.date);
+    const d = moment(this.date).format('DD/MM/YYYY');
+    console.log(d);
     this.saveDateTime();
   }
 
@@ -54,9 +75,10 @@ export class OrcamentoComponent implements OnInit {
     if (this.date != null && this.time != null) {
       let orcamento: Orcamento = new Orcamento();
       if (localStorage.getItem('orcamento')) {
-        orcamento =  JSON.parse(atob(localStorage.getItem('orcamento')));
+        orcamento = JSON.parse(atob(localStorage.getItem('orcamento')));
       }
-      orcamento.dataHora = this.date + ' ' + this.time;
+      const date = moment(this.date).format('DD/MM/YYYY');
+      orcamento.dataHora = date + ' ' + this.time;
       console.log(orcamento);
       localStorage.setItem('orcamento', btoa(JSON.stringify(orcamento)));
     }

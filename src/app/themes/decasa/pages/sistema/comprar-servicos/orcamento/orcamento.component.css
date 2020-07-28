@@ -55,6 +55,9 @@ mat-datepicker-toggle {
   background: white !important;
 }
 
+.dp-picker-input {
+  background: red !important;
+}
 
   /* .mat-form-field label {
       font-size: 20px;

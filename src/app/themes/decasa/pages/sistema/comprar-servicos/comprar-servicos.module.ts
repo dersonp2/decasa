@@ -1,8 +1,8 @@
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {FilterPipe} from './../../../../../pipes/filter.pipe';
+import {FilterPipe} from '../../../../../pipes/filter.pipe';
 import {MatCardModule} from '@angular/material/card';
-import {environment} from './../../../../../../environments/environment';
+import {environment} from '../../../../../../environments/environment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -19,6 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {CreditCardDirectivesModule} from 'angular-cc-library';
 import {PopoverModule} from 'ngx-smart-popover';
 
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 import {OrcamentoComponent} from './orcamento/orcamento.component';
 import {TabelaComponent} from './orcamento/tabela-orcamento/tabela.component';
@@ -30,7 +31,7 @@ import {NavPagamentoComponent} from './pagamento/nav-pagamento/nav-pagamento.com
 import {TabelaPropostaComponent} from './proposta/tabela-proposta/tabela-proposta.component';
 import {TabelaQuantidadeComponent} from './quantidade/tabela-quantidade/tabela-quantidade.component';
 
-import {BlocosModule} from './../../../blocos/blocos.module';
+import {BlocosModule} from '../../../blocos/blocos.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {BlocosModule} from './../../../blocos/blocos.module';
     MatButtonModule,
     TextMaskModule,
     MatDatepickerModule,
+    DpDatePickerModule,
     MatNativeDateModule,
     PopoverModule,
     MatInputModule,
@@ -70,4 +72,5 @@ import {BlocosModule} from './../../../blocos/blocos.module';
   ],
   exports: [FilterPipe]
 })
-export class ComprarServicosModule { }
+export class ComprarServicosModule {
+}

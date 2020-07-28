@@ -4,12 +4,11 @@ import {ClasseEvent} from '../../../../../../../events/classe-event';
 import {ServicoService} from '../../../../../../../services/servico.service';
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
 import {Servico} from 'src/app/model/servico.module';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialog} from "@angular/material/dialog";
-import {DialogCancelarComponent} from "../../../../../blocos/dialog/dialog-cancelar/dialog-cancelar.component";
-import {DialogInfoComponent} from "../../../../../blocos/dialog/dialog-info/dialog-info.component";
+import {MatDialog} from '@angular/material/dialog';
+import {DialogInfoComponent} from '../../../../../blocos/dialog/dialog-info/dialog-info.component';
+import {DialogQuantidadeComponent} from "../../../../../blocos/dialog/dialog-quantidade/dialog-quantidade.component";
 
 
 @Component({
@@ -29,9 +28,12 @@ export class TabelaComponent implements OnInit {
   dt: ServicosOrcamento[] = [];
 
   // tslint:disable-next-line:variable-name
-  constructor(public dialog: MatDialog, private servicoService: ServicoService, private classeService: ClasseEvent, private _snackBar: MatSnackBar, private carrinhoService: CarrinhoEvent) {
+  constructor(public dialog: MatDialog, private servicoService: ServicoService, private classeService: ClasseEvent,
+              private _snackBar: MatSnackBar, private carrinhoService: CarrinhoEvent) {
     classeService.alteracao$.subscribe(
-      (data) => { this.getServicoByClasseAndMunicipio(data); }
+      (data) => {
+        this.getServicoByClasseAndMunicipio(data);
+      }
     );
   }
 
@@ -73,27 +75,35 @@ export class TabelaComponent implements OnInit {
 
   showSnackBar(mensagem, cor) {
     this._snackBar.open(mensagem, '', {
-      duration: 3000,
-      panelClass: [cor]
-    }
+        duration: 3000,
+        panelClass: [cor]
+      }
     );
   }
 
   adicionarServico(servico) {
-    console.log(servico);
-    if (localStorage.hasOwnProperty('servicosSelecionados')) {
-      this.servicosSelecionados = JSON.parse(localStorage.getItem('servicosSelecionados'));
-    }
-    this.servicosSelecionados.push(servico);
-    localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
-    this.carrinhoService.alteracao();
-    this.showSnackBar('Serviço inserido no carrinho', 'blue-snackbar');
+    this.openDialogQuantidade(servico);
+    // console.log(servico);
+    // if (localStorage.hasOwnProperty('servicosSelecionados')) {
+    //   this.servicosSelecionados = JSON.parse(localStorage.getItem('servicosSelecionados'));
+    // }
+    // this.servicosSelecionados.push(servico);
+    // localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
+    // this.carrinhoService.alteracao();
+    // this.showSnackBar('Serviço inserido no carrinho', 'blue-snackbar');
   }
 
   openDialogInfo(composicao) {
     this.dialog.open(DialogInfoComponent, {
       width: '50%',
       data: composicao
+    });
+  }
+
+
+  openDialogQuantidade(servicoOrcamento) {
+    this.dialog.open(DialogQuantidadeComponent, {
+      data: servicoOrcamento
     });
   }
 }

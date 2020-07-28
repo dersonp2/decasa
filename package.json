@@ -37,6 +37,7 @@
     "i": "^0.3.6",
     "jquery": "^3.4.1",
     "moment": "^2.26.0",
+    "ng2-date-picker": "^9.0.0",
     "ngx-drag-scroll": "^9.0.0-beta.2",
     "ngx-material-timepicker": "^5.5.1",
     "ngx-owl-carousel-o": "^3.0.0",

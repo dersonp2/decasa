@@ -10,24 +10,28 @@
       <div class="row">
         <div class="col-12 col-md-6 d-md-flex justify-content-md-end justify-content-center d-inline-block">
           <!--Data-->
-<!--          <mat-form-field class="font-padrao">-->
-<!--            <mat-label mask='{dd/MM/y}'>Selecione a data</mat-label>-->
-<!--            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="dia/mês/ano"-->
-<!--                   [textMask]="{mask: dateMask}" (dateInput)="addEvent('input', $event)" disabled>-->
-<!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--            <mat-datepicker disabled="false" touchUi #picker></mat-datepicker>-->
-<!--          </mat-form-field>-->
-          <mat-form-field class="bg-white" appearance="fill">
-            <mat-label>Escolha a data</mat-label>
-            <input matInput [matDatepicker]="picker" disabled [min]="minDate" (dateInput)="addEvent('input', $event)">
-            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-            <mat-datepicker #picker disabled="false"></mat-datepicker>
-          </mat-form-field>
+          <!--          <mat-form-field class="font-padrao">-->
+          <!--            <mat-label mask='{dd/MM/y}'>Selecione a data</mat-label>-->
+          <!--            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="dia/mês/ano"-->
+          <!--                   [textMask]="{mask: dateMask}" (dateInput)="addEvent('input', $event)" disabled>-->
+          <!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+          <!--            <mat-datepicker disabled="false" touchUi #picker></mat-datepicker>-->
+          <!--          </mat-form-field>-->
+          <!--          <mat-form-field class="bg-white" appearance="fill">-->
+          <!--            <mat-label>Escolha a data</mat-label>-->
+          <!--            <input matInput [matDatepicker]="picker" disabled [min]="minDate" (dateInput)="addEvent('input', $event)">-->
+          <!--            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>-->
+          <!--            <mat-datepicker #picker disabled="false"></mat-datepicker>-->
+          <!--          </mat-form-field>-->
+          <dp-date-picker (onSelect)="selectDate()" placeholder="Selecione uma data" theme="dp-material"
+                          [config]="config" [(ngModel)]="date"
+          ></dp-date-picker>
+
         </div>
         <!-- Hora-->
-        <div class="col-12 col-md-6 mt-3">
+        <div class="col-12 col-md-6">
           <div class="font-padrao font-padrao d-md-flex justify-content-md-start justify-content-center d-inline-block">
-            <ngx-timepicker-field class="font-padrao" [format]="24"
+            <ngx-timepicker-field class="font-padrao" [format]="24" [(ngModel)]="time"
                                   (timeChanged)="onOpeningOrClosingTimeChanged($event)"></ngx-timepicker-field>
           </div>
         </div>

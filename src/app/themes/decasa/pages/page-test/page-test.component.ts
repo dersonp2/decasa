@@ -1,5 +1,4 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 
 
 @Component({
@@ -8,28 +7,16 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./page-test.component.css']
 })
 export class PageTestComponent {
+  date;
 
-  public nome;
-  public avaliacao;
+  config = {
+    locale: 'pt-br',
+    min: '10-10-2020',
+    enableMonthSelector: false,
+    showGoToCurrent: true
+  };
 
-
-  constructor(private http: HttpClient) {
-
-  }
-
-  submit() {
-    this.http.post('http://localhost:3000/submit', {
-      nome: this.nome,
-      avaliacao: this.avaliacao,
-    }).subscribe(
-      (data) => {
-        console.log(data);
-        this.nome = '';
-        this.avaliacao = '';
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  teste() {
+    alert('Teste');
   }
 }

@@ -21,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {DragScrollModule} from 'ngx-drag-scroll';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ManutencaoComponent } from './manutencao/manutencao.component';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ManutencaoComponent } from './manutencao/manutencao.component';
     ManutencaoComponent
   ],
   imports: [
+    DpDatePickerModule,
     CommonModule,
     SistemaModule,
     PopoverModule,

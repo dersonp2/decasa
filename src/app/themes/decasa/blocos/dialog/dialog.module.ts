@@ -45,6 +45,7 @@ import { NgxStarsModule } from 'ngx-stars';
 import {AppModule} from '../../../../app.module';
 import {MatIconModule} from '@angular/material/icon';
 import { DialogInfoComponent } from './dialog-info/dialog-info.component';
+import { DialogQuantidadeComponent } from './dialog-quantidade/dialog-quantidade.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { DialogInfoComponent } from './dialog-info/dialog-info.component';
     DiaologEnderecoComponent,
     DialogExcluirComponent,
     DialogAvaliacaoComponent,
-    DialogInfoComponent
+    DialogInfoComponent,
+    DialogQuantidadeComponent
   ],
   imports: [
     CommonModule,
