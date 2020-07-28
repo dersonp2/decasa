@@ -1,6 +1,58 @@
 <div class="navbar-menu" [hidden]="!exibirMenu">
-    <div id="carrinho">Seu carrinho<i class="fas fa-times float-right cursor" (click)="exibirMenu = !exibirMenu"></i></div>
-    <ul class="navbar-menu-itens" *ngFor="let item of servicosSelecionados">
-        <li class="item">{{item.servico.descricao}}<i class="far fa-trash-alt float-right mr-3 cursor" (click)="deleteElement(item)"></i></li>
-    </ul>
+  <div id="carrinho">
+    <span><b>Resumo do pedido </b></span>
+    <i class="fas fa-times float-right cursor" (click)="exibirMenu = !exibirMenu"></i>
+  </div>
+  <!--    <ul class="navbar-menu-itens" *ngFor="let item of servicosSelecionados">-->
+  <!--        <li class="item">{{item.servico.descricao}} | {{item.servico.unidadeMedida.sigla}}-->
+
+  <!--          <div class="float-right">-->
+  <!--          <input type="number" min="1"  class="mr-3" [ngModel]="item.quantidade" (input)="onSearchChange($event.target.value, item)">-->
+
+  <!--          <i class="far fa-trash-alt mr-3 cursor" title="Remover do carrinho" (click)="deleteElement(item)"></i>-->
+  <!--          </div>-->
+  <!--        </li>-->
+  <!--    </ul>-->
+
+  <table mat-table [dataSource]="dataSource" class="mt-4">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="descricao">
+      <th mat-header-cell *matHeaderCellDef> Descrição de serviços selecionados</th>
+      <td mat-cell *matCellDef="let element"><span matTooltipPosition="right"
+                                                   matTooltip="Informações sobre o serviço">{{element.servico.descricao}} </span>
+      </td>
+    </ng-container>
+
+    <!-- qntd Column -->
+    <ng-container matColumnDef="qntd">
+      <th mat-header-cell *matHeaderCellDef> Quantidade</th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <input type="number" min="1" class="qntd-input form-control" [ngModel]="element.quantidade"
+                 (input)="onSearchChange($event.target.value, element)">
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Unidade Column -->
+    <ng-container matColumnDef="unidade">
+      <th mat-header-cell *matHeaderCellDef> Unidade</th>
+      <td mat-cell *matCellDef="let element"> {{element.servico.unidadeMedida.sigla}} </td>
+    </ng-container>
+
+    <!-- Unidade Column -->
+    <ng-container matColumnDef="opc">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <i class="fas fa-trash cursor" title="Apagar" (click)="deleteElement(element)"></i>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <a class="btn btn-orcamento mt-3">Ver orçamento</a>
+
 </div>

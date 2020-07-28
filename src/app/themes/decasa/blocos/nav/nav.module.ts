@@ -5,6 +5,7 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
 
 import { NavHorizontalComponent } from './nav-horizontal/nav-horizontal.component';
 import { NavVerticalComponent } from './nav-vertical/nav-vertical.component';
@@ -26,7 +27,8 @@ import { NavCarrinhoComponent } from './nav-carrinho/nav-carrinho.component';
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule
   ],
   exports: [
     NavHorizontalComponent,

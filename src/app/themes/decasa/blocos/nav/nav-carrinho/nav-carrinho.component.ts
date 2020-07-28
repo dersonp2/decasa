@@ -1,7 +1,7 @@
-import { ServicosOrcamento } from './../../../../../model/servico-orcamento.module';
-import { CarrinhoEvent } from './../../../../../events/carrinho-event';
-import { ServicoElement } from './../../../../../model/element/servico.element';
-import { Component, OnInit, Input } from '@angular/core';
+import {ServicosOrcamento} from './../../../../../model/servico-orcamento.module';
+import {CarrinhoEvent} from './../../../../../events/carrinho-event';
+import {ServicoElement} from './../../../../../model/element/servico.element';
+import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-nav-carrinho',
@@ -10,11 +10,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavCarrinhoComponent implements OnInit {
   @Input() exibirMenu;
+  displayedColumns: string[] = ['descricao', 'qntd', 'unidade', 'opc'];
   servicosSelecionados: ServicosOrcamento[] = [];
+  dataSource: ServicosOrcamento[];
 
   constructor(private carrinhoService: CarrinhoEvent) {
     carrinhoService.alteracao$.subscribe(
-      (data) => { this.getServicosElement(); }
+      (data) => {
+        this.getServicosElement();
+      }
     );
   }
 
@@ -25,7 +29,17 @@ export class NavCarrinhoComponent implements OnInit {
   getServicosElement() {
     if (localStorage.hasOwnProperty('servicosSelecionados')) {
       this.servicosSelecionados = JSON.parse(localStorage.getItem('servicosSelecionados'));
+      this.dataSource = this.servicosSelecionados;
     }
+  }
+
+  onSearchChange(qnt: number, servico: ServicosOrcamento): void {
+    console.log(qnt);
+    console.log(servico);
+    const pos = this.servicosSelecionados.indexOf(servico);
+    this.servicosSelecionados[pos].quantidade = Number(qnt);
+    localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
+
   }
 
   deleteElement(servico) {

@@ -1,32 +1,78 @@
+
 .navbar-menu {
-    z-index: 99999999999998;
-    color: #404A51;
-    font-family: 'Karla';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    margin: 0;
-    width: 300px;
-    background-color: #d1f6ff;
-    -webkit-box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
-    -moz-box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
-    box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
+  z-index: 99999999999998;
+  color: white;
+  font-family: 'Karla';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  width: 600px;
+  background: rgb(10, 104, 174);
+  -webkit-box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
+  -moz-box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
+  box-shadow: -3px 1px 5px 0px rgba(50, 50, 50, 0.4);
 }
 
 .navbar-menu-itens {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 #carrinho {
-    padding: 20px;
-    font-size: 20px;
-    border-bottom: 1px solid #404A51;
-    margin-bottom: 20px;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 20px;
+  text-align: center !important;
+
 }
 
 .item {
-    padding: 10px;
+  padding: 10px;
+}
+
+/*Configuração da tabela */
+table {
+  margin-left: 2%;
+  width: 96%;
+}
+
+/* Configurar a tabela */
+.mat-cell {
+  font-size: 16px;
+}
+
+.mat-header-cell {
+  font-size: 16px;
+  color: white !important;
+  background: rgb(10, 104, 174) !important;
+  font-weight: bold;
+}
+.mat-cell{
+  color: white !important;
+  background: rgb(10, 104, 174) !important;
+}
+
+.mat-input-element {
+  width: 5px !important;
+}
+
+.qntd-input {
+  width: 80px;
+  text-align: right;
+}
+.btn-orcamento {
+  background-color: #0A68AE;
+  color: white;
+  width: 100% !important;
+  font-size: 20px;
+}
+
+.btn-orcamento:hover {
+  background-color: rgb(6, 83, 141);
+  color: white;
 }
