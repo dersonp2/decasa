@@ -11,4 +11,5 @@ export class Avaliacao {
   observacao: string;
   nota: number;
   itensAvaliacao: ItemAvaliacao[];
+  nomeAvaliador?: string;
 }

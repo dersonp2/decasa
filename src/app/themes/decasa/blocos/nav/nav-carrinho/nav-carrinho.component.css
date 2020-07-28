@@ -2,7 +2,7 @@
 .navbar-menu {
   z-index: 99999999999998;
   color: white;
-  font-family: 'Karla';
+  font-family: 'Karla' !important;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -68,8 +68,13 @@ table {
 .btn-orcamento {
   background-color: #0A68AE;
   color: white;
-  width: 100% !important;
+  width: 96% !important;
+  margin-left: 2%;
   font-size: 20px;
+  border-radius: 20px ;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border: 1px solid #ffffff;
 }
 
 .btn-orcamento:hover {

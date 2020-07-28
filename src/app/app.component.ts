@@ -91,10 +91,10 @@ export class AppComponent implements OnInit, OnDestroy {
   goTo(stepper: MatStepper) {
     switch (this.href) {
       case '/orcamento':
-        this.router.navigate(['/quantidade']);
-        stepper.next();
-        break;
-      case '/quantidade':
+      //   this.router.navigate(['/quantidade']);
+      //   stepper.next();
+      //   break;
+      // case '/quantidade':
         this.router.navigate(['/proposta']);
         stepper.next();
         break;
