@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ViaCepService} from '../../../../../../services/via-cep.service';
 import {EnderecoCliente} from '../../../../../../model/endereco-cliente.module';
@@ -6,6 +6,7 @@ import {AuthService} from '../../../../../../services/auth.service';
 import {EnderecoService} from '../../../../../../services/endereco.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogLoginComponent} from '../../../../blocos/dialog/dialog-login/dialog-login.component';
+import {ListaEnderecosComponent} from './lista-enderecos/lista-enderecos.component';
 
 @Component({
   selector: 'app-endereco',
@@ -17,6 +18,8 @@ export class EnderecoComponent implements OnInit {
   displayForm = false;
   enderecoForm: FormGroup;
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  @ViewChild(ListaEnderecosComponent) listaEndereco: ListaEnderecosComponent;
+
 
   constructor(private formBuilder: FormBuilder, private cepService: ViaCepService, public dialog: MatDialog,  private authService: AuthService, private enderecoService: EnderecoService) {
     this.enderecoForm = this.formBuilder.group({
@@ -86,6 +89,8 @@ export class EnderecoComponent implements OnInit {
     this.enderecoService.saveAddress(endereco).subscribe(
       (data) => {
         console.log(data);
+        this.displayForm = false;
+        this.listaEndereco.getAllAddress();
       },
       (error) => {
         console.log(error);

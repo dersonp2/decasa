@@ -18,5 +18,6 @@ export class Usuario {
   usuario: Usuario;
   origemCadastro: OrigemCadastro;
   perfisUsuario: PerfilUsuario[];
+  platformEnum: number;
 
 }

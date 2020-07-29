@@ -3,7 +3,7 @@
     <img src="assets/site/logo.png" alt="Logo">
   </a>
 </div>
-<hr />
+<hr/>
 
 <div class="container text-center color-gray">
   <h2>Somos uma plataforma de tecnologia que intermedia a relação de consumo entre Fornecedor e Consumidor (pessoa
@@ -11,21 +11,23 @@
     atendido por fornecedores selecionados. DeCasa é mais segurança, mobilidade e agilidade para você e sua empresa.
   </h2>
 
-  <br />
-  <h2>Os dados abaixo precisam ser preenchidos corretamente pois é o que será impresso em seu Recibo de Pagamento.</h2>
-  <br />
-  <h2>
-    Use suas redes sociais: <br class="d-block d-md-none" />
-    <a href="" class="ml-2"> <img src="assets/icones/facebook-icon.png" alt="Facebook"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/Instagram-icon.png" alt="Instagram"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/google-icon.png" alt="Google"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/microsoft-icon.png" alt="Microsoft"></a>
-  </h2>
-  <br />
-  <h2>ou preencha os dados abaixo </h2>
+<!--  <br/>-->
+<!--  <h2>Os dados abaixo precisam ser preenchidos corretamente pois é o que será impresso em seu Recibo de Pagamento.</h2>-->
+<!--  <br/>-->
+<!--  <h2>-->
+<!--    Use suas redes sociais: <br class="d-block d-md-none"/>-->
+<!--    <a href="" class="ml-2"> <img src="assets/icones/facebook-icon.png" alt="Facebook"></a>-->
+<!--    <a href="" class="ml-3"> <img src="assets/icones/Instagram-icon.png" alt="Instagram"></a>-->
+<!--    <a href="" class="ml-3"> <img src="assets/icones/google-icon.png" alt="Google"></a>-->
+<!--    <a href="" class="ml-3"> <img src="assets/icones/microsoft-icon.png" alt="Microsoft"></a>-->
+<!--  </h2>-->
+  <br/>
+  <h2>Preencha os dados abaixo </h2>
   <!-- Formulário de Cadastro -->
-
-  <form>
+  <div *ngIf="erroMessage" class="alert alert-warning" role="alert">
+    {{erroMessage}}
+  </div>
+  <form [formGroup]="cadastroForm" novalidate>
     <div class="row">
       <div class="offset-2 col-8">
         <!-- Nome -->
@@ -34,7 +36,12 @@
             <h2>Nome:</h2>
           </label>
           <div class="mt-3 mt-sm-0  col-sm-10">
-            <input type="text" class="form-control" id="idNome" placeholder="Informe seu nome completo">
+            <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control" id="idNome"
+                   placeholder="Informe seu nome completo" formControlName="nome">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['nome'].invalid && (cadastroForm.controls['nome'].touched || cadastroForm.controls['nome'].dirty)">
+                    Nome inválido.
+                    </span>
           </div>
         </div>
 
@@ -44,7 +51,13 @@
             <h2>Email:</h2>
           </label>
           <div class="mt-3 mt-sm-0  col-sm-10">
-            <input type="email" class="form-control" id="inputEmail" placeholder="nome@exemplo.com">
+            <input oninput="this.value = this.value.toUpperCase()" formControlName="email" type="email" class="form-control " id="inputEmail"
+                   placeholder="nome@exemplo.com">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['email'].invalid && (cadastroForm.controls['email'].touched || cadastroForm.controls['email'].dirty)">
+<!--                      <span class="glyphicon glyphicon-remove form-control-feedback"></span>-->
+                    E-mail inválido.
+                    </span>
           </div>
         </div>
 
@@ -57,51 +70,70 @@
             <img src="assets/icones/br.png" alt="Logo">
           </div>
           <div class="col-md-4 mt-3 mt-sm-0  col-sm-8">
-            <input [textMask]="{mask: phoneMask}" type="text" class="form-control" id="inputPhone" placeholder="(DD)_____-_____">
+            <input [textMask]="{mask: phoneMask}" formControlName="telefone" type="text" class="form-control" id="inputPhone"
+                   placeholder="(DD)_____-_____">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['telefone'].invalid && (cadastroForm.controls['telefone'].touched || cadastroForm.controls['telefone'].dirty)">
+                    Telefone inválido.
+                    </span>
           </div>
         </div>
 
-        <!-- Pais -->
+        <!-- senha -->
         <div class="form-group row">
-          <label for="inputEndereco"
-            class="col-sm-2 col-form-label justify-md-content-end d-flex justify-content-center">
-            <h2>Endereço:</h2>
+          <label for="inputSenha" class="col-sm-2 col-form-label justify-md-content-end d-flex justify-content-center">
+            <h2>Senha:</h2>
           </label>
-          <div class="col-sm-3 col-md-2">
-            <select id="inputEndereco" class="form-control">
-              <option selected>UF</option>
-              <option>...</option>
-            </select>
+          <div class="mt-3 mt-sm-0  col-sm-10 col-md-3">
+            <input type="password" formControlName="senha" class="form-control" id="inputSenha" placeholder="Senha">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['senha'].invalid && (cadastroForm.controls['senha'].touched || cadastroForm.controls['senha'].dirty)">
+<!--                      <span class="glyphicon glyphicon-remove form-control-feedback"></span>-->
+                      Senha inválida - Deve conter no mínimo 5 caracters
+                    </span>
           </div>
-          <div class="col-md-4 mt-3 mt-sm-0  col-sm-7">
-            <input type="text" class="form-control mt-3 mt-sm-0" id="inputCidade" placeholder="Cidade">
-          </div>
-        </div>
-        <div class="form-group ml-md-5 ml-0">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkOferta">
-            <label class="form-check-label" for="checkOferta">
-              Quero receber ofertas e conteúdos das empresas do Grupo Prado e parceiros
-            </label>
+
+          <label for="inputConfSenha" class="col-form-label justify-md-content-end d-flex justify-content-center">
+            <h2> Confirme a senha: </h2></label>
+          <div class="mt-3 mt-sm-0  col-sm-10 col-md-3">
+            <input type="password" formControlName="confirmaSenha" class="form-control" id="inputConfSenha" placeholder="Confirme a senha">
+            <span class="text-danger"
+                  *ngIf="cadastroForm.hasError('notSame')&& (cadastroForm.controls['confirmaSenha'].touched || cadastroForm.controls['confirmaSenha'].dirty)">
+              as senhas nao correspondem
+            </span>
           </div>
         </div>
 
+        <!--        Check-box-->
+<!--        <div class="form-group ml-md-5 ml-0">-->
+<!--          <div class="form-check">-->
+<!--            <input class="form-check-input" type="checkbox" id="checkOferta">-->
+<!--            <label class="form-check-label" for="checkOferta">-->
+<!--              Quero receber ofertas e conteúdos das empresas do Grupo Prado e parceiros-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+
         <div class="form-group ml-md-5 ml-0">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <input class="form-check-input" formControlName="termos" type="checkbox" id="gridCheck">
             <label class="form-check-label" for="gridCheck"> <a href="#">
-                Concordo com os Termos e Condições de uso e Políticas de Privacidade
-              </a>
+              Concordo com os Termos e Condições de uso e Políticas de Privacidade
+            </a>
             </label>
+            <span class="color-red d-block"
+                  *ngIf="cadastroForm.controls['termos'].invalid && (cadastroForm.controls['termos'].touched || cadastroForm.controls['termos'].dirty)">
+                    Campo requerido.
+                    </span>
           </div>
         </div>
 
         <div>
-          <button class="btn btn-primary" [routerLink]="['']" >Criar conta</button>
+          <button class="btn btn-primary" (click)="saveTest()" [disabled]="cadastroForm.invalid">Criar conta</button>
         </div>
       </div> <!-- Coluna-->
     </div>
     <!--Linha-->
   </form>
 </div>
-<br />
+<br/>
