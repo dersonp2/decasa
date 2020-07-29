@@ -1,0 +1,24 @@
+.btn-ok {
+  background-color: #0A68AE;
+  color: white;
+  width: 100% !important;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.btn-ok:hover {
+  background-color: rgb(6, 83, 141);
+  color: white;
+}
+input{
+  text-align: center;
+}
+
+#unidadeMedida {
+  margin-top: 8px;
+}
+
+#close {
+  margin-top: 0px !important;
+  padding: 0px;
+}

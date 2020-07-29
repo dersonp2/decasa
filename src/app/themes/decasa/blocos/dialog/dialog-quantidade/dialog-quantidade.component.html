@@ -1,0 +1,17 @@
+<a (click)="close()" id="close" class="cursor float-right"><i class="fas fa-times"></i></a>
+
+<h3 class="text-center clear">
+  Infome a quantidade do serviço:<br/>
+  {{servico.servico.descricao}}
+</h3>
+
+<div class="row">
+  <div class="col-9">
+    <input type="number" min="1" name="quantidade"[(ngModel)]="servico.quantidade" class="qntd-input form-control">
+  </div>
+  <div class="col-3">
+    <h3 id="unidadeMedida" class="text-left float-left">{{servico.servico.unidadeMedida.sigla}}</h3>
+  </div>
+</div>
+
+<a class="btn btn-ok" (click)="insert()">OK</a>
