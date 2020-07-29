@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {OrcamentoEvent} from '../../../../../../../events/orcamento-event';
 import {PrestadorFeedService} from '../../../../../../../services/prestador-feed.service';
 import {ClienteOrcamento} from '../../../../../../../model/response/cliente-orcamento.module';
@@ -28,8 +28,8 @@ export class PerfilComponent implements OnDestroy {
               private prestadoFeed: PrestadorFeedService, private router: Router, private _snackBar: MatSnackBar) {
 
     orcamentoEvent.escolher$.subscribe(
-      (data: ClienteOrcamento) => {
-        this.getNotificacao(data.id);
+      (orcamento: ClienteOrcamento) => {
+        this.getNotificacao(orcamento.id);
       }
     );
   }

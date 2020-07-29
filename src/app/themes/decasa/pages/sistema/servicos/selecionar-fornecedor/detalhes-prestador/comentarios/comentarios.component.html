@@ -18,7 +18,7 @@
 <!--      </div>-->
       <ul class="list-group list-group-flush">
         <li class="list-group-item" *ngFor="let avaliacao of avaliacoes">
-          <b>Usuário </b>
+          <b>{{avaliacao.nomeAvaliador}} </b>
           <ngx-star-rating [filledColor]="'#ffa500'" [readonly]="true" [rating]="[avaliacao.nota]"></ngx-star-rating>
       </ul>
 <!--      <a href="#" onClick="return false;">Ver mais</a>-->
