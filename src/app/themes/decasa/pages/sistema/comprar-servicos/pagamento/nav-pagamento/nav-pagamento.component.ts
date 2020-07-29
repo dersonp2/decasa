@@ -3,11 +3,9 @@ import {DialogCartaoComponent} from '../../../../../blocos/dialog/dialog-cartao/
 import {CartaoCliente} from '../../../../../../../model/cartao-cliente.module';
 import {CartaoClienteService} from '../../../../../../../services/cartao-cliente.service';
 import {AuthService} from '../../../../../../../services/auth.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
-import {CreditCardValidators} from 'angular-cc-library';
 import {Orcamento} from '../../../../../../../model/orcamento.module';
-import {PrestadorOrcamento} from '../../../../../../../model/prestador-orcamento.module';
 import {Cliente} from '../../../../../../../model/cliente.module';
 import {OrcamentoService} from '../../../../../../../services/orcamento.service';
 import {Pagamento} from '../../../../../../../model/pagamento.module';
@@ -18,6 +16,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {EnderecoCliente} from '../../../../../../../model/endereco-cliente.module';
 import {EnderecoService} from '../../../../../../../services/endereco.service';
+import {ClienteService} from '../../../../../../../services/cliente.service';
+import {DialogAtualizacaoClienteComponent} from "../../../../../blocos/dialog/dialog-atualizacao-cliente/dialog-atualizacao-cliente.component";
 
 
 @Component({
@@ -36,18 +36,31 @@ export class NavPagamentoComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   constructor(private fb: FormBuilder, private authService: AuthService, private _snackBar: MatSnackBar,
               private cartaoClienteService: CartaoClienteService, public dialog: MatDialog, private router: Router,
-              private orcamentoService: OrcamentoService, private pagamentoService: PagamentoService, private enderecoService: EnderecoService) {
+              private orcamentoService: OrcamentoService, private pagamentoService: PagamentoService,
+              private clienteService: ClienteService, private enderecoService: EnderecoService) {
   }
 
   ngOnInit() {
-    // this.form = this.fb.group(
-    //   {
-    //     cvc: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]]
-    //   });
     if (this.authService.check()) {
+      this.existCpf();
       this.getCartaoPrincipal();
       this.getOrcamento();
     }
+  }
+
+  existCpf() {
+    this.clienteService.existCpf(this.authService.getUser().id).subscribe(
+      (data) => {
+        console.log('Existe cpf?');
+        console.log(data);
+        if (!data) {
+          this.openModalAtualizacao();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getCartaoPrincipal() {
@@ -56,12 +69,12 @@ export class NavPagamentoComponent implements OnInit {
         this.cartao = data;
       },
       (error) => {
-        this.openModal();
+        this.openModalCartao();
       }
     );
   }
 
-  openModal() {
+  openModalCartao() {
     const dialogRef = this.dialog.open(DialogCartaoComponent, {
       width: '50%',
       data: {cartao: this.cartao}
@@ -72,6 +85,18 @@ export class NavPagamentoComponent implements OnInit {
       }
     });
   }
+
+  openModalAtualizacao() {
+    const dialogRef = this.dialog.open(DialogAtualizacaoClienteComponent, {
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.cartao = result;
+      }
+    });
+  }
+
 
   getExistAddress() {
     console.log('Entrou no getExistaddress');

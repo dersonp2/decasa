@@ -40,5 +40,10 @@ export class ClienteService {
     return this.http.post<any>(`${this.apiUrl}/cliente`, cliente).pipe(take(1));
   }
 
+  // Recebe as informações da empresa pelo id do cliente
+  existCpf(clienteId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}//cliente/existecpf/${clienteId}`).pipe(take(1));
+  }
+
 
 }

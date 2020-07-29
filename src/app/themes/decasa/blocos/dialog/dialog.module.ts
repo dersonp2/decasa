@@ -46,6 +46,7 @@ import {AppModule} from '../../../../app.module';
 import {MatIconModule} from '@angular/material/icon';
 import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 import { DialogQuantidadeComponent } from './dialog-quantidade/dialog-quantidade.component';
+import { DialogAtualizacaoClienteComponent } from './dialog-atualizacao-cliente/dialog-atualizacao-cliente.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { DialogQuantidadeComponent } from './dialog-quantidade/dialog-quantidade
     DialogExcluirComponent,
     DialogAvaliacaoComponent,
     DialogInfoComponent,
-    DialogQuantidadeComponent
+    DialogQuantidadeComponent,
+    DialogAtualizacaoClienteComponent
   ],
   imports: [
     CommonModule,
