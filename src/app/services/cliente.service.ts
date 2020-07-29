@@ -45,5 +45,8 @@ export class ClienteService {
     return this.http.get<boolean>(`${this.apiUrl}//cliente/existecpf/${clienteId}`).pipe(take(1));
   }
 
+  updateCpf(clienteId: number, cpf: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/cliente/cpf/${clienteId}`, cpf).pipe(take(1));
+  }
 
 }

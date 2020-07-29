@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 import {EnderecoCliente} from '../../../../../../../model/endereco-cliente.module';
 import {EnderecoService} from '../../../../../../../services/endereco.service';
 import {ClienteService} from '../../../../../../../services/cliente.service';
-import {DialogAtualizacaoClienteComponent} from "../../../../../blocos/dialog/dialog-atualizacao-cliente/dialog-atualizacao-cliente.component";
+import {DialogAtualizacaoClienteComponent} from '../../../../../blocos/dialog/dialog-atualizacao-cliente/dialog-atualizacao-cliente.component';
 
 
 @Component({
@@ -40,10 +40,14 @@ export class NavPagamentoComponent implements OnInit {
               private clienteService: ClienteService, private enderecoService: EnderecoService) {
   }
 
+  /*
+  * Ao iniciar, verifica se esse usuário tem cpf cadastrado, se nao é aberto uma dialog para ele atualizar
+  *  Depois de atualizar é carregado o cartao principal
+  *  Se ja tiver cadastrado, é carregado o cartao principal
+  * */
   ngOnInit() {
     if (this.authService.check()) {
       this.existCpf();
-      this.getCartaoPrincipal();
       this.getOrcamento();
     }
   }
@@ -55,6 +59,8 @@ export class NavPagamentoComponent implements OnInit {
         console.log(data);
         if (!data) {
           this.openModalAtualizacao();
+        } else {
+          this.getCartaoPrincipal();
         }
       },
       (error) => {
@@ -91,9 +97,7 @@ export class NavPagamentoComponent implements OnInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-        this.cartao = result;
-      }
+      this.getCartaoPrincipal();
     });
   }
 
