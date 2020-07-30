@@ -7,8 +7,8 @@
       <app-nav-vertical-perfil></app-nav-vertical-perfil>
     </div>
 
-    <div class="col-12 col-md-9 scroll-auto container-fluid">
-      <div class="float-right mr-4 mt-2">
+    <div class="col-12 col-md-9 scroll-auto container-fluid" >
+      <div class="float-right mr-4 mt-2" *ngIf="!displayForm">
         <button mat-raised-button (click)="display()"><i class="fas fa-map-marker-alt mr-2"></i>Novo Endereço</button>
       </div>
 
@@ -106,10 +106,10 @@
           </div>
         </div>
 
-        <button mat-raised-button class="mr-2"  (click)="saveAddress()"><i class="fas fa-check mr-2"></i>Cadastrar</button>
+        <button mat-raised-button class="mr-2"  (click)="saveAddress()"><i class="fas fa-check mr-2"></i>Salvar</button>
       </form> <!-- Form de cadastros-->
 
-      <app-lista-enderecos [displayForm]="displayForm"></app-lista-enderecos>
+      <app-lista-enderecos (editOutput)="teste($event)"  [displayForm]="displayForm"></app-lista-enderecos>
 
       <br/>
       <br/>

@@ -31,7 +31,7 @@ export class DadosPessoaisComponent implements OnInit {
         cpf: ['', [Validators.required, this.validateBrService.cpf]],
         email: ['', [Validators.email, Validators.required]],
         celular: ['', [Validators.required]],
-        dataNascimento: ['', [Validators.required, Validators.minLength(5)]]
+        // dataNascimento: ['', [Validators.required, Validators.minLength(5)]]
       });
   }
 
@@ -54,7 +54,7 @@ export class DadosPessoaisComponent implements OnInit {
     this.clienteService.getClienteDetalhes(this.authService.getUser().id).subscribe(
       (data) => {
         this.cliente = data;
-        console.log(this.cliente);
+        console.log(data);
         this.cadastroForm.get('nome').setValue(data.nome);
         this.cadastroForm.get('email').setValue(data.email);
         this.cadastroForm.get('cpf').setValue(data.cpf);

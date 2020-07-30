@@ -4,5 +4,5 @@ export class ClienteDetalhesResponse {
   cpf: string;
   email: string;
   celular: string;
-  dataNascimento: Date;
+  dataNascimento: any;
 }

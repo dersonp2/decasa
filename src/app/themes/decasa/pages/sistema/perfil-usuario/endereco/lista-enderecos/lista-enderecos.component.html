@@ -7,61 +7,61 @@
   <!-- Cep -->
   <div class="row mt-2">
     <div class="form-group col-md-2 col-6">
-      <label for="cep">CEP</label>
-      <input type="text" [disabled]="true"  class="form-control" name="cep" id="cep" placeholder="Cep" [(ngModel)]="endereco.cep">
+      <label >CEP</label>
+      <input type="text" [disabled]="true"  class="form-control" name="cep" placeholder="Cep" [(ngModel)]="endereco.cep">
     </div>
   </div>
 
   <!-- Rua -->
   <div class="row">
     <div class="form-group col-md-6 col-10">
-      <label for="rua">Rua</label>
-      <input type="text" [disabled]="true" class="form-control" id="Rua" name="rua" placeholder="Ex. R. Osvaldo" [(ngModel)]="endereco.logradouro">
+      <label>Rua</label>
+      <input type="text" [disabled]="true" class="form-control"  name="rua" placeholder="Ex. R. Osvaldo" [(ngModel)]="endereco.logradouro">
     </div>
     <div class="form-group col-md-2 col-2">
-      <label for="n">Nº</label>
-      <input type="number" [disabled]="true" name="numero" class="form-control" id="n" [(ngModel)]="endereco.numero">
+      <label >Nº</label>
+      <input type="number" [disabled]="true" name="numero" class="form-control"  [(ngModel)]="endereco.numero">
     </div>
   </div>
 
   <!-- Bairro -->
   <div class="row">
     <div class="form-group col-md-6 col-10">
-      <label for="bairro">Bairro</label>
-      <input type="text" [disabled]="true" class="form-control" name="bairro" id="bairro"  [(ngModel)]="endereco.bairro" placeholder="Informe seu bairro" >
+      <label >Bairro</label>
+      <input type="text" [disabled]="true" class="form-control" name="bairro"  [(ngModel)]="endereco.bairro" placeholder="Informe seu bairro" >
     </div>
     <div class="form-group col-md-4 col-10">
-      <label for="cidade">Cidade</label>
-      <input type="text" [disabled]="true" class="form-control" id="cidade" name="cidade"  [(ngModel)]="endereco.municipio.nome" placeholder="Informe a cidade" >
+      <label >Cidade</label>
+      <input type="text" [disabled]="true" class="form-control"  name="cidade"  [(ngModel)]="endereco.municipio.nome" placeholder="Informe a cidade" >
     </div>
     <div class="form-group col-md-2 col-10">
-      <label for="uf">UF</label>
-      <input type="text" [disabled]="true" class="form-control" id="uf" name="uf"  [(ngModel)]="endereco.municipio.uf.sigla" placeholder="Informe a cidade" >
+      <label >UF</label>
+      <input type="text" [disabled]="true" class="form-control"  name="uf"  [(ngModel)]="endereco.municipio.uf.sigla" placeholder="Informe a cidade" >
     </div>
   </div>
 
   <div class="row">
     <div class="form-group col-md-6 col-10">
-      <label for="complemento">Complemento</label>
-      <input type="text" [disabled]="true" class="form-control" id="complemento" name="complemento"  [(ngModel)]="endereco.complemento" placeholder="Ex. Cond. bl. apto.">
+      <label >Complemento</label>
+      <input type="text" [disabled]="true" class="form-control"  name="complemento"  [(ngModel)]="endereco.complemento" placeholder="Ex. Cond. bl. apto.">
     </div>
     <div class="form-group col-md-2 col-10">
-      <label for="pais">País</label>
-      <input type="text" [disabled]="true" class="form-control" id="pais" name="pais"  [(ngModel)]="endereco.municipio.uf.pais.nome" >
+      <label >País</label>
+      <input type="text" [disabled]="true" class="form-control" name="pais"  [(ngModel)]="endereco.municipio.uf.pais.nome" >
 
     </div>
   </div>
 
   <div class="form-group">
     <div class="form-check">
-      <input class="form-check-input" [disabled]="true"  type="checkbox" [checked]="endereco.domicilio" (change)="endereco.domicilio = !endereco.domicilio" id="invalidCheck2" >
-      <label class="form-check-label" for="invalidCheck2">
+      <input class="form-check-input" [disabled]="true"  type="checkbox" [checked]="endereco.domicilio" (change)="endereco.domicilio = !endereco.domicilio" >
+      <label class="form-check-label" >
         Endereço Principal
       </label>
     </div>
   </div>
 
-  <button mat-raised-button class="mr-2"> <i class="fas fa-pencil-alt mr-2"></i>Editar</button>
+  <button mat-raised-button class="mr-2" (click)="editAddress(endereco)"> <i class="fas fa-pencil-alt mr-2"></i>Editar</button>
 
   <button mat-raised-button class="mr-2 float-right" (click)="openDialogServicos(endereco.id)">Serviços prestados nesse local</button>
  <div class="mt-3">

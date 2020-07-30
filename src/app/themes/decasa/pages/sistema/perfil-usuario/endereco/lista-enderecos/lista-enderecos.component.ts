@@ -1,6 +1,6 @@
-import { DialogServicosComponent } from '../../../../../blocos/dialog/dialog-servicos/dialog-servicos.component';
-import {Component, Input, OnInit} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {DialogServicosComponent} from '../../../../../blocos/dialog/dialog-servicos/dialog-servicos.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {EnderecoCliente} from '../../../../../../../model/endereco-cliente.module';
 import {EnderecoService} from '../../../../../../../services/endereco.service';
 import {AuthService} from '../../../../../../../services/auth.service';
@@ -15,7 +15,10 @@ export class ListaEnderecosComponent implements OnInit {
   enderecosCliente: EnderecoCliente[] = [];
   edit = false;
   @Input() displayForm;
-  constructor(public dialog: MatDialog, private enderecoService: EnderecoService, private authService: AuthService) { }
+  @Output() editOutput = new EventEmitter<EnderecoCliente>();
+
+  constructor(public dialog: MatDialog, private enderecoService: EnderecoService, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.getAllAddress();
@@ -35,5 +38,9 @@ export class ListaEnderecosComponent implements OnInit {
         console.log(data);
       }
     );
+  }
+
+  editAddress(enderecoCliente) {
+    this.editOutput.emit(enderecoCliente);
   }
 }
