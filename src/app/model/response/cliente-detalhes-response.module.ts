@@ -3,6 +3,6 @@ export class ClienteDetalhesResponse {
   nome: string;
   cpf: string;
   email: string;
-  telefone: string;
+  celular: string;
   dataNascimento: Date;
 }
