@@ -39,9 +39,9 @@ export class SelecionarFornecedorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.authService.check()) {
-      this.openModal();
-    }
+    // if (!this.authService.check()) {
+    //   this.openModal();
+    // }
   }
 
   getPrestador(prestadorId) {

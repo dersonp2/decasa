@@ -1,92 +1,115 @@
 <app-nav-vertical-usuario></app-nav-vertical-usuario>
 
 <div class="col-md-10 float-md-right col-12 ml-auto orcamento">
-    <div class="row">
-        <div class="col-md-3 col-12 pedidos">
-            <!-- Pedidos -->
-            <app-nav-vertical-perfil></app-nav-vertical-perfil>
-        </div>
-
-        <div class="col-12 col-md-9 scroll-auto container-fluid">
-            <form>
-                <div class="row mt-4">
-                    <!-- Nome -->
-                    <div class="form-group col-md-6">
-                        <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome" name="nome" [(ngModel)]="cliente.nome" disabled>
-                    </div>
-
-                    <!-- Pontos -->
-                    <div class="form-group offset-md-3 offset-0 col-md-2 justify-content-center d-flex">
-                        <h2> <span class="badge badge-pill color-orange-logo float-right" data-toggle="popover" data-trigger="hover" data-content="Sua quantidade de pontos acomulados">
-                Pontos<br /> 50.89
-              </span>
-                        </h2>
-                    </div>
-
-                    <!-- cpf -->
-                    <div class="form-group col-md-4">
-                        <label for="cpf">CPF</label>
-                        <input type="text" [textMask]="{mask: cpfMask}" class="form-control" id="cpf" placeholder="   .   .   -  " name="cpf" [(ngModel)]="cliente.cpf" disabled>
-                    </div>
-                </div>
-                <!-- Row-->
-
-                <!-- Email -->
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" [(ngModel)]="cliente.email" disabled>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <!-- Telefone -->
-                    <div class="form-group col-md-3 col-4">
-                        <label for="inputhPhone">Telefone</label>
-                        <input [textMask]="{mask: phoneMask}" type="text" class="form-control" id="inputhPhone" placeholder="(DD)_____-_____" name="telefone" [(ngModel)]="cliente.telefone" disabled>
-                    </div>
-
-
-                    <!-- Data de Nascimento -->
-                    <div class="form-group col-md-2  col-4">
-                        <label for="inputNasc">Data de Nasc.</label>
-                        <input title="Data de Nascimento" type="text" class="form-control" id="inputNasc" placeholder="  / /    " [textMask]="{mask: dateMask}" name="data" [(ngModel)]="cliente.dataNascimento" disabled>
-                    </div>
-
-                    <!-- Sexo -->
-                    <!-- <div class="form-group col-md-3 col-4">
-                        <label for="inlineFormCustomSelectPref">Sexo</label>
-                        <select class="custom-select" id="inlineFormCustomSelectPref">
-              <option selected>Escolha</option>
-              <option value="1">Masculino</option>
-              <option value="2">Feminino</option>
-            </select>
-                    </div> -->
-                </div>
-
-                <!-- <div class="row"> -->
-                <!-- Plano -->
-<!--                <div class="form-group col-md-3">-->
-<!--                    <label for="plano">Tipo de Cadastro</label>-->
-<!--                    <select class="custom-select" id="plano">-->
-<!--              <option selected>Escolha</option>-->
-<!--              <option value="1">Individual</option>-->
-<!--              <option value="2">Empresarial</option>-->
-<!--            </select>-->
-<!--                </div>-->
-
-                <!-- Idioma -->
-                <!-- <div class="form-group col-md-3">
-                        <label for="plano">Idioma</label>
-                        <select class="custom-select" id="plano">
-              <option selected>Português</option>
-            </select>
-                    </div>
-                </div> -->
-
-                <button mat-raised-button> <i class="fas fa-pencil-alt mr-2"></i>Editar</button>
-            </form>
-        </div>
+  <div class="row">
+    <div class="col-md-3 col-12 pedidos">
+      <!-- Pedidos -->
+      <app-nav-vertical-perfil></app-nav-vertical-perfil>
     </div>
+
+    <div class="col-12 col-md-9 scroll-auto container-fluid">
+      <form [formGroup]="cadastroForm" novalidate>
+        <div class="row mt-4">
+          <!-- Nome | usando fildset para desabilitar e habilitar os campos-->
+          <fieldset [disabled]="disabled" class="form-group col-md-6">
+            <label for="inputNome">Nome</label>
+            <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control"
+                   placeholder="Informe seu nome completo" formControlName="nome" id="inputNome" name="nome"
+            >
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['nome'].invalid && (cadastroForm.controls['nome'].touched || cadastroForm.controls['nome'].dirty)">
+                    Nome inválido.
+                    </span>
+          </fieldset>
+
+          <!-- Pontos -->
+          <div class="form-group offset-md-3 offset-0 col-md-2 justify-content-center d-flex">
+            <h2> <span class="badge badge-pill color-orange-logo float-right" data-toggle="popover" data-trigger="hover"
+                       data-content="Sua quantidade de pontos acomulados">
+                Pontos<br/> 50.89
+              </span>
+            </h2>
+          </div>
+
+          <!-- cpf -->
+          <fieldset [disabled]="disabled" class="form-group col-md-4">
+            <label for="cpf">CPF</label>
+            <input type="text" [textMask]="{mask: cpfMask}" class="form-control" id="cpf" placeholder="   .   .   -  "
+                   name="cpf" formControlName="cpf">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['cpf'].invalid && (cadastroForm.controls['cpf'].touched || cadastroForm.controls['cpf'].dirty)">
+                    CPF inválido.
+                    </span>
+          </fieldset>
+        </div>
+        <!-- Row-->
+
+        <!-- Email -->
+        <div class="row">
+          <fieldset [disabled]="disabled" class="form-group col-md-6">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                   formControlName="email">
+            <span class="color-red"
+                  *ngIf="cadastroForm.controls['email'].invalid && (cadastroForm.controls['email'].touched || cadastroForm.controls['email'].dirty)">
+                    E-mail inválido.
+                    </span>
+          </fieldset>
+        </div>
+
+        <div class="row">
+          <!-- Telefone -->
+          <fieldset [disabled]="disabled" class="form-group col-md-3 col-4">
+            <label for="inputhPhone">Telefone</label>
+            <input [textMask]="{mask: phoneMask}" type="text" class="form-control" id="inputhPhone"
+                   placeholder="(DD)_____-_____" name="telefone" formControlName="telefone">
+          </fieldset>
+
+
+          <!-- Data de Nascimento -->
+          <fieldset [disabled]="disabled"  class="form-group col-md-2  col-4">
+            <label for="inputNasc">Data de Nasc.</label>
+            <input title="Data de Nascimento" type="text" class="form-control" id="inputNasc" placeholder="  / /    "
+                   [textMask]="{mask: dateMask}" name="data" formControlName="dataNascimento">
+          </fieldset>
+
+          <!-- Sexo -->
+          <!-- <div class="form-group col-md-3 col-4">
+              <label for="inlineFormCustomSelectPref">Sexo</label>
+              <select class="custom-select" id="inlineFormCustomSelectPref">
+    <option selected>Escolha</option>
+    <option value="1">Masculino</option>
+    <option value="2">Feminino</option>
+  </select>
+          </div> -->
+        </div>
+
+        <!-- <div class="row"> -->
+        <!-- Plano -->
+        <!--                <div class="form-group col-md-3">-->
+        <!--                    <label for="plano">Tipo de Cadastro</label>-->
+        <!--                    <select class="custom-select" id="plano">-->
+        <!--              <option selected>Escolha</option>-->
+        <!--              <option value="1">Individual</option>-->
+        <!--              <option value="2">Empresarial</option>-->
+        <!--            </select>-->
+        <!--                </div>-->
+
+        <!-- Idioma -->
+        <!-- <div class="form-group col-md-3">
+                <label for="plano">Idioma</label>
+                <select class="custom-select" id="plano">
+      <option selected>Português</option>
+      </select>
+            </div>
+        </div> -->
+
+        <button mat-raised-button [hidden]="!disabled" (click)="disabled = !disabled"><i
+          class="fas fa-pencil-alt mr-2"></i>Editar
+        </button>
+        <button mat-raised-button [hidden]="disabled" [disabled]="cadastroForm.invalid" (click)="save()"><i class="fas fa-check mr-2"></i>Salvar</button>
+
+      </form>
+    </div>
+  </div>
 </div>
