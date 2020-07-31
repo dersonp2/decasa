@@ -1,5 +1,5 @@
 import {PopoverModule} from 'ngx-smart-popover';
-import {BlocosModule} from '../blocos/blocos.module';
+import {BlocosModule} from './../blocos/blocos.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 

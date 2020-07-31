@@ -154,5 +154,12 @@
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
   border-left: 3px solid #404A51;
   background-color: #63E1FD;
+}
 
+.fas {
+  color: #404A51;
+}
+
+.classe {
+  border-bottom: white 1px  solid !important;
 }

@@ -19,7 +19,7 @@ export class DialogCancelarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.budgetId);
+    console.log(this.data.id);
   }
 
   close(): void {
@@ -30,16 +30,17 @@ export class DialogCancelarComponent implements OnInit {
     this.close();
     this.dialog.open(DialogReagendarComponent, {
       width: '50%',
+      data: this.data
     });
   }
 
   initialcancelBudget() {
+    console.log(this.data);
     if (this.isFine === 1) {
       this.cancel = true;
-      this.orcamentoServide.generateFine(this.data.budgetId).subscribe(
+      this.orcamentoServide.generateFine(this.data.id).subscribe(
         (data) => {
-          // tslint:disable-next-line:no-console
-          console.info(data);
+          console.log(data);
           switch (data.id) {
             case 1: // Cancelamento COM multa
               this.isFine = 2;
@@ -54,7 +55,7 @@ export class DialogCancelarComponent implements OnInit {
               this.cancel = false;
               break;
             case 200: // Orcamento não localizado
-              this.erroMessage = 'Orçamento não localizado';
+              this.erroMessage = 'Orçamento não localizado'; this.erroMessage = 'Erro interno';
               this.isFine = 3;
               this.cancel = false;
               break;
@@ -66,6 +67,9 @@ export class DialogCancelarComponent implements OnInit {
           }
         },
         (error) => {
+          this.erroMessage = 'Erro interno';
+          this.isFine = 3;
+          this.cancel = false;
           console.log(error);
         }
       );
@@ -76,19 +80,24 @@ export class DialogCancelarComponent implements OnInit {
   }
 
   cancelBuget(fineId) {
-    this.orcamentoServide.cancelBudget(this.data.budgetId, fineId).subscribe(
+    console.log(this.data.id + ' ' + fineId);
+    this.orcamentoServide.cancelBudget(1004, fineId).subscribe(
       (data) => {
-        console.info(data);
+        console.log(data);
         this.cancel = false;
         if (data.id === 500 || (data.id === 200 && data.nome === 'Ocorreu um erro no cancelamento do pagamento.')) {
           this.erroMessage = 'Ocorreu um erro no cancelamento do pagamento';
           this.isFine = 3;
-        } else if (data.id === 200 && data.nome === 'Cancelamento realizado com sucesso!') {
+        } else {
           this.isFine = 4;
         }
+        console.log(this.data.id + ' ' + fineId);
       },
       (error) => {
         console.log(error);
+        this.erroMessage = 'Erro interno';
+        this.isFine = 3;
+        this.cancel = false;
       }
     );
   }

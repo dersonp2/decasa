@@ -88,6 +88,7 @@ export class EnderecoComponent implements OnInit {
     this.endereco.numero = this.enderecoForm.get('numero').value;
     this.endereco.domicilio = this.enderecoForm.get('check').value;
     console.log(this.endereco);
+    console.log(JSON.stringify(this.endereco));
     this.enderecoService.saveAddress(this.endereco).subscribe(
       (data) => {
         console.log(data);

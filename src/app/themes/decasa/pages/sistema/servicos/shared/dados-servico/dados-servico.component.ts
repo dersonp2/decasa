@@ -10,6 +10,7 @@ import {DialogMembrosComponent} from '../../../../../blocos/dialog/dialog-membro
 import {DialogEditarComponent} from '../../../../../blocos/dialog/dialog-editar/dialog-editar.component';
 import {DialogAvaliacaoComponent} from '../../../../../blocos/dialog/dialog-avaliacao/dialog-avaliacao.component';
 import {OrcamentoService} from '../../../../../../../services/orcamento.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-dados-servico',
@@ -24,7 +25,7 @@ export class DadosServicoComponent implements OnInit {
 
   displayEmail = false;
 
-  constructor(public dialog: MatDialog, private orcamentoService: OrcamentoService) {
+  constructor(public dialog: MatDialog, private orcamentoService: OrcamentoService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
@@ -32,14 +33,18 @@ export class DadosServicoComponent implements OnInit {
   }
 
   downloadProposal() {
+    this.spinner.show();
     this.orcamentoService.generateProposal(this.orcamentoSelected.id).subscribe(
       (data) => {
-        console.log('Proposta gerada com sucesso');
-        const file = new Blob([data], { type: 'application/pdf' });
+        this.spinner.hide();
+        const file = new Blob([data], {type: 'application/pdf'});
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
       },
-      (error) => {console.log(error); }
+      (error) => {
+        this.spinner.hide();
+        console.log(error);
+      }
     );
   }
 
@@ -77,7 +82,7 @@ export class DadosServicoComponent implements OnInit {
   openDialogCancelar() {
     this.dialog.open(DialogCancelarComponent, {
       width: '50%',
-      data: {budgetId: this.orcamentoSelected.id}
+      data: this.orcamentoSelected
     });
   }
 

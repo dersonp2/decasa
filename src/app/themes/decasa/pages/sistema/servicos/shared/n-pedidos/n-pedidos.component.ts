@@ -85,7 +85,7 @@ export class NPedidosComponent implements OnInit {
   }
 
   getOrcamentosAgendados() {
-    this.orcamentoService.buscarClienteOrcamentosAgendados(2054).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosAgendados(this.clientId).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();
@@ -95,7 +95,7 @@ export class NPedidosComponent implements OnInit {
 
   // TODO: Alterar clienteID
   getOrcamentosExecucao() {
-    this.orcamentoService.buscarClienteOrcamentosExecucao(2054).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosExecucao(this.clientId).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();
