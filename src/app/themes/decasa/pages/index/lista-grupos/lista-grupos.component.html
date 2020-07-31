@@ -5,7 +5,8 @@
         <li class="pad"><a href="#"><span><i class="fas fa-laptop mr-2"></i>{{grupo.descricao}}</span></a>
           <ul>
             <div class="sub-wrapper">
-              <li *ngFor="let classe of grupo.classes"><a (click)="goToOrcamento(classe.id)">{{classe.descricao}}</a></li>
+              <li *ngFor="let classe of grupo.classes"><a (click)="goToOrcamento(classe.id)">{{classe.descricao}}</a>
+              </li>
             </div>
           </ul>
         </li>
@@ -18,3 +19,10 @@
   <button class="btn" (click)="moveRight()"><i class="fa fa-chevron-right"></i></button>
 </div>
 
+<ngx-spinner
+  bdColor="rgba(255,255,255,0.8)"
+  size="medium"
+  template="<img src='assets/gif/load.gif'/>"
+>
+  <p style="font-size: 20px; color: #0A68AE">Carregando...</p>
+</ngx-spinner>

@@ -1,5 +1,4 @@
-import {ServicosOrcamento} from './../../../../../../../model/servico-orcamento.module';
-import {CarrinhoEvent} from '../../../../../../../events/carrinho-event';
+import {ServicosOrcamento} from '../../../../../../../model/servico-orcamento.module';
 import {ClasseEvent} from '../../../../../../../events/classe-event';
 import {ServicoService} from '../../../../../../../services/servico.service';
 import {Component, Input, OnInit} from '@angular/core';
@@ -8,8 +7,8 @@ import {Servico} from 'src/app/model/servico.module';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogInfoComponent} from '../../../../../blocos/dialog/dialog-info/dialog-info.component';
-import {DialogQuantidadeComponent} from "../../../../../blocos/dialog/dialog-quantidade/dialog-quantidade.component";
-
+import {DialogQuantidadeComponent} from '../../../../../blocos/dialog/dialog-quantidade/dialog-quantidade.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-tabela',
@@ -29,7 +28,7 @@ export class TabelaComponent implements OnInit {
 
   // tslint:disable-next-line:variable-name
   constructor(public dialog: MatDialog, private servicoService: ServicoService, private classeService: ClasseEvent,
-              private _snackBar: MatSnackBar, private carrinhoService: CarrinhoEvent) {
+              private _snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
     classeService.alteracao$.subscribe(
       (data) => {
         this.getServicoByClasseAndMunicipio(data);
@@ -44,12 +43,16 @@ export class TabelaComponent implements OnInit {
 
   // Pegar todos os servicos por classe e municipio
   getServicoByClasseAndMunicipio(classeId) {
+    this.spinner.show();
     this.servicoService.getServicoByClasseAndMunicipio(classeId, this.municipioId).subscribe(
       (data) => {
         this.servicos = data;
         this.getElementData();
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.spinner.hide();
+      }
     );
   }
 
@@ -69,7 +72,7 @@ export class TabelaComponent implements OnInit {
       mensagem = 'Tabela atualizada';
       classe = 'blue-snackbar';
     }
-    console.log(this.dt);
+    this.spinner.hide();
     this.showSnackBar(mensagem, classe);
   }
 
@@ -81,17 +84,17 @@ export class TabelaComponent implements OnInit {
     );
   }
 
-  adicionarServico(servico) {
-    this.openDialogQuantidade(servico);
-    // console.log(servico);
-    // if (localStorage.hasOwnProperty('servicosSelecionados')) {
-    //   this.servicosSelecionados = JSON.parse(localStorage.getItem('servicosSelecionados'));
-    // }
-    // this.servicosSelecionados.push(servico);
-    // localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
-    // this.carrinhoService.alteracao();
-    // this.showSnackBar('Serviço inserido no carrinho', 'blue-snackbar');
-  }
+  // adicionarServico(servico) {
+  // this.openDialogQuantidade(servico);
+  // console.log(servico);
+  // if (localStorage.hasOwnProperty('servicosSelecionados')) {
+  //   this.servicosSelecionados = JSON.parse(localStorage.getItem('servicosSelecionados'));
+  // }
+  // this.servicosSelecionados.push(servico);
+  // localStorage.setItem('servicosSelecionados', JSON.stringify(this.servicosSelecionados));
+  // this.carrinhoService.alteracao();
+  // this.showSnackBar('Serviço inserido no carrinho', 'blue-snackbar');
+  // }
 
   openDialogInfo(composicao) {
     this.dialog.open(DialogInfoComponent, {

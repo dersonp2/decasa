@@ -19,6 +19,7 @@ import { ClienteComponent } from './cadastro/cliente/cliente.component';
 import { ProfissionalComponent } from './cadastro/profissional/profissional.component';
 import { BemVindoComponent } from './cadastro/profissional/bem-vindo/bem-vindo.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     PopoverModule,
+    NgxSpinnerModule,
 
     BlocosModule,
     ComprarServicosModule,

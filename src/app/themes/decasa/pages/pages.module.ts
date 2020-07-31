@@ -1,5 +1,5 @@
 import {PopoverModule} from 'ngx-smart-popover';
-import {BlocosModule} from './../blocos/blocos.module';
+import {BlocosModule} from '../blocos/blocos.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
@@ -22,6 +22,7 @@ import {DragScrollModule} from 'ngx-drag-scroll';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ManutencaoComponent } from './manutencao/manutencao.component';
 import {DpDatePickerModule} from 'ng2-date-picker';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
 
     BlocosModule,
     HttpClientModule,

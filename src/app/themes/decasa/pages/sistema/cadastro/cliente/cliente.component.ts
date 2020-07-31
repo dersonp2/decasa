@@ -7,6 +7,7 @@ import {Cliente} from '../../../../../../model/cliente.module';
 import {TipoPessoa} from '../../../../../../model/tipo-pessoa.module';
 import {Usuario} from '../../../../../../model/usuario.module';
 import {Md5} from 'ts-md5';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-cliente',
@@ -21,7 +22,7 @@ export class ClienteComponent implements OnInit {
   invalido = true;
   erroMessage = null;
 
-  constructor(private clienteService: ClienteService, private router: Router, private fb: FormBuilder) {
+  constructor(private spinner: NgxSpinnerService, private clienteService: ClienteService, private router: Router, private fb: FormBuilder) {
     this.cadastroForm = fb.group(
       {
         nome: ['', [Validators.minLength(5), Validators.required]],
@@ -51,21 +52,23 @@ export class ClienteComponent implements OnInit {
 
 
     cliente.usuario = usuario;
-    console.log(cliente);
+    this.spinner.show();
     this.clienteService.saveClient(cliente).subscribe(
       (data) => {
         console.log(data);
         if (data.id === 200) {
-          console.log('logou');
+          this.spinner.hide();
           localStorage.setItem('user', btoa(JSON.stringify(data.cliente)));
           this.router.navigate(['/']);
         } else {
           this.erroMessage = data.message;
+          this.spinner.hide();
         }
       },
       (error) => {
         console.log(error);
         this.erroMessage = error.message;
+        this.spinner.hide();
       }
     );
   }

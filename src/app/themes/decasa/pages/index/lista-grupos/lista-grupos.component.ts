@@ -3,9 +3,9 @@ import {DialogLocalizacaoComponent} from '../../../blocos/dialog/dialog-localiza
 import {MatDialog} from '@angular/material/dialog';
 import {GrupoService} from '../../../../../services/grupo.service';
 import {TodosOsGruposEClassesResponse} from '../../../../../model/response/todos-os-grupos-classes-response.module';
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {OwlOptions} from 'ngx-owl-carousel-o';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {DragScrollComponent} from 'ngx-drag-scroll';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class ListaGruposComponent implements OnInit {
 
   @ViewChild('nav', {read: DragScrollComponent}) ds: DragScrollComponent;
 
-  constructor(private grupoService: GrupoService, public dialog: MatDialog, private router: Router) {
+  constructor(private grupoService: GrupoService, public dialog: MatDialog, private spinner: NgxSpinnerService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,11 +37,16 @@ export class ListaGruposComponent implements OnInit {
 
   // this.gruposClasses = data;
   getGruposClasses() {
+    this.spinner.show();
     this.grupoService.getGruposAllClasses().subscribe(
       (data) => {
         this.gruposClasses = data;
+        this.spinner.hide();
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.spinner.hide();
+      }
     );
   }
 
