@@ -18,7 +18,7 @@ import {EnderecoCliente} from '../../../../../../../model/endereco-cliente.modul
 import {EnderecoService} from '../../../../../../../services/endereco.service';
 import {ClienteService} from '../../../../../../../services/cliente.service';
 import {DialogAtualizacaoClienteComponent} from '../../../../../blocos/dialog/dialog-atualizacao-cliente/dialog-atualizacao-cliente.component';
-
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-nav-pagamento',
@@ -37,7 +37,8 @@ export class NavPagamentoComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService, private _snackBar: MatSnackBar,
               private cartaoClienteService: CartaoClienteService, public dialog: MatDialog, private router: Router,
               private orcamentoService: OrcamentoService, private pagamentoService: PagamentoService,
-              private clienteService: ClienteService, private enderecoService: EnderecoService) {
+              private clienteService: ClienteService, private enderecoService: EnderecoService,
+              private spinner: NgxSpinnerService) {
   }
 
   /*
@@ -146,28 +147,30 @@ export class NavPagamentoComponent implements OnInit {
 
   saveOrcamento() {
     this.visiblePagar = false;
+    this.spinner.show();
     console.log(JSON.stringify(this.orcamento));
     console.log(this.orcamento);
-    // if (this.orcamento.id == null) {
-    //   this.orcamentoService.salvarOrcamento(this.orcamento).subscribe(
-    //     (data) => {
-    //       console.log(data);
-    //       if (data.id === 200) {
-    //         this.orcamento = data.orcamento;
-    //         console.log('Salvou Orcamento' + this.orcamento);
-    //         localStorage.setItem('orcamento', btoa(JSON.stringify(this.orcamento)));
-    //         this.savepayment();
-    //       }
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //       this.showSnackBar('Erro ao cadastrar orçamento!!!', 'orange-snackbar');
-    //       this.visiblePagar = true;
-    //     }
-    //   );
-    // } else {
-    //   this.savepayment();
-    // }
+    if (this.orcamento.id == null) {
+      this.orcamentoService.salvarOrcamento(this.orcamento).subscribe(
+        (data) => {
+          console.log(data);
+          if (data.id === 200) {
+            this.orcamento = data.orcamento;
+            console.log('Salvou Orcamento' + this.orcamento);
+            localStorage.setItem('orcamento', btoa(JSON.stringify(this.orcamento)));
+            this.savepayment();
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+          this.showSnackBar('Erro ao cadastrar orçamento!!!', 'orange-snackbar');
+          this.visiblePagar = true;
+        }
+      );
+    } else {
+      this.savepayment();
+    }
   }
 
   savepayment() {
@@ -187,6 +190,7 @@ export class NavPagamentoComponent implements OnInit {
     this.pagamentoService.savePay(pagamento).subscribe(
       (data) => {
         if (data.id === 200) {
+          this.spinner.hide();
           console.log('Salvou Cartao' + data);
           localStorage.removeItem('orcamento');
           localStorage.removeItem('servicosSelecionados');
@@ -194,12 +198,14 @@ export class NavPagamentoComponent implements OnInit {
           this.router.navigate(['/escolher']);
         } else {
           this.visiblePagar = true;
+          this.spinner.hide();
           this.showSnackBar('Erro ao realizar o pagamento!', 'orange-snackbar');
         }
       },
       (error) => {
         console.log(error);
         this.visiblePagar = true;
+        this.spinner.hide();
         this.showSnackBar('Erro ao realizar o pagamento!', 'orange-snackbar');
       }
     );

@@ -25,6 +25,7 @@ import {ListaEnderecosComponent} from './endereco/lista-enderecos/lista-endereco
 
 import {BlocosModule} from './../../../blocos/blocos.module';
 import {AngularValidateBrLibModule} from "angular-validate-br";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {AngularValidateBrLibModule} from "angular-validate-br";
     MatButtonModule,
     FormsModule,
     AngularValidateBrLibModule,
+    NgxSpinnerModule,
 
     BlocosModule,
     ReactiveFormsModule

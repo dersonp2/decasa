@@ -32,6 +32,7 @@ import {TabelaPropostaComponent} from './proposta/tabela-proposta/tabela-propost
 import {TabelaQuantidadeComponent} from './quantidade/tabela-quantidade/tabela-quantidade.component';
 
 import {BlocosModule} from '../../../blocos/blocos.module';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {BlocosModule} from '../../../blocos/blocos.module';
     MatCheckboxModule,
     MatCardModule,
     MatSnackBarModule,
+    NgxSpinnerModule,
     CreditCardDirectivesModule,
     AgmCoreModule.forRoot({
       apiKey: environment.API_MAPS

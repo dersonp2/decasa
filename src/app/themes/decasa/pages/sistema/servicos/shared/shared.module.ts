@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
+    NgxSpinnerModule,
     MatAutocompleteModule
   ],
   exports: [
