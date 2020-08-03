@@ -4,42 +4,75 @@
   <a (click)="close()" class="cursor"><i class="fas fa-times"></i></a>
 </mat-toolbar>
 
+
 <div class="form-row mt-2" *ngIf="(enderecosCliente).length > 0">
   <table mat-table [dataSource]="enderecosCliente" class="mt-4">
 
     <!-- Name Column -->
     <ng-container matColumnDef="municipio">
-      <mat-header-cell *matHeaderCellDef>Municipio</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.municipio.nome}}</mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="rua">
-      <mat-header-cell *matHeaderCellDef>Rua</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.logradouro}}</mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="numero">
-      <mat-header-cell *matHeaderCellDef>Numero</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.numero}}</mat-cell>
-    </ng-container>
+        <ng-container matColumnDef="numero">
+          <mat-header-cell *matHeaderCellDef>Numero</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.numero}}</mat-cell>
+        </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="opc">
+    <ng-container matColumnDef="opc">-->
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element" [hidden]="element.municipio.id != municipioId">
-        <button mat-raised-button [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar
+      <mat-cell *matCellDef="let element" >
+        <button mat-raised-button [hidden]="element.municipio.id != municipioId" [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar
         </button>
-
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </table>
-
-  <button mat-raised-button (click)="newAddress()" class="mt-3">Novo Endereço
-  </button>
-
 </div>
+
+<!--<div class="form-row mt-2" *ngIf="(enderecosCliente).length > 0">-->
+<!--  <table mat-table [dataSource]="enderecosCliente" class="mt-4">-->
+
+<!--    &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--    <ng-container matColumnDef="municipio">-->
+<!--      <mat-header-cell *matHeaderCellDef>Municipio</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"> {{element.municipio.nome}}</mat-cell>-->
+<!--    </ng-container>-->
+
+<!--    &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--    <ng-container matColumnDef="rua">-->
+<!--      <mat-header-cell *matHeaderCellDef>Rua</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"> {{element.logradouro}}</mat-cell>-->
+<!--    </ng-container>-->
+
+<!--    &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--    <ng-container matColumnDef="numero">-->
+<!--      <mat-header-cell *matHeaderCellDef>Numero</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"> {{element.numero}}</mat-cell>-->
+<!--    </ng-container>-->
+
+<!--    &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--    <ng-container matColumnDef="opc">-->
+<!--      <mat-header-cell *matHeaderCellDef></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element" [hidden]="element.municipio.id != municipioId">-->
+<!--        <button mat-raised-button [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar-->
+<!--        </button>-->
+
+<!--      </mat-cell>-->
+<!--    </ng-container>-->
+
+<!--    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--  </table>-->
+
+<!--  <button mat-raised-button (click)="newAddress()" class="mt-3">Novo Endereço-->
+<!--  </button>-->
+
+<!--</div>-->
