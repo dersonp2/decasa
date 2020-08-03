@@ -73,7 +73,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
   showUser() {
     if (!this.authService.check()) {
       this.toggleDisplay();
-      console.log(this.authService.check());
       this.popoverPerfil.hide();
     }
   }
