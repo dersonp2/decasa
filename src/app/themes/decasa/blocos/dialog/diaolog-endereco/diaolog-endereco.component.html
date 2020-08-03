@@ -27,7 +27,7 @@
     <ng-container matColumnDef="opc">-->
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" >
-        <button mat-raised-button [hidden]="element.municipio.id != municipioId" [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar
+        <button mat-raised-button *ngIf="element.municipio.id == municipioId" [mat-dialog-close]="element"><i class="far fa-hand-point-left"></i> Selecionar
         </button>
       </mat-cell>
     </ng-container>
