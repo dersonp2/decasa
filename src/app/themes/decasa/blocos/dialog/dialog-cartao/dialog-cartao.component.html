@@ -38,7 +38,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="opc">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let element"> <button mat-raised-button [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar</button>
+            <mat-cell *matCellDef="let element"> <button class="btn btn-primary-decasa"  [mat-dialog-close]="element"><i class="far fa-hand-point-left ml-3"></i> Selecionar</button>
 
             </mat-cell>
         </ng-container>
@@ -49,10 +49,10 @@
 </div>
 
 <div class="mt-3" *ngIf="!cadastrarCartao">
-    <button mat-raised-button (click)="showCadastrarCartao()">Novo cartão <i class="ml-2 fas fa-plus"></i></button>
+    <button class="btn btn-primary-decasa" (click)="showCadastrarCartao()">Novo cartão <i class="ml-2 fas fa-plus"></i></button>
 </div>
 <div class="mt-3" *ngIf="(cartoes).length > 0; else noResults">
-    <button mat-raised-button (click)="showCadastrarCartao()" *ngIf="cadastrarCartao">Lista de cartões <i class="fas fa-list-ul ml-2"></i></button>
+    <button class="btn btn-primary-decasa" (click)="showCadastrarCartao()" *ngIf="cadastrarCartao">Lista de cartões <i class="fas fa-list-ul ml-2"></i></button>
 </div>
 
 <ng-template #noResults>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <button mat-raised-button class="" align="end" [disabled]="form.invalid" *ngIf="!disabledButton" (click)="salvarCartao(ccNumber.resolvedScheme$)">Salvar</button>
+    <button class="btn btn-primary-decasa"  align="end" [disabled]="form.invalid" *ngIf="!disabledButton" (click)="salvarCartao(ccNumber.resolvedScheme$)">Salvar</button>
     <div *ngIf="disabledButton">
         <div class="spinner-border text-primary" role="status">
         </div>

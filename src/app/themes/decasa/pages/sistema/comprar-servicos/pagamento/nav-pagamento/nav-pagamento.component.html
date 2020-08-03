@@ -38,13 +38,12 @@
                   <label for="icvc">Cod. Segurança</label>
                   <input id="icvc" name="cvc" class="form-control" [(ngModel)]="cvc">
                 </div>
-                <div class="form-group col-1 offset-2">
-                  <label for="idCod">Total</label>
-                  <input type="number" name="total" disabled class="form-control" id="idCod"
-                         [ngModel]="orcamento.valor">
-                </div>
                 <div class="form-group col-1">
-                  <a class="btn-aplicar" mat-raised-button (click)="saveOrcamento()" [disabled]="!visiblePagar || !cvc">Pagar</a>
+                  <label >Total</label>
+                  <span class="btn btn-outline-secondary" style="cursor:default">{{orcamento.valor | currency:'BRL':true}}</span>
+                </div>
+                <div class="form-group col-1 offset-1">
+                  <a class="btn btn-primary-decasa btn-aplicar"  mat-raised-button (click)="saveOrcamento()" [disabled]="!visiblePagar || !cvc">Pagar</a>
                   <div [hidden]="visiblePagar">
                     <div class="spinner-border text-primary" role="status">
                     </div>
@@ -58,7 +57,7 @@
           </div>
         </div>
         <!--Linha-->
-        <button mat-raised-button (click)="openModalCartao()">Usar outro cartao</button>
+        <button class="btn btn-primary-decasa" (click)="openModalCartao()">Usar outro cartao</button>
       </div>
       <!--Tab Cartão -->
 

@@ -122,3 +122,16 @@ html {
 .mat-simple-snackbar-action {
     color: white !important;
 }
+
+/* Botões Padrões*/
+.btn-primary-decasa{
+  font-family: 'Karla', sans-serif !important;
+  background-color: #0A68AE;
+  color: white !important;
+  font-size: 14px;
+}
+
+.btn-primary-decasa:hover {
+  background-color: rgb(6, 83, 141);
+  color: white !important;
+}

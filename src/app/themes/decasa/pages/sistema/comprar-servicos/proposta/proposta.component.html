@@ -26,7 +26,7 @@
                 <!--Atendimento domiliar-->
             </div>
           <div class="mb-2 float-right">
-            <button mat-stroked-button (click)="openModal()" [hidden]="!this.authService.check()">Meus endereços</button>
+            <button class="btn btn-primary-decasa" (click)="openModal()" [hidden]="!this.authService.check()">Meus endereços</button>
           </div>
             <!-- Segunda linha -->
             <div class="form-row clear" *ngIf="domicile != 0">
