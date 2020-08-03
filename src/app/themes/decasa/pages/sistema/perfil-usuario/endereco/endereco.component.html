@@ -9,17 +9,17 @@
 
     <div class="col-12 col-md-9 scroll-auto container-fluid" >
       <div class="float-right mr-4 mt-2" *ngIf="!displayForm">
-        <button mat-raised-button (click)="display()"><i class="fas fa-map-marker-alt mr-2"></i>Novo Endereço</button>
+        <button class="btn btn-primary-decasa" (click)="display()"><i class="fas fa-map-marker-alt mr-2"></i>Novo Endereço</button>
       </div>
 
       <!-- Form de cadastro -->
       <form id="formFuncionario" *ngIf="displayForm" [formGroup]="enderecoForm" novalidate>
-        <div class="alert alert-warning" role="alert">
-          A simple warning alert—check it out!
+        <div  *ngIf="infoExist" class="alert alert-warning" role="alert">
+          Não é possível a edição. Já existe um orçamento vínculado a este endereço.
         </div>
         <!-- Cep -->
         <div class="row mt-2">
-          <div class="form-group col-md-3 col-6">
+          <fieldset [disabled]="true" class="form-group col-md-3 col-6">
             <label for="cep">CEP</label>
             <input [textMask]="{mask: cepMask}" type="text" class="form-control" name="cep" id="cep" placeholder="Cep"
                    (blur)="onBlurCep()" formControlName="cep">
@@ -27,7 +27,7 @@
               *ngIf="enderecoForm.controls['cep'].invalid && (enderecoForm.controls['cep'].touched || enderecoForm.controls['cep'].dirty)">
                     <span class="color-red">Cep inválido</span>
                     </span>
-          </div>
+          </fieldset>
 
           <div class="mt-2 form-group col-md-9 d-md-block d-none">
             <button type="button" (click)="display()" class="close" aria-label="Close">
@@ -108,10 +108,10 @@
           </div>
         </div>
 
-        <button mat-raised-button class="mr-2"  (click)="saveAddress()"><i class="fas fa-check mr-2"></i>Salvar</button>
+        <button class="btn btn-primary-decasa mr-2" (click)="saveAddress()"><i class="fas fa-check mr-2"></i>Salvar</button>
       </form> <!-- Form de cadastros-->
 
-      <app-lista-enderecos (editOutput)="teste($event)"  [displayForm]="displayForm"></app-lista-enderecos>
+      <app-lista-enderecos (editOutput)="edit($event)"  [displayForm]="displayForm"></app-lista-enderecos>
 
       <br/>
       <br/>

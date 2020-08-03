@@ -85,8 +85,16 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
   clickUser() {
     this.clickuser = !this.clickuser;
-    this.isDisplay = !this.isDisplay;
-    this.popoverPerfil.hide();
+    if (!this.authService.check()) {
+      this.isDisplay = !this.isDisplay;
+      this.popoverPerfil.hide();
+    } else {
+      if (this.clickuser) {
+        this.popoverPerfil.hide();
+      } else {
+        this.popoverPerfil.show();
+      }
+    }
   }
 
   showUser() {
@@ -95,6 +103,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
       console.log('é para mostrar');
       this.isDisplay = false;
       this.popoverPerfil.hide();
+    } else {
+      this.popoverPerfil.show();
     }
   }
 
@@ -104,6 +114,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
       console.log('é para esconder');
       this.isDisplay = true;
       // this.popoverPerfil.hide();
+    } else if (this.authService.check() && this.clickuser === false) {
+      this.popoverPerfil.hide();
     }
   }
 

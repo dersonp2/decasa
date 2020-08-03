@@ -86,7 +86,7 @@ li p{
 }
 
 .mat-horizontal-steppe {
-    background-color: none !important;
+    background-color: transparent !important;
 }
 
 ::ng-deep .mat-stepper-horizontal {

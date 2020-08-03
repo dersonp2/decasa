@@ -65,13 +65,13 @@
       </label>
     </div>
 
-    <button mat-raised-button class="mr-2" (click)="editAddress(endereco)"><i class="fas fa-pencil-alt mr-2"></i>Editar
+    <button class="btn btn-primary-decasa mr-2" (click)="editAddress(endereco)"><i class="fas fa-pencil-alt mr-2"></i>Editar
     </button>
-    <button mat-raised-button *ngIf="!endereco.domicilio" (click)="defineAddressPrincipal(endereco.id)"><i class="fas fa-check mr-2"></i>
+    <button class="btn btn-primary-decasa"  *ngIf="!endereco.domicilio" (click)="defineAddressPrincipal(endereco.id)"><i class="fas fa-check mr-2"></i>
       Definir como endereço principal
     </button>
 
-    <button mat-raised-button class="mr-2 float-right" (click)="openDialogServicos(endereco.id)">Serviços prestados
+    <button class="btn btn-primary-decasa mr-2 float-right" (click)="openDialogServicos(endereco.id)">Serviços prestados
       nesse local
     </button>
     <div class="mt-3">

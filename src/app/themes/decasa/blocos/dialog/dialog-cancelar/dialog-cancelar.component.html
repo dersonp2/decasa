@@ -23,7 +23,7 @@
 </p>
 
 <div mat-dialog-actions align="end" [hidden]="cancel">
-  <button mat-button mat-raised-button (click)="openDialogReagendar()"  *ngIf="isFine == 1 || isFine == 2">Reagendar o Serviço</button>
-  <button mat-button mat-raised-button  cdkFocusInitial (click)="initialcancelBudget()"  *ngIf="isFine == 1 || isFine == 2">Sim, Desejo Cancelar</button>
-  <button mat-button mat-raised-button (click)="close()" *ngIf="isFine == 3 || isFine == 4">OK</button>
+  <button class="btn btn-primary-decasa"(click)="openDialogReagendar()"  *ngIf="isFine == 1 || isFine == 2">Reagendar o Serviço</button>
+  <button class="btn btn-primary-decasa"  cdkFocusInitial (click)="initialcancelBudget()"  *ngIf="isFine == 1 || isFine == 2">Sim, Desejo Cancelar</button>
+  <button class="btn btn-primary-decasa"(click)="close()" *ngIf="isFine == 3 || isFine == 4">OK</button>
 </div>

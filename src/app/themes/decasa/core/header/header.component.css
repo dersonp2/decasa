@@ -1,5 +1,5 @@
 .img-logo{
-  width: 80x;
+  width: 80px;
   height: 80px;
 }
 
@@ -66,7 +66,7 @@ li p {
   font-size: 16px !important;
 }
 .mat-horizontal-steppe{
-  background-color: none !important;
+  background-color: transparent !important;
 }
 ::ng-deep .mat-stepper-horizontal{
   background-color:#D1F6FF;

@@ -16,6 +16,8 @@ import {ListaEnderecosComponent} from './lista-enderecos/lista-enderecos.compone
 export class EnderecoComponent implements OnInit {
 
   displayForm = false;
+  infoExist = false;
+  disabled = false;
   enderecoForm: FormGroup;
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   endereco: EnderecoCliente = new EnderecoCliente();
@@ -101,7 +103,17 @@ export class EnderecoComponent implements OnInit {
     );
   }
 
-  teste(e: EnderecoCliente) {
+  edit(e: EnderecoCliente) {
+    console.log(e);
+    this.enderecoService.existeOrcamentoVinculadoEndereco(e.id).subscribe(
+      (data) => {
+          this.infoExist = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+    ;
     this.displayForm = true;
     this.endereco.id = e.id;
     this.enderecoForm.get('cep').setValue(e.cep);

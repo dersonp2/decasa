@@ -36,4 +36,8 @@ export class EnderecoService {
   defineAddressPrincipal(clientId, addressId): Observable<EnderecoCliente> {
     return this.http.put<EnderecoCliente>(`${this.apiUrl}/definePrincipalAddress/${clientId}/${addressId}`, '').pipe(take(1));
   }
+
+  existeOrcamentoVinculadoEndereco(addressId): Observable<boolean> {
+  return this.http.get<boolean>(`${this.apiUrl}/cliente/enderecos/alteracao/${addressId}`).pipe(take(1));
+}
 }

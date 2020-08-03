@@ -105,10 +105,10 @@
             </div>
         </div> -->
 
-        <button mat-raised-button [hidden]="!disabled" (click)="disabled = !disabled"><i
+        <button class="btn btn-primary-decasa"  [hidden]="!disabled" (click)="disabled = !disabled"><i
           class="fas fa-pencil-alt mr-2"></i>Editar
         </button>
-        <button mat-raised-button [hidden]="disabled" [disabled]="cadastroForm.invalid" (click)="save()"><i class="fas fa-check mr-2"></i>Salvar</button>
+        <button class="btn btn-primary-decasa"  [hidden]="disabled" [disabled]="cadastroForm.invalid" (click)="save()"><i class="fas fa-check mr-2"></i>Salvar</button>
 
       </form>
     </div>

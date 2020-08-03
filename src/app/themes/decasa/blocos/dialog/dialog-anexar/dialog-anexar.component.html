@@ -32,7 +32,7 @@
        [style.width]=" progress + '%'">{{progress}}%
   </div>
 </div>
-<button mat-raised-button [disabled]="!selectedFile" (click)='onUpload()'>Enviar</button>
+<button class="btn btn-primary-decasa"  [disabled]="!selectedFile" (click)='onUpload()'>Enviar</button>
 
 <p class="text-center" [hidden]="!loading">
   <img src="assets/gif/load.gif " alt="Logo" class="mb-2 mt-2" width="50">

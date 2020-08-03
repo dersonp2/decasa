@@ -3,6 +3,6 @@
   <label for="cpf">CPF</label>
   <input type="text" [textMask]="{mask: cpfMask}" [(ngModel)]="cpf" class="form-control" id="cpf" placeholder="   .   .   -  " name="cpf">
 </div>
-<div mat-dialog-actions align="end">
-  <button mat-button mat-raised-button (click)="saveCpf()">Salvar</button>
+<div mat-dialog-actions >
+  <button class="btn btn-primary-decasa"  (click)="saveCpf()">Salvar</button>
 </div>

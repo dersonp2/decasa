@@ -27,7 +27,7 @@
       <div *ngIf="showServices">
         <ul *ngFor="let servico of classeServico.servico">
           <li>
-            <button (click)="addService(servico)" class="mr-3 btn btn-outline-info mt-1 mb-2"
+            <button (click)="addService(servico)"  class="btn btn-primary-decasa mr-3 mt-1 mb-2"
                     title="Adicionar no orçamento"><i class="fas fa-cart-plus"></i>
             </button>
             {{servico.descricao}}

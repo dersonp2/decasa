@@ -47,7 +47,7 @@
 </table>
 
 <div mat-dialog-actions align="end">
-  <button *ngIf="!showPay" mat-raised-button (click)="getCartaoPrincipal()" class="font-btn-nav mt-3 width-btn mr-2"
+  <button *ngIf="!showPay" class="btn btn-primary-decasa mt-3 mr-2"  (click)="getCartaoPrincipal()"
           [disabled]="total === 0">Comprar Serviços
   </button>
 </div>
@@ -82,7 +82,7 @@
         </div>
         <div class="form-group col-2 mt-2 offset-1">
           <button *ngIf="showPay" mat-raised-button (click)="saveAdiamento()" [disabled]="!cvc"
-                  class="font-btn-nav mt-3 width-btn mr-2">Pagar
+                  class="btn btn-primary-decasa mt-3 mr-2">Pagar
           </button>
         </div>
       </div>
@@ -91,5 +91,5 @@
     <!--Quarta Linha-->
   </div>
   <!--Linha-->
-  <button mat-raised-button (click)="openModal()">Usar outro cartao</button>
+  <button class="btn btn-primary-decasa" (click)="openModal()">Usar outro cartao</button>
 </div>
