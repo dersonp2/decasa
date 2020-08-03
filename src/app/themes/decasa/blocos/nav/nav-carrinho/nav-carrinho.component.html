@@ -13,12 +13,12 @@
   <!--          </div>-->
   <!--        </li>-->
   <!--    </ul>-->
-  <div *ngIf="!dataSource.length" class="text-center mt-3">
+  <div  *ngIf="(servicosSelecionados).length < 1" class="text-center mt-3">
     <img src="assets/icones/cart.png">
     <h3 class="mt-3">Seu carrinho está vazio!</h3>
   </div>
 
-  <table *ngIf="dataSource.length" mat-table [dataSource]="dataSource" class="mt-4">
+  <table *ngIf="(servicosSelecionados).length > 0" mat-table [dataSource]="servicosOrcamentos" class="mt-4">
 
     <!-- Name Column -->
     <ng-container matColumnDef="descricao">
@@ -57,6 +57,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <a *ngIf="dataSource.length" class="btn btn-orcamento mt-3" (click)="exibirMenu = !exibirMenu" [routerLink]="['/proposta']">Ver orçamento</a>
+  <a  *ngIf="(servicosSelecionados).length > 0" class="btn btn-orcamento mt-3" (click)="exibirMenu = !exibirMenu" [routerLink]="['/proposta']">Ver orçamento</a>
 
 </div>

@@ -23,6 +23,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ManutencaoComponent } from './manutencao/manutencao.component';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
+    MatBadgeModule,
 
     BlocosModule,
     HttpClientModule,

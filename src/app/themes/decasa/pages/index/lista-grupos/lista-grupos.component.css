@@ -98,3 +98,13 @@
 .sub-wrapper {
   z-index: 99999;
 }
+
+.btn-seta {
+  background-color: #0A68AE;
+  color: white;
+}
+
+.btn-seta:hover {
+  background-color: rgb(6, 83, 141);
+  color: white;
+}

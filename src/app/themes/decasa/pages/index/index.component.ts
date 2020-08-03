@@ -6,6 +6,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PopoverContentComponent} from 'ngx-smart-popover';
 import {MunicipioService} from '../../../../services/municipio.service';
 import {AuthService} from '../../../../services/auth.service';
+import {NavCarrinhoComponent} from '../../blocos/nav/nav-carrinho/nav-carrinho.component';
 
 
 @Component({
@@ -17,8 +18,12 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
   municipio: Municipio;
   isDisplay = true;
-  @ViewChild(ListaGruposComponent) listaGrupos: ListaGruposComponent;
+  clickuser = false;
+  exibirMenu = false;
+  badgeContent: number;
 
+  @ViewChild(ListaGruposComponent) listaGrupos: ListaGruposComponent;
+  @ViewChild(NavCarrinhoComponent) navCarrinho: NavCarrinhoComponent;
   @ViewChild('popoverLocation') popoverLocation: PopoverContentComponent;
   @ViewChild('popoverPerfil') popoverPerfil: PopoverContentComponent;
 
@@ -35,6 +40,14 @@ export class IndexComponent implements OnInit, AfterViewInit {
       this.municipioService.buscarMunicipioPorId(localStorage.getItem('municipioId')).subscribe((data) => {
         this.municipio = data;
       });
+    }
+    this.badgeCarrinho();
+  }
+
+  badgeCarrinho() {
+    if (localStorage.hasOwnProperty('servicosSelecionados')) {
+      const servicos: [] = JSON.parse(localStorage.getItem('servicosSelecionados'));
+      this.badgeContent = servicos.length;
     }
   }
 
@@ -53,7 +66,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
 
   toggleDisplay() {
-    this.isDisplay = !this.isDisplay;
+    this.clickuser = !this.clickuser;
   }
 
   hidePopover() {
@@ -70,10 +83,31 @@ export class IndexComponent implements OnInit, AfterViewInit {
     console.log('Foi emitido o evento e chegou no pai >>>> ', respostaFilho);
   }
 
+  clickUser() {
+    this.clickuser = !this.clickuser;
+    this.isDisplay = !this.isDisplay;
+    this.popoverPerfil.hide();
+  }
+
   showUser() {
     if (!this.authService.check()) {
-      this.toggleDisplay();
+      // this.toggleDisplay();
+      console.log('é para mostrar');
+      this.isDisplay = false;
       this.popoverPerfil.hide();
     }
+  }
+
+  hiddenUser() {
+    if (!this.authService.check() && this.clickuser === false) {
+      // this.toggleDisplay();
+      console.log('é para esconder');
+      this.isDisplay = true;
+      // this.popoverPerfil.hide();
+    }
+  }
+
+  abrirCarrinho() {
+    this.navCarrinho.exibirMenu = true;
   }
 }

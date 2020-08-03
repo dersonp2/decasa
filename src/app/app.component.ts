@@ -148,7 +148,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.isDisplay = !this.isDisplay;
   }
 
-  abrirMenu() {
+  abrirCarrinho() {
     this.navCarrinho.exibirMenu = true;
   }
 }

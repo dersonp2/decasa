@@ -1,27 +1,36 @@
 <mat-toolbar>
-    <span>Informar Localização</span>
-    <span class="spacer"></span>
-    <a (click)="close()" class="cursor"><i class="fas fa-times"></i></a>
+  <span>Informar Localização</span>
+  <span class="spacer"></span>
+  <a (click)="close()" class="cursor"><i class="fas fa-times"></i></a>
 </mat-toolbar>
 <h3 class="mt-3">
-    Para carregarmos a base de preços em sua cidade, precisamos que você nos informe sua UF e Município
+  Para carregarmos a base de preços em sua cidade, precisamos que você nos informe sua UF e Município
 </h3>
 
+<!--<mat-form-field>-->
+<!--    <mat-label>Estado</mat-label>-->
+<!--    <mat-select name="estado" (selectionChange)="getMunicipiosUf($event.value)">-->
+<!--        <mat-option *ngFor="let estado of estados" [value]="estado.id">-->
+<!--            {{estado.sigla}}-->
+<!--        </mat-option>-->
+<!--    </mat-select>-->
+<!--</mat-form-field>-->
+
 <mat-form-field>
-    <mat-label>Estado</mat-label>
-    <mat-select name="estado" (selectionChange)="getMunicipiosUf($event.value)">
-        <mat-option *ngFor="let estado of estados" [value]="estado.id">
-            {{estado.sigla}}
-        </mat-option>
-    </mat-select>
+  <mat-label>Maranhão</mat-label>
+  <mat-select name="estado">
+<!--    <mat-option>-->
+<!--      Maranhão-->
+<!--    </mat-option>-->
+  </mat-select>
 </mat-form-field>
 
 <mat-form-field class="ml-5">
-    <mat-label>Cidade</mat-label>
-    <mat-select name="municipio" [(ngModel)]="municipio">
-        <mat-option *ngFor="let municipio of municipios" [value]="municipio">
-            {{municipio.nome}}
-        </mat-option>
-    </mat-select>
+  <mat-label>Cidade</mat-label>
+  <mat-select name="municipio" [(ngModel)]="municipio">
+    <mat-option *ngFor="let municipio of municipiosFixo" [value]="municipio">
+      {{municipio.nome}}
+    </mat-option>
+  </mat-select>
 </mat-form-field>
 <button class="d-block mt-2" mat-button mat-raised-button (click)="selecionar()">Selecionar</button>

@@ -32,7 +32,7 @@
             </ul>
           </popover-content>
 
-          <a class="redes-sociais cursor" (click)="showUser()" [popoverOnHover]="false"
+          <a class="redes-sociais cursor" (mouseover)="showUser()" (mouseout)="hiddenUser()" (click)="clickUser()" [popoverOnHover]="false"
              [popover]="popoverPerfil" popoverPlacement="bottom-right">
                    <span *ngIf="authService.check()">
                       BEM-VINDO {{authService.getUser().nome}}
@@ -59,7 +59,8 @@
 </i><br />?
 </button> -->
           <!--                    <button class="btn-icon mr-3" (click)="showPopover()"><i class="far fa-heart"></i> </button>-->
-          <button class="btn-icon mr-3"><i class="fa fa-shopping-cart"></i></button>
+          <button class="btn-icon mr-3"  (click)="abrirCarrinho()"  [matBadge]="badgeContent"
+                  [matBadgeHidden]="badgeContent==0" matBadgeColor="warn"><i class="fa fa-shopping-cart"></i></button>
         </li>
       </ul>
     </div>
@@ -84,11 +85,11 @@
   <!--Nav Tav-->
   <ul class="nav nav-tabs nav-fill">
     <li class="nav-item">
-      <a class="nav-link active" href="#servico" role="tab" data-toggle="tab">Contratar Serviços</a>
+      <a class="nav-link active" href="#servico" role="tab" data-toggle="tab"><b>Contratar Serviços</b></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#material" role="tab" data-toggle="tab">Comprar Material</a>
-    </li>
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link" href="#material" role="tab" data-toggle="tab">Comprar Material</a>-->
+<!--    </li>-->
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/criar-conta/profissional']" role="tab" data-toggle="tab">Cadastro de
         Prestadores de Serviços</a>
@@ -148,3 +149,5 @@
     </a>
   </div>
 </div>
+<!-- Carrinho de compras  -->
+<app-nav-carrinho [exibirMenu]="exibirMenu"></app-nav-carrinho>

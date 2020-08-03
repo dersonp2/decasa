@@ -2,7 +2,7 @@
   <drag-scroll id="holder" drag-scroll #nav>
     <div class="lista-material" drag-scroll-item *ngFor="let grupo of gruposClasses">
       <ul class="using">
-        <li class="pad"><a href="#"><span><i class="fas fa-laptop mr-2"></i>{{grupo.descricao}}</span></a>
+        <li class="pad"><a><span>{{grupo.descricao}}</span></a>
           <ul>
             <div class="sub-wrapper">
               <li *ngFor="let classe of grupo.classes"><a (click)="goToOrcamento(classe.id)">{{classe.descricao}}</a>
@@ -15,8 +15,8 @@
   </drag-scroll>
 </div>
 <div class="d-flex justify-content-center">
-  <button class="btn" (click)="moveLeft()"><i class="fa fa-chevron-left"></i></button>
-  <button class="btn" (click)="moveRight()"><i class="fa fa-chevron-right"></i></button>
+  <button class="btn btn-seta mr-1" (click)="moveLeft()"><i class="fa fa-chevron-left"></i></button>
+  <button class="btn btn-seta ml-1" (click)="moveRight()"><i class="fa fa-chevron-right"></i></button>
 </div>
 
 <ngx-spinner
