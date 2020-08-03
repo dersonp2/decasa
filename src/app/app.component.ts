@@ -1,14 +1,15 @@
-import { CarrinhoEvent } from './events/carrinho-event';
-import { AuthService } from './services/auth.service';
-import { NavCarrinhoComponent } from './themes/decasa/blocos/nav/nav-carrinho/nav-carrinho.component';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatStepper } from '@angular/material/stepper';
-import { isPlatformBrowser } from '@angular/common';
+import {CarrinhoEvent} from './events/carrinho-event';
+import {AuthService} from './services/auth.service';
+import {NavCarrinhoComponent} from './themes/decasa/blocos/nav/nav-carrinho/nav-carrinho.component';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {MatStepper} from '@angular/material/stepper';
+import {isPlatformBrowser} from '@angular/common';
 import {OrcamentoService} from './services/orcamento.service';
 import {TotalOrcamento} from './model/response/total-orcamento-response.module';
 import {MunicipioService} from './services/municipio.service';
 import {Municipio} from './model/municipio.module';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   municipio: Municipio;
 
 
-  constructor(private router: Router, public authService: AuthService,  private municipioService: MunicipioService, private orcamentoService: OrcamentoService, private carrinhoService: CarrinhoEvent) {
+  constructor(private router: Router, public authService: AuthService, private municipioService: MunicipioService, private orcamentoService: OrcamentoService, private carrinhoService: CarrinhoEvent) {
     carrinhoService.alteracao$.subscribe(
       (data) => {
         this.badgeCarrinho();
@@ -91,16 +92,34 @@ export class AppComponent implements OnInit, OnDestroy {
   goTo(stepper: MatStepper) {
     switch (this.href) {
       case '/orcamento':
-      //   this.router.navigate(['/quantidade']);
-      //   stepper.next();
-      //   break;
-      // case '/quantidade':
-        this.router.navigate(['/proposta']);
-        stepper.next();
+
+        // Verifica se existe a  data e hora do orcamento
+        if (localStorage.hasOwnProperty('orcamento') && localStorage.hasOwnProperty('servicosSelecionados')) {
+          const orcamento = JSON.parse(atob(localStorage.getItem('orcamento')));
+          const serviços: [] = JSON.parse(localStorage.getItem('servicosSelecionados'));
+          if (orcamento.dataHora && serviços.length > 0) {
+            this.router.navigate(['/proposta']);
+            stepper.next();
+          } else {
+            alert('É necessário selecionar o serviço desejado e informar a data e hora do agendamento para avançar');
+          }
+        } else {
+          alert('É necessário selecionar o serviço desejado e informar a data e hora do agendamento para avançar');
+        }
         break;
       case '/proposta':
-        this.router.navigate(['/pagamento']);
-        stepper.next();
+        // TODO: Comentar o código depois
+        if (localStorage.hasOwnProperty('enderecoCliente')) {
+          const endereco = JSON.parse(atob(localStorage.getItem('enderecoCliente')));
+          if (endereco.cep != null && endereco.bairro != null) {
+            this.router.navigate(['/pagamento']);
+            stepper.next();
+          } else {
+            alert('É necessário informar o endereço para avançar');
+          }
+        } else {
+          alert('É necessário informar o endereço para avançar');
+        }
         break;
     }
   }
