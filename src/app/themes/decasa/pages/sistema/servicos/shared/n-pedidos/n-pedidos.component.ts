@@ -76,7 +76,7 @@ export class NPedidosComponent implements OnInit {
   // TODO: mudar para this.clientId
   // Pegar os Orçamentos  para escolher Prestador
   getOrcamentosEscolher() {
-    this.orcamentoService.buscarClienteOrcamentosEscolher(2054).subscribe(
+    this.orcamentoService.buscarClienteOrcamentosEscolher(this.clientId).subscribe(
       (data) => {
         this.clienteOrcamento = data;
         this.setPedidos();

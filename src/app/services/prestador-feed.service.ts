@@ -18,7 +18,7 @@ export class PrestadorFeedService {
   }
 
   getNotificacaoPrestador(orcamentoId: number): Observable<any> {
-    console.log('Orcamento id: ' + orcamentoId);
+    console.log('Channel: ' + orcamentoId);
     const channel = this.pusherClient.subscribe(orcamentoId.toString());
     channel.bind(
       'accept',

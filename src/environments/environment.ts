@@ -13,7 +13,7 @@ export const environment = {
   CEP_URL: 'https://viacep.com.br/ws',
   KEY_MAPS: 'AIzaSyAofSgPCKs-NUy2_AVLw-opQiPm75wR030',
   S3_URL: 'https://documentosdecasa.s3.amazonaws.com/',
-  APP_KEY: 'b2ef8d5eabc082edbaf6',
+  APP_KEY: '514625e88d81861fbb02',
   CLUSTER: 'us2'
 };
 
