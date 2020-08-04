@@ -22,10 +22,10 @@
 <!--      <button mat-raised-button style="text-align:left" color="autorizar" class="font-btn-nav width-btn-pay" (click)="openDialogAvaliacao()">Autorizar Pagamento</button>-->
       <div *ngIf="displayBtn != 4">
 <!--            <button mat-raised-button class="font-btn-nav width-btn"> Material</button>-->
-            <button mat-raised-button class="font-btn-nav mt-3 width-btn" (click)="openDialogEditar()"> Editar</button>
-            <button mat-raised-button class="font-btn-nav mt-3 width-btn" *ngIf="displayBtn != 3" (click)="openDialogReagendar()">Reagendar</button>
-            <button mat-raised-button class="font-btn-nav mt-3 width-btn" *ngIf="displayBtn != 3" (click)="openDialogCancelar()">Cancelar</button>
-            <button mat-raised-button class="font-btn-nav mt-3 width-btn" *ngIf="displayBtn == 3" (click)="openDialogRescindir()">Rescindir</button>
+            <button class="btn btn-primary-decasa mt-3" (click)="openDialogEditar()"> Editar</button>
+            <button class="btn btn-primary-decasa mt-3" *ngIf="displayBtn != 3" (click)="openDialogReagendar()">Reagendar</button>
+            <button class="btn btn-primary-decasa mt-3" *ngIf="displayBtn != 3" (click)="openDialogCancelar()">Cancelar</button>
+            <button class="btn btn-primary-decasa mt-3" *ngIf="displayBtn == 3" (click)="openDialogRescindir()">Rescindir</button>
         </div>
     </div>
 

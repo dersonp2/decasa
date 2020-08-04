@@ -14,15 +14,15 @@
   <!-- Botões laterais -->
   <div class="col-2">
 
-    <button mat-raised-button class="font-btn-nav width-btn" [ngx-scroll-to]="'#certificado'" *ngIf="displayBtn == 1"
+    <button class="btn btn-primary-decasa" [ngx-scroll-to]="'#certificado'" *ngIf="displayBtn == 1"
             (click)="setDisplayCertificados()"> Certificados
     </button>
 
-    <button [ngx-scroll-to]="'#portifolio'" mat-raised-button class="font-btn-nav mt-3 width-btn"
+    <button [ngx-scroll-to]="'#portifolio'" class="btn btn-primary-decasa mt-3"
             *ngIf="displayBtn == 1" (click)="setDisplayPortifolio()"> Ver Portifólio
     </button>
 
-    <button [ngx-scroll-to]="'#comentarios'" mat-raised-button class="font-btn-nav mt-3 width-btn"
+    <button [ngx-scroll-to]="'#comentarios'" class="btn btn-primary-decasa mt-3"
             *ngIf="displayBtn == 1" (click)="setDisplayComentario()"> Comentários
     </button>
 
