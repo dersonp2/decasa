@@ -9,14 +9,16 @@
     <ul>
       <li class="collapsed" *ngFor="let grupo of gruposClasses">
         <div class="ml-2">
-          <h4 class="row" [ngClass]="{active: menuId === grupo.id}" (click)="abriSubMenu(grupo.id)">
-           <div class="col-10">
-            {{grupo.descricao}}
-           </div>
-            <div class="col-2">
-<!--              <i class="fas fa-plus-circle fa-sm"></i>-->
-              <i  [ngClass]="(menuId === grupo.id)? 'fa-minus-circle': 'fa-plus-circle' "
-                  class="fas fa-minus-circle fa-sm"></i>
+          <h4 [ngClass]="{active: menuId === grupo.id}" (click)="abriSubMenu(grupo.id)">
+            <div class="row">
+              <div class="col-10">
+                {{grupo.descricao}}
+              </div>
+              <div class="col-2">
+                <!--              <i class="fas fa-plus-circle fa-sm"></i>-->
+                <i [ngClass]="(menuId === grupo.id)? 'fa-minus-circle': 'fa-plus-circle' "
+                   class="fas fa-minus-circle fa-sm"></i>
+              </div>
             </div>
           </h4>
         </div>
