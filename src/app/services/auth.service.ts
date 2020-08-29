@@ -28,12 +28,8 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.get(`${this.apiUrl}/logout/${this.getUser().id}`).subscribe(
-      (resp) => {
-        localStorage.removeItem('user');
-        window.location.reload();
-      }
-    );
+    localStorage.removeItem('user');
+    window.location.reload();
   }
 
   getUser(): Cliente {
