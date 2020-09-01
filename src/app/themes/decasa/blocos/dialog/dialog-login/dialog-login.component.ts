@@ -32,7 +32,6 @@ export class DialogLoginComponent implements OnInit {
     // this.senha
     this.authService.login(this.loginForm.value).subscribe(
       (resp) => {
-        console.log('Deu certo');
         localStorage.setItem('user', btoa(JSON.stringify(resp)));
         this.invalido = true;
         this.dialogRef.close();

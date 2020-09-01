@@ -6,6 +6,11 @@ export class TelefonePrestador {
   id: number;
   telefone: string;
   operadora: Operadora;
-  tipoPlanoTelefone: TipoPlanoTelefone;
-  prestador: Prestador;
+  tipoPlanoTelefone?: TipoPlanoTelefone;
+  prestador?: Prestador;
+
+  constructor(telefone, operadora) {
+    this.telefone = telefone;
+    this.operadora = operadora;
+  }
 }

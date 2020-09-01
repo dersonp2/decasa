@@ -13,83 +13,47 @@
     dados abaixo.
   </h2>
   <br/>
-  <h2>
-    Use suas redes sociais: <br class="d-block d-md-none"/>
-    <a href="" class="ml-2"> <img src="assets/icones/facebook-icon.png" alt="Facebook"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/Instagram-icon.png" alt="Instagram"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/google-icon.png" alt="Google"></a>
-    <a href="" class="ml-3"> <img src="assets/icones/microsoft-icon.png" alt="Microsoft"></a>
-  </h2>
-  <br/>
-  <h2>ou preencha os dados abaixo </h2>
+  <!--  <h2>-->
+  <!--    Use suas redes sociais: <br class="d-block d-md-none"/>-->
+  <!--    <a href="" class="ml-2"> <img src="assets/icones/facebook-icon.png" alt="Facebook"></a>-->
+  <!--    <a href="" class="ml-3"> <img src="assets/icones/Instagram-icon.png" alt="Instagram"></a>-->
+  <!--    <a href="" class="ml-3"> <img src="assets/icones/google-icon.png" alt="Google"></a>-->
+  <!--    <a href="" class="ml-3"> <img src="assets/icones/microsoft-icon.png" alt="Microsoft"></a>-->
+  <!--  </h2>-->
+  <!--  <br/>-->
+  <!--  <h2>ou preencha os dados abaixo </h2>-->
   <!-- Formulário de Cadastro -->
 
-  <form>
+  <form [formGroup]="profissional" novalidate>
     <div class="row">
       <div class="offset-md-1 col-md-11 col-12">
 
-
-        <!-- Atendimento -->
+        <!-- Nome -->
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Faz atendimento em domicílio:</h2>
+          <label for="idNome"
+                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Nome:</h2>
           </label>
-          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="rSim" name="rAtendimento" class="custom-control-input" checked>
-              <label class="custom-control-label" for="rSim">
-                <h2>Sim</h2>
-              </label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="customRadioInline2" name="rAtendimento" class="custom-control-input">
-              <label class="custom-control-label" for="customRadioInline2">
-                <h2>Não</h2>
-              </label>
-            </div>
+          <div class="col-sm-5 ">
+            <input type="text" formControlName="nome" class="form-control" id="idNome"
+                   placeholder="Informe seu nome completo">
+
+            <small class="color-red"
+                   *ngIf="profissional.controls['nome'].invalid && (profissional.controls['nome'].touched || profissional.controls['nome'].dirty)">
+              Nome deve ter no mínimo 5 caracteres .
+            </small>
           </div>
         </div>
 
-        <!-- Tipo de cadastro -->
+        <!-- Apelido -->
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Tipo de cadastro:</h2>
+          <label for="idNome"
+                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Apelido:</h2>
           </label>
-          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="rMasc" name="rSexo" class="custom-control-input" checked>
-              <label class="custom-control-label" for="rMasc">
-                <h2>Individual</h2>
-              </label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="rFem" name="rSexo" class="custom-control-input">
-              <label class="custom-control-label" for="rFem">
-                <h2>Empresa</h2>
-              </label>
-            </div>
-          </div>
-        </div>
-
-<!-- So aparece se for pessoa fisica-->
-        <!-- Sexo -->
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Sexo:</h2>
-          </label>
-          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="rMasc" name="rSexo" class="custom-control-input" checked>
-              <label class="custom-control-label" for="rMasc">
-                <h2>Masculino</h2>
-              </label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-              <input type="radio" id="rFem" name="rSexo" class="custom-control-input">
-              <label class="custom-control-label" for="rFem">
-                <h2>Feminino</h2>
-              </label>
-            </div>
+          <div class="col-sm-5 ">
+            <input type="text" class="form-control" id="idApelido"
+                   formControlName="apelido" placeholder="Informe um apelido para ser facilmente encontrado">
           </div>
         </div>
 
@@ -100,22 +64,71 @@
             <h2>Identificação:</h2>
           </label>
           <div class="col-sm-3 col-6">
-            <input type="text" class="form-control" [textMask]="{mask: cpfMask}" id="idCPf" placeholder="CPF">
+            <input type="text" formControlName="cpf" class="form-control" [textMask]="{mask: cpfMask}" id="idCPf"
+                   placeholder="CPF">
+
+            <small class="color-red"
+                   *ngIf="profissional.controls['cpf'].invalid && (profissional.controls['cpf'].touched || profissional.controls['cpf'].dirty)">
+              CPF inválido.
+            </small>
           </div>
           <div class="col-sm-2 col-6">
-            <input type="text" title="Data de Nascimento" [textMask]="{mask: dateMask}" class="form-control" id="idDt"
+            <input formControlName="nascimento"
+                   type="text" title="Data de Nascimento" [textMask]="{mask: dateMask}" class="form-control" id="idDt"
                    placeholder="Dt Nascimento">
+            <small class="color-red"
+                   *ngIf="profissional.controls['nascimento'].invalid && (profissional.controls['nascimento'].touched || profissional.controls['nascimento'].dirty)">
+              Seleciona a data </small>
           </div>
         </div>
 
-        <!-- Nome -->
+        <!-- Sexo -->
         <div class="form-group row">
-          <label for="idNome"
-                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Nome:</h2>
+          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Sexo:</h2>
           </label>
-          <div class="col-sm-5 ">
-            <input type="text" class="form-control" id="idNome" placeholder="Informe seu nome completo">
+          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">
+            <div class="custom-control custom-radio custom-control-inline mt-2">
+              <input formControlName="sexo" type="radio" id="rMasc" name="rSexo" value="1" class="custom-control-input"
+                     checked>
+              <label class="custom-control-label" for="rMasc">
+                <h2>Masculino</h2>
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline mt-2">
+              <input formControlName="sexo" value="2" type="radio" id="rFem" name="rSexo" class="custom-control-input">
+              <label class="custom-control-label" for="rFem">
+                <h2>Feminino</h2>
+              </label>
+            </div>
+            <small class="color-red"
+                   *ngIf="profissional.controls['sexo'].invalid && (profissional.controls['sexo'].touched || profissional.controls['sexo'].dirty)">
+              Sexo inválido</small>
+          </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="form-group row">
+          <label for="iTele1" class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Telefones:</h2>
+          </label>
+          <!--          <div class="col-sm-1 col-2">-->
+          <!--            <img src="assets/icones/br.png" alt="Logo" class="float-left">-->
+          <!--          </div>-->
+          <div
+            class="col-md-3 col-sm-8 col-10 offset-1 offset-sm-2 offset-md-0  justify-content-md-start d-flex justify-content-center">
+            <input formControlName="celular" [textMask]="{mask: phoneMask}" type="text" class="form-control" id="iTele1"
+                   placeholder="(DD)_____-_____">
+            <small class="color-red"
+                   *ngIf="profissional.controls['celular'].invalid && (profissional.controls['celular'].touched || profissional.controls['celular'].dirty)">
+              Celular inválido</small>
+          </div>
+
+          <div
+            class="col-md-3 col-sm-8 col-10 mt-2 offset-1 offset-sm-2 offset-md-0   mt-lg-0 justify-content-md-start d-flex justify-content-center">
+            <input formControlName="telefone" [textMask]="{mask: phoneMask}" type="text" class="form-control"
+                   id="iTele2"
+                   placeholder="(DD)_____-_____">
           </div>
         </div>
 
@@ -126,60 +139,132 @@
             <h2>Email:</h2>
           </label>
           <div class="col-sm-5 ">
-            <input type="email" class="form-control" id="inputEmail" placeholder="nome@exemplo.com">
+            <input formControlName="email" type="email" class="form-control" id="inputEmail"
+                   placeholder="nome@exemplo.com">
+            <small class="color-red"
+                   *ngIf="profissional.controls['email'].invalid && (profissional.controls['email'].touched || profissional.controls['email'].dirty)">
+              E-mail inválido</small>
           </div>
         </div>
 
-        <!-- Telefone -->
-        <div class="form-group row">
-          <label for="iTele" class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Telefone:</h2>
-          </label>
-          <div class="col-sm-1 col-2">
-            <img src="assets/icones/br.png" alt="Logo" class="float-left">
-          </div>
-          <div class="col-md-3 col-sm-8 col-10 justify-content-start d-flex">
-            <input [textMask]="{mask: phoneMask}" type="text" class="form-control" id="iTele"
-                   placeholder="(DD)_____-_____">
-          </div>
-        </div>
 
-        <!-- Endereço -->
+        <!-- Atendimento -->
         <div class="form-group row">
-          <label for="inputEndereco"
-                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Endereço:</h2>
+          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Forma de Atendimento:</h2>
           </label>
-          <div class="col-sm-3 col-md-2 col-3">
-            <select id="inputEndereco" class="form-control">
-              <option selected>UF</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-7 col-9">
-            <input type="text" class="form-control  " id="inputCidade" placeholder="Cidade">
+          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">
+
+            <div class="form-check  mt-2 mr-1">
+              <input formControlName="domicilio" type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">
+                <h2>No endereço do cliente</h2>
+              </label>
+            </div>
+            <div class="form-check  mt-2 ml-1">
+              <input formControlName="naoDomicilio" type="checkbox" class="form-check-input" id="exampleCheck2">
+              <label class="form-check-label" for="exampleCheck2">
+                <h2>No meu ponto comercial</h2>
+              </label>
+
+              <small class="color-red ml-1" *ngIf="showAtendimento"> Selecione uma ou as duas opções</small>
+            </div>
           </div>
         </div>
+        <!-- Tipo de cadastro -->
+        <!--        <div class="form-group row">-->
+        <!--          <label class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">-->
+        <!--            <h2>Tipo de cadastro:</h2>-->
+        <!--          </label>-->
+        <!--          <div class="col-sm-8 justify-content-md-start  d-flex justify-content-center">-->
+        <!--            <div class="custom-control custom-radio custom-control-inline mt-2">-->
+        <!--              <input type="radio" id="rInd" name="rInd" class="custom-control-input" checked>-->
+        <!--              <label class="custom-control-label" for="rInd">-->
+        <!--                <h2>Individual</h2>-->
+        <!--              </label>-->
+        <!--            </div>-->
+        <!--            <div class="custom-control custom-radio custom-control-inline mt-2">-->
+        <!--              <input type="radio" id="rEmpresa" name="rEmpresa" class="custom-control-input">-->
+        <!--              <label class="custom-control-label" for="rEmpresa">-->
+        <!--                <h2>Empresa</h2>-->
+        <!--              </label>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <!-- Profissão -->
         <div class="form-group row">
-          <label for="inputEndereco"
-                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
-            <h2>Profissão:</h2>
+          <label
+            class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Escolaridade *:</h2>
           </label>
-          <div class="col-sm-4 col-md-3">
-            <select class="custom-select" (change)="onChange($event.target.value)">
-              <option selected>Profissão</option>
-              <option value="1">Engenheiro Elétrico</option>
-              <option value="2">Programador</option>
-              <option value="3">Diarista</option>
-              <option value="outra">Outra</option>
+          <div class="col-sm-6 col-md-5">
+            <select formControlName="escolaridade" class="custom-select">
+              <option *ngFor="let nivel of formacoes"
+                      [value]="nivel">{{nivel.descricao}}</option>
             </select>
           </div>
           <div class="col-sm-4 col-md-3" *ngIf="outraProfissao">
             <input type="text" class="form-control  " id="inputProfissao" placeholder="Informe a Profissão">
           </div>
         </div>
+
+        <div class="form-group row">
+          <label
+            class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Profissões:</h2>
+          </label>
+          <div class="col-sm-4 col-md-8">
+            <mat-form-field class="col-md-8 col-12 col-sm-12 float-md-left">
+              <mat-select formControlName="profissoes" multiple>
+                <mat-select-trigger>
+                  {{profissional.controls.profissoes.value ? profissional.controls.profissoes.value[0].descricao : ''}}
+                  <span *ngIf="profissional.controls.profissoes.value?.length > 1" class="example-additional-selection">
+        (+{{profissional.controls.profissoes.value.length - 1}} {{profissional.controls.profissoes.value?.length === 2 ? 'outro' : 'outros'}}
+                    )
+      </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let profissao of profissoes"
+                            [value]="profissao">{{profissao.descricao}}</mat-option>
+              </mat-select>
+
+              <small class="color-red"
+                     *ngIf="profissional.controls['profissoes'].invalid && (profissional.controls['profissoes'].touched || profissional.controls['profissoes'].dirty)">
+                Selecione no mínimo uma profissao</small>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <!--        Senha -->
+
+        <!-- Email -->
+        <div class="form-group row">
+          <label for="inputEmail"
+                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Senha:</h2>
+          </label>
+          <div class="col-sm-5 ">
+            <input type="password"  formControlName="senha" class="form-control" id="senha">
+            <small class="color-red" *ngIf="profissional.controls['senha'].invalid && (profissional.controls['senha'].touched || profissional.controls['senha'].dirty)">
+              Senha inválida - Deve conter no mínimo 5 caracters</small>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group row">
+          <label for="inputEmail"
+                 class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Confirme a Senha:</h2>
+          </label>
+          <div class="col-sm-5 ">
+            <input type="password" class="form-control" id="confSenha">
+            <small class="color-red" *ngIf="profissional.controls['senha'].invalid && (profissional.controls['senha'].touched || profissional.controls['senha'].dirty)">
+              As senhas nao correspondem</small>
+
+          </div>
+        </div>
+
 
         <!-- Checkbox -->
         <div class="form-group ml-md-5 ml-0">
@@ -193,16 +278,19 @@
 
         <div class="form-group ml-md-5 ml-0">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <input  formControlName="termos"  class="form-check-input" type="checkbox" id="gridCheck">
             <label class="form-check-label" for="gridCheck"> <a href="#">
               Concordo com os Termos e Condições de uso e Políticas de Privacidade
             </a>
             </label>
+            <small class="color-red"
+              *ngIf="profissional.controls['termos'].invalid && (profissional.controls['termos'].touched || profissional.controls['termos'].dirty)">
+              Campo requerido.</small>
           </div>
         </div>
 
         <div>
-          <button class="btn btn-primary" [routerLink]="['/bem-vindo/profissional']">Criar conta</button>
+          <button [disabled]="profissional.invalid || validCheckBox()" class="btn btn-primary" [routerLink]="['/bem-vindo/profissional']">Criar conta</button>
         </div>
       </div> <!-- Coluna-->
     </div> <!-- linha-->

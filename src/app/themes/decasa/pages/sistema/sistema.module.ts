@@ -20,6 +20,7 @@ import { ProfissionalComponent } from './cadastro/profissional/profissional.comp
 import { BemVindoComponent } from './cadastro/profissional/bem-vindo/bem-vindo.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     ReactiveFormsModule,
     PopoverModule,
     NgxSpinnerModule,
+    MatSelectModule,
 
     BlocosModule,
     ComprarServicosModule,

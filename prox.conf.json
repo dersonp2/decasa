@@ -1,6 +1,6 @@
 {
-  "/v1/rest/decasa/*": {
-    "target": "http://localhost:8080",
+  "/cadastros-0.0.1-SNAPSHOT/*": {
+    "target": "https://sistemadecasa.com.br",
     "secure": false,
     "changeOrigin": true
   }
