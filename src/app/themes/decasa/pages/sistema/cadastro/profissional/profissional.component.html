@@ -103,7 +103,7 @@
             </div>
             <small class="color-red"
                    *ngIf="profissional.controls['sexo'].invalid && (profissional.controls['sexo'].touched || profissional.controls['sexo'].dirty)">
-              Sexo inválido</small>
+              Selecione o sexo</small>
           </div>
         </div>
 
@@ -117,8 +117,8 @@
           <!--          </div>-->
           <div
             class="col-md-3 col-sm-8 col-10 offset-1 offset-sm-2 offset-md-0  justify-content-md-start d-flex justify-content-center">
-            <input formControlName="celular" [textMask]="{mask: phoneMask}" type="text" class="form-control" id="iTele1"
-                   placeholder="(DD)_____-_____">
+            <input formControlName="celular"  [textMask]="{mask: phoneMask}" type="text" class="form-control"
+                   id="iTele1">
             <small class="color-red"
                    *ngIf="profissional.controls['celular'].invalid && (profissional.controls['celular'].touched || profissional.controls['celular'].dirty)">
               Celular inválido</small>
@@ -128,7 +128,7 @@
             class="col-md-3 col-sm-8 col-10 mt-2 offset-1 offset-sm-2 offset-md-0   mt-lg-0 justify-content-md-start d-flex justify-content-center">
             <input formControlName="telefone" [textMask]="{mask: phoneMask}" type="text" class="form-control"
                    id="iTele2"
-                   placeholder="(DD)_____-_____">
+            >
           </div>
         </div>
 
@@ -245,8 +245,9 @@
             <h2>Senha:</h2>
           </label>
           <div class="col-sm-5 ">
-            <input type="password"  formControlName="senha" class="form-control" id="senha">
-            <small class="color-red" *ngIf="profissional.controls['senha'].invalid && (profissional.controls['senha'].touched || profissional.controls['senha'].dirty)">
+            <input type="password" formControlName="senha" class="form-control" id="senha">
+            <small class="color-red"
+                   *ngIf="profissional.controls['senha'].invalid && (profissional.controls['senha'].touched || profissional.controls['senha'].dirty)">
               Senha inválida - Deve conter no mínimo 5 caracters</small>
           </div>
         </div>
@@ -258,8 +259,8 @@
             <h2>Confirme a Senha:</h2>
           </label>
           <div class="col-sm-5 ">
-            <input type="password" class="form-control" id="confSenha">
-            <small class="color-red" *ngIf="profissional.controls['senha'].invalid && (profissional.controls['senha'].touched || profissional.controls['senha'].dirty)">
+            <input formControlName="confirmaSenha" type="password" class="form-control" id="confSenha">
+            <small  class="color-red" *ngIf="profissional.hasError('notSame')&& (profissional.controls['confirmaSenha'].touched || profissional.controls['confirmaSenha'].dirty)">
               As senhas nao correspondem</small>
 
           </div>
@@ -278,19 +279,21 @@
 
         <div class="form-group ml-md-5 ml-0">
           <div class="form-check">
-            <input  formControlName="termos"  class="form-check-input" type="checkbox" id="gridCheck">
+            <input formControlName="termos" class="form-check-input" type="checkbox" id="gridCheck">
             <label class="form-check-label" for="gridCheck"> <a href="#">
               Concordo com os Termos e Condições de uso e Políticas de Privacidade
             </a>
             </label>
             <small class="color-red"
-              *ngIf="profissional.controls['termos'].invalid && (profissional.controls['termos'].touched || profissional.controls['termos'].dirty)">
+                   *ngIf="profissional.controls['termos'].invalid && (profissional.controls['termos'].touched || profissional.controls['termos'].dirty)">
               Campo requerido.</small>
           </div>
         </div>
 
         <div>
-          <button [disabled]="profissional.invalid || validCheckBox()" class="btn btn-primary" [routerLink]="['/bem-vindo/profissional']">Criar conta</button>
+          <button [disabled]="profissional.invalid || validCheckBox()" class="btn btn-primary"
+                  [routerLink]="['/bem-vindo/profissional']">Criar conta
+          </button>
         </div>
       </div> <!-- Coluna-->
     </div> <!-- linha-->
@@ -298,3 +301,10 @@
   </form>
 </div>
 <br/>
+<ngx-spinner
+  bdColor="rgba(255,255,255,0.8)"
+  size="medium"
+  template="<img src='assets/gif/load.gif'/>"
+>
+  <p style="font-size: 20px; color: #0A68AE">Carregando...</p>
+</ngx-spinner>

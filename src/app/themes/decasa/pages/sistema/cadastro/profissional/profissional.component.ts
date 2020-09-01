@@ -10,6 +10,7 @@ import {OrigemCadastro} from '../../../../../../model/origem-cadastro.module';
 import {TipoPessoa} from '../../../../../../model/tipo-pessoa.module';
 import {NivelFormacao} from '../../../../../../model/nivel-formacao.module';
 import {Profissao} from '../../../../../../model/profissao.module';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-profissional',
@@ -32,7 +33,8 @@ export class ProfissionalComponent implements OnInit {
 
   constructor(private prestadorService: PrestadorService,
               private fb: FormBuilder,
-              private validateBrService: ValidateBrService) {
+              private validateBrService: ValidateBrService,
+              private spinner: NgxSpinnerService) {
 
     this.profissional = fb.group(
       {
@@ -50,12 +52,13 @@ export class ProfissionalComponent implements OnInit {
         profissoes: ['', [Validators.required]],
         senha: ['', [Validators.required, Validators.minLength(5)]],
         confirmaSenha: ['', [Validators.required, Validators.minLength(5)]],
-        termos: ['false', [Validators.required]],
+        termos: ['', [Validators.required]],
       }, {validator: this.checkPasswords}
     );
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.prestadorService.getFormacao().subscribe(
       (data) => {
         console.log(data);
@@ -69,9 +72,11 @@ export class ProfissionalComponent implements OnInit {
       (data) => {
         console.log(data);
         this.profissoes = data;
+        this.spinner.hide();
       },
       (error) => {
         console.log(error);
+        this.spinner.hide();
       }
     );
   }
