@@ -23,12 +23,10 @@
   <!--  <br/>-->
   <!--  <h2>ou preencha os dados abaixo </h2>-->
   <!-- Formulário de Cadastro -->
-  <div class="alert alert-danger" role="alert">
-    A simple danger alert—check it out!
-    <p>a</p>
-    <p>a</p>
-    <p>a</p>
-    <p>a</p>
+  <div *ngIf="msgError != ''" class="alert alert-danger" role="alert">
+    <b>Erro de validação</b>
+    <span class="justify-content-center d-flex" [innerHTML]="msgError">
+    </span>
   </div>
   <form [formGroup]="profissional" novalidate>
     <div class="row">

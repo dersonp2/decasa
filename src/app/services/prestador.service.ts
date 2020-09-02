@@ -1,13 +1,13 @@
 import {environment} from '../../environments/environment';
 
-import {Observable, Subject, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {retry, switchMap, take, takeUntil, tap} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {PrestadorDetalhesResponse} from '../model/response/prestador-detalhes-response.module';
 import {PrestadorDTO} from '../model/prestador-dto.module';
-import {NivelFormacao} from "../model/nivel-formacao.module";
-import {Profissao} from "../model/profissao.module";
+import {NivelFormacao} from '../model/nivel-formacao.module';
+import {Profissao} from '../model/profissao.module';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,6 @@ import {Profissao} from "../model/profissao.module";
 export class PrestadorService {
   apiUrl = environment.API_PRESTADOR_URL;
 
-  private allProviders$: Observable<PrestadorDetalhesResponse[]>;
-  private stopPolling = new Subject();
 
   constructor(private http: HttpClient) {
   }

@@ -12,6 +12,7 @@ import {NivelFormacao} from '../../../../../../model/nivel-formacao.module';
 import {Profissao} from '../../../../../../model/profissao.module';
 import {NgxSpinnerService} from 'ngx-spinner';
 import * as moment from 'moment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profissional',
@@ -25,7 +26,7 @@ export class ProfissionalComponent implements OnInit {
   cpfMask = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
   profissional: FormGroup;
   outraProfissao = false;
-   formacoes: NivelFormacao[] = [];
+  formacoes: NivelFormacao[] = [];
   profissoes: Profissao[] = [];
   showAtendimento = false;
   msgError = '';
@@ -34,7 +35,7 @@ export class ProfissionalComponent implements OnInit {
   constructor(private prestadorService: PrestadorService,
               private fb: FormBuilder,
               private validateBrService: ValidateBrService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService, private router: Router) {
 
     this.profissional = fb.group(
       {
@@ -129,9 +130,34 @@ export class ProfissionalComponent implements OnInit {
     // tslint:disable-next-line:no-console
     console.info(prestador);
     console.log(JSON.stringify(prestador));
+    this.spinner.show();
+    this.prestadorService.savePrestador(prestador).subscribe(
+      (data) => {
+        this.spinner.hide();
+        console.log(data);
+        this.router.navigateByUrl(`/bem-vindo/profissional`);
+      },
+      (error) => {
+        this.spinner.hide();
+        console.log(error);
+        if (error.status === 422) {
+          console.log('validadacao');
+          this.showError(error.error.errors, true);
+        } else if (error.status === 400) {
+          console.log('validadacao 400');
+          this.showError(error.error.mensagem, false);
+        } else {
+          console.log('Interno');
+          this.showError('Ocorreu um erro interno', false);
+        }
+
+        window.scrollTo(0, 0);
+      }
+    );
   }
 
   checkData() {
+    this.router.navigateByUrl(`/bem-vindo/profissional`);
     // const moment1 = moment(this.profissional.controls.nascimento.value);
     const data = moment(this.profissional.controls.nascimento.value, 'DD/MM/yyyy').format();
     // 1995-09-15T15:17:55.249-00:00
@@ -146,17 +172,14 @@ export class ProfissionalComponent implements OnInit {
   }
 
   showError(errors, varios: boolean) {
-    let msg = '';
     if (varios) {
       let itemsList = ``;
       errors.map((item) => {
         itemsList += `<li class="color-red">${item.message}</li>`;
       });
-      msg = `<ul>${itemsList}</ul>`;
-    } else if (errors !== '') {
-      msg = errors;
+      this.msgError = `<ul>${itemsList}</ul>`;
     } else {
-      msg = 'Ocorreu um erro interno!!!';
+      this.msgError = errors;
     }
   }
 }
