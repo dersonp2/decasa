@@ -10,7 +10,7 @@ export class PrestadorDTO {
     naoAtendeDomicilio: boolean;
     nome: string;
     email: string;
-    dataNascimento: Date;
+    dataNascimento: any;
     senha: string | Int32Array;
     apelido: string;
     sexo: number;

@@ -11,6 +11,7 @@ import {TipoPessoa} from '../../../../../../model/tipo-pessoa.module';
 import {NivelFormacao} from '../../../../../../model/nivel-formacao.module';
 import {Profissao} from '../../../../../../model/profissao.module';
 import {NgxSpinnerService} from 'ngx-spinner';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profissional',
@@ -24,11 +25,10 @@ export class ProfissionalComponent implements OnInit {
   cpfMask = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
   profissional: FormGroup;
   outraProfissao = false;
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato', 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato', 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato', 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-  formacoes: NivelFormacao[] = [];
+   formacoes: NivelFormacao[] = [];
   profissoes: Profissao[] = [];
   showAtendimento = false;
+  msgError = '';
 
 
   constructor(private prestadorService: PrestadorService,
@@ -94,7 +94,8 @@ export class ProfissionalComponent implements OnInit {
     // StepUm
     prestador.nome = this.profissional.controls.nome.value;
     prestador.cpf = this.profissional.controls.cpf.value;
-    prestador.dataNascimento = this.profissional.controls.nascimento.value;
+    // prestador.dataNascimento = this.profissional.controls.nascimento.value;
+    prestador.dataNascimento = moment(this.profissional.controls.nascimento.value, 'DD/MM/yyyy').format();
     prestador.sexo = Number(this.profissional.controls.sexo.value);
     prestador.email = this.profissional.controls.email.value;
     if (this.profissional.controls.apelido.value !== '') {
@@ -102,7 +103,6 @@ export class ProfissionalComponent implements OnInit {
     } else {
       prestador.apelido = null;
     }
-
 
     // Lista de telefones
     const telefone: TelefonePrestador[] = [];
@@ -115,7 +115,7 @@ export class ProfissionalComponent implements OnInit {
     // StepDois
     prestador.atendeDomicilio = this.profissional.controls.domicilio.value;
     prestador.naoAtendeDomicilio = this.profissional.controls.naoDomicilio.value;
-    prestador.nivelFormacao = this.profissional.controls.escolaridade.value;
+    prestador.nivelFormacao = new NivelFormacao(Number(this.profissional.controls.escolaridade.value));
 
     prestador.senha = new Md5().appendStr(this.profissional.controls.senha.value).end();
     prestador.codigoPerfil = 4;
@@ -123,9 +123,40 @@ export class ProfissionalComponent implements OnInit {
     prestador.origemCadastro = new OrigemCadastro(1);
     // TipoPessoa
     prestador.tipoPessoa = new TipoPessoa(1);
+
+    prestador.profissaoPrestador = this.profissional.controls.profissoes.value;
+
+    // tslint:disable-next-line:no-console
+    console.info(prestador);
+    console.log(JSON.stringify(prestador));
+  }
+
+  checkData() {
+    // const moment1 = moment(this.profissional.controls.nascimento.value);
+    const data = moment(this.profissional.controls.nascimento.value, 'DD/MM/yyyy').format();
+    // 1995-09-15T15:17:55.249-00:00
+    console.log(data);
+    // const isoDate = new Date(this.profissional.controls.nascimento.value).toISOString();
+    // alert(isoDate);
+    // console.log(isoDate);
   }
 
   validCheckBox() {
     return !(this.profissional.controls.termos.value === true);
+  }
+
+  showError(errors, varios: boolean) {
+    let msg = '';
+    if (varios) {
+      let itemsList = ``;
+      errors.map((item) => {
+        itemsList += `<li class="color-red">${item.message}</li>`;
+      });
+      msg = `<ul>${itemsList}</ul>`;
+    } else if (errors !== '') {
+      msg = errors;
+    } else {
+      msg = 'Ocorreu um erro interno!!!';
+    }
   }
 }

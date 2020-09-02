@@ -23,7 +23,13 @@
   <!--  <br/>-->
   <!--  <h2>ou preencha os dados abaixo </h2>-->
   <!-- Formulário de Cadastro -->
-
+  <div class="alert alert-danger" role="alert">
+    A simple danger alert—check it out!
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+  </div>
   <form [formGroup]="profissional" novalidate>
     <div class="row">
       <div class="offset-md-1 col-md-11 col-12">
@@ -201,7 +207,7 @@
           <div class="col-sm-6 col-md-5">
             <select formControlName="escolaridade" class="custom-select">
               <option *ngFor="let nivel of formacoes"
-                      [value]="nivel">{{nivel.descricao}}</option>
+                      [value]="nivel.id">{{nivel.descricao}}</option>
             </select>
           </div>
           <div class="col-sm-4 col-md-3" *ngIf="outraProfissao">
@@ -291,9 +297,11 @@
         </div>
 
         <div>
-          <button [disabled]="profissional.invalid || validCheckBox()" class="btn btn-primary"
-                  [routerLink]="['/bem-vindo/profissional']">Criar conta
+<!--          [routerLink]="['/bem-vindo/profissional']"-->
+          <button [disabled]="profissional.invalid || validCheckBox()"  (click)="cadastrarCliente()" class="btn btn-primary"
+                  >Criar conta
           </button>
+          <button (click)="checkData()">data</button>
         </div>
       </div> <!-- Coluna-->
     </div> <!-- linha-->
