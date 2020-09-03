@@ -49,7 +49,7 @@ export class DialogLocalizacaoComponent implements OnInit {
   }
 
   getEstados() {
-    this.ufService.getAllUf().subscribe(
+    this.ufService.getUF().subscribe(
       (data) => {
         (this.estados = data);
       }

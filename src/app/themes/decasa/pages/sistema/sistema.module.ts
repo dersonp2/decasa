@@ -21,13 +21,17 @@ import { BemVindoComponent } from './cadastro/profissional/bem-vindo/bem-vindo.c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatSelectModule} from '@angular/material/select';
+import { TermosComponent } from './cadastro/termos/termos.component';
+import { PoliticasComponent } from './cadastro/politicas/politicas.component';
 
 @NgModule({
   declarations: [
     BoletosNotasComponent,
     ClienteComponent,
     ProfissionalComponent,
-    BemVindoComponent
+    BemVindoComponent,
+    TermosComponent,
+    PoliticasComponent
   ],
   imports: [
     CommonModule,

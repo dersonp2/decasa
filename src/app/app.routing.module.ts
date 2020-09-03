@@ -24,12 +24,16 @@ import { DadosCadastraisComponent } from './themes/decasa/pages/sistema/perfil-u
 import { ClienteComponent } from './themes/decasa/pages/sistema/cadastro/cliente/cliente.component';
 import { BemVindoComponent } from './themes/decasa/pages/sistema/cadastro/profissional/bem-vindo/bem-vindo.component';
 import {ManutencaoComponent} from './themes/decasa/pages/manutencao/manutencao.component';
+import {TermosComponent} from './themes/decasa/pages/sistema/cadastro/termos/termos.component';
+import {PoliticasComponent} from './themes/decasa/pages/sistema/cadastro/politicas/politicas.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: IndexComponent },
   { path: '', component: IndexComponent },
   { path: 'criar-conta/cliente', component: ClienteComponent },
   { path: 'criar-conta/profissional', component: ProfissionalComponent },
+  { path: 'criar-conta/termos', component: TermosComponent },
+  { path: 'criar-conta/politicas', component: PoliticasComponent },
   { path: 'bem-vindo/profissional', component: BemVindoComponent },
   { path: 'orcamento', component: OrcamentoComponent },
   { path: 'quantidade', component: QuantidadeComponent },
