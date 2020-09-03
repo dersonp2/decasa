@@ -239,10 +239,45 @@
           </div>
         </div>
 
+        <!-- Cidades -->
+        <div class="form-group row">
+          <label
+            class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
+            <h2>Cidades que atua *:</h2>
+          </label>
+          <div class="col-sm-3 col-md-2">
+            <select (change)="refreshMunicipios()" formControlName="uf" class="custom-select">
+              <option [value]="uf.id" *ngFor="let uf of ufs">{{uf.nome}}</option>
+            </select>
+          </div>
+          <div class="col-sm-4 col-md-3" *ngIf="outraProfissao">
+            <input type="text" class="form-control  " id="inputCidades" placeholder="Informe a Profissão">
+          </div>
+
+          <div class="bg col-sm-4 col-md-5">
+            <mat-form-field class="col-md-8 col-12 col-sm-12 float-md-left">
+              <mat-select [disabled]="!cidades.length" formControlName="cidades" multiple>
+                <mat-select-trigger>
+                  {{profissional.controls.cidades.value ? profissional.controls.cidades.value[0].nome : ''}}
+                  <span *ngIf="profissional.controls.cidades.value?.length > 1" class="example-additional-selection">
+        (+{{profissional.controls.cidades.value.length - 1}} {{profissional.controls.cidades.value?.length === 2 ? 'outro' : 'outros'}}
+                    )
+      </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let cidade of cidades"
+                            [value]="cidade">{{cidade.nome}}</mat-option>
+              </mat-select>
+
+              <small class="color-red"
+                     *ngIf="profissional.controls['cidades'].invalid && (profissional.controls['cidades'].touched || profissional.controls['cidades'].dirty)">
+                Selecione no mínimo uma cidade</small>
+            </mat-form-field>
+          </div>
+
+        </div>
+
 
         <!--        Senha -->
-
-        <!-- Email -->
         <div class="form-group row">
           <label for="inputEmail"
                  class="col-sm-4 col-form-label  justify-content-md-end d-flex justify-content-center">
@@ -299,6 +334,7 @@
           <button [disabled]="profissional.invalid || validCheckBox()"  (click)="cadastrarCliente()" class="btn btn-primary"
                   >Criar conta
           </button>
+
         </div>
       </div> <!-- Coluna-->
     </div> <!-- linha-->

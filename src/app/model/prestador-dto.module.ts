@@ -3,6 +3,7 @@ import {NivelFormacao} from './nivel-formacao.module';
 import {TelefonePrestador} from './telefone-prestador.module';
 import {ProfissaoPrestador} from './profissao-prestador.module';
 import {TipoPessoa} from './tipo-pessoa.module';
+import {MunicipioPrestador} from "./municipio-prestador.module";
 
 
 export class PrestadorDTO {
@@ -29,4 +30,5 @@ export class PrestadorDTO {
     cep: string;
     nomeMunicipio: string;
     pontoReferencia: string;
+  municipios: MunicipioPrestador[];
 }

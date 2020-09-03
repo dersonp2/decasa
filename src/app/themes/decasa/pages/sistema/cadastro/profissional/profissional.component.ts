@@ -13,6 +13,11 @@ import {Profissao} from '../../../../../../model/profissao.module';
 import {NgxSpinnerService} from 'ngx-spinner';
 import * as moment from 'moment';
 import {Router} from '@angular/router';
+import {Uf} from '../../../../../../model/uf.module';
+import {Municipio} from '../../../../../../model/municipio.module';
+import {MunicipioPrestador} from '../../../../../../model/municipio-prestador.module';
+import {MunicipioService} from '../../../../../../services/municipio.service';
+import {UfService} from '../../../../../../services/uf.service';
 
 @Component({
   selector: 'app-profissional',
@@ -30,12 +35,18 @@ export class ProfissionalComponent implements OnInit {
   profissoes: Profissao[] = [];
   showAtendimento = false;
   msgError = '';
+  cidades: Municipio[] = [];
+  cidadesSelecionadas: MunicipioPrestador[] = [];
+  ufs: Uf[] = [];
 
 
   constructor(private prestadorService: PrestadorService,
               private fb: FormBuilder,
               private validateBrService: ValidateBrService,
-              private spinner: NgxSpinnerService, private router: Router) {
+              private spinner: NgxSpinnerService,
+              private router: Router,
+              private municipioService: MunicipioService,
+              private ufService: UfService) {
 
     this.profissional = fb.group(
       {
@@ -51,6 +62,8 @@ export class ProfissionalComponent implements OnInit {
         naoDomicilio: [false],
         escolaridade: ['', [Validators.required]],
         profissoes: ['', [Validators.required]],
+        uf: ['', [Validators.required]],
+        cidades: ['', [Validators.required]],
         senha: ['', [Validators.required, Validators.minLength(5)]],
         confirmaSenha: ['', [Validators.required, Validators.minLength(5)]],
         termos: ['', [Validators.required]],
@@ -69,6 +82,7 @@ export class ProfissionalComponent implements OnInit {
         console.log(error);
       }
     );
+
     this.prestadorService.getProfissoes().subscribe(
       (data) => {
         console.log(data);
@@ -80,6 +94,16 @@ export class ProfissionalComponent implements OnInit {
         this.spinner.hide();
       }
     );
+
+    this.ufService.getUF().subscribe(
+      (data) => {
+        console.log(data);
+        this.ufs = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 
@@ -88,6 +112,24 @@ export class ProfissionalComponent implements OnInit {
     const confirmPass = group.controls.confirmaSenha.value;
 
     return pass === confirmPass ? null : {notSame: true};
+  }
+
+  refreshMunicipios() {
+    if (this.profissional.controls.uf.value != null && this.profissional.controls.uf.value !== '') {
+      this.spinner.show();
+      this.cidadesSelecionadas = [];
+      this.municipioService.buscarMunicipiosUf(this.profissional.controls.uf.value).subscribe(
+        (data) => {
+          console.log(data);
+          this.cidades = data;
+          this.spinner.hide();
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+        }
+      );
+    }
   }
 
   cadastrarCliente() {
@@ -126,6 +168,7 @@ export class ProfissionalComponent implements OnInit {
     prestador.tipoPessoa = new TipoPessoa(1);
 
     prestador.profissaoPrestador = this.profissional.controls.profissoes.value;
+    prestador.municipios = this.getMunicipioPrestador();
 
     // tslint:disable-next-line:no-console
     console.info(prestador);
@@ -156,17 +199,6 @@ export class ProfissionalComponent implements OnInit {
     );
   }
 
-  checkData() {
-    this.router.navigateByUrl(`/bem-vindo/profissional`);
-    // const moment1 = moment(this.profissional.controls.nascimento.value);
-    const data = moment(this.profissional.controls.nascimento.value, 'DD/MM/yyyy').format();
-    // 1995-09-15T15:17:55.249-00:00
-    console.log(data);
-    // const isoDate = new Date(this.profissional.controls.nascimento.value).toISOString();
-    // alert(isoDate);
-    // console.log(isoDate);
-  }
-
   validCheckBox() {
     return !(this.profissional.controls.termos.value === true);
   }
@@ -181,5 +213,15 @@ export class ProfissionalComponent implements OnInit {
     } else {
       this.msgError = errors;
     }
+  }
+
+  getMunicipioPrestador(): MunicipioPrestador[] {
+    const municipioPrestador: MunicipioPrestador[] = [];
+
+    this.profissional.controls.cidades.value.forEach((item) => {
+      municipioPrestador.push(new MunicipioPrestador(item));
+    });
+    console.log(municipioPrestador);
+    return municipioPrestador;
   }
 }
