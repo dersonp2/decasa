@@ -67,6 +67,7 @@ export class ProfissionalComponent implements OnInit {
         senha: ['', [Validators.required, Validators.minLength(5)]],
         confirmaSenha: ['', [Validators.required, Validators.minLength(5)]],
         termos: ['', [Validators.required]],
+        politicas: ['', [Validators.required]],
       }, {validator: this.checkPasswords}
     );
   }
