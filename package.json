@@ -37,7 +37,7 @@
     "express": "^4.17.1",
     "i": "^0.3.6",
     "jquery": "^3.4.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "ng2-date-picker": "^9.0.0",
     "ngx-drag-scroll": "^9.0.0-beta.2",
     "ngx-material-timepicker": "^5.5.1",
